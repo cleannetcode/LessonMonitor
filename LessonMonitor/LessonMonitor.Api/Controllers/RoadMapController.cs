@@ -8,7 +8,7 @@ namespace LessonMonitor.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoadMapController : Controller
+    public class RoadMapController : ControllerBase
     {
         [HttpGet]
         public Skill[] Get()
