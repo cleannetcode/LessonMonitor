@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -22,6 +21,8 @@ namespace LessonMonitor.API.Controllers
         {
             _logger = logger;
         }
+
+        public ILogger<WeatherForecastController> Logger => _logger;
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
