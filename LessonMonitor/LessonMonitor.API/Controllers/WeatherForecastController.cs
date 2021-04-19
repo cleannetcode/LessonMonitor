@@ -44,8 +44,8 @@ namespace LessonMonitor.API.Controllers
             .ToArray();
         }
 
-        
-        /*[HttpPost]
+        /*
+        [HttpPost]
         public IActionResult Get2() //test endpoint
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
@@ -60,6 +60,5 @@ namespace LessonMonitor.API.Controllers
             .ToArray();
             return Ok(result);
         }*/
-        
     }
 }
