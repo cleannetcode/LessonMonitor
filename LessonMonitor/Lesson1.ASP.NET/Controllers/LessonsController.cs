@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Lesson1.ASP.NET.Interfaces;
+﻿using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson1.ASP.NET.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class LessonsController : ControllerBase
     {
         private IRepositoryDb _db;
@@ -19,59 +15,67 @@ namespace Lesson1.ASP.NET.Controllers
             _db = db;
         }
 
-
-        [HttpGet]
-        public List<Lesson> GetResult()
+        [HttpGet("GetAll")]
+        public IActionResult GetAllResult()
         {
-            return _db.GetCollectionModel<Lesson>();
+            return Ok(_db.GetCollectionModel<Lesson>());
         }
 
 
-        [HttpPost]
+        [HttpGet("GetLesson")]
+        public IActionResult GetLesson(int idLesson)
+        {
+            return Ok(_db.GetOneObject<Lesson>(idLesson));
+        }
+
+
+        [HttpPost("CreateLesson")]
         public IActionResult CreateLesson(Lesson lesson)
         {
             if (lesson != null)
             {
-                _db.Create(lesson);
-                return Ok();
+                if (_db.Create(lesson))
+                {
+                    return Ok("Lesson create.");
+                }
+                return BadRequest("Lesson not created.");
             }
 
-            return NoContent();
+            return BadRequest("No object");
         }
 
 
-        [HttpDelete]
+        [HttpDelete("DeleteLesson")]
         public IActionResult DeleteLesson(int idLesson)
         {
             if (idLesson != 0)
             {
-                var resultDelete = _db.Delete<Lesson>(idLesson);
                 if (_db.Delete<Lesson>(idLesson))
                 {
-                    return Ok();
+                    return Ok("Lesson delete.");
                 }
 
-                return NotFound();
+                return BadRequest("The lesson was not found in the database.");
             }
 
-            return NoContent();
+            return BadRequest("The lesson was not found in the database.");
         }
 
 
-        [HttpPut]
+        [HttpPut("EditLesson")]
         public IActionResult EditLesson(Lesson editLesson)
         {
             if (editLesson != null)
             {
                 if (_db.Edit(editLesson))
                 {
-                    return Ok();
+                    return Ok("Lesson update.");
                 }
 
-                return NotFound();
+                return BadRequest("The lesson was not found in the database.");
             }
 
-            return NoContent();
+            return BadRequest("The lesson doesn't exist.");
         }
     }
 }

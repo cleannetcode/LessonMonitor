@@ -7,10 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Lesson1.ASP.NET.Data;
 using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Services;
@@ -59,7 +55,7 @@ namespace Lesson1.ASP.NET
                 endpoints.MapControllers();
             });
 
-            FakeRepositoryDb.InitialBase();
+            FakeBaseDb.InitialBase();
         }
     }
 }

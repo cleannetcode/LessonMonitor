@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Lesson1.ASP.NET.Models;
 
 namespace Lesson1.ASP.NET.Data
 {
+    /// <summary>
+    /// Fake base.
+    /// </summary>
     public static class FakeBaseDb
     {
         public static List<Lesson> Lessons { get; set; }
 
+        /// <summary>
+        /// Initial base.
+        /// </summary>
         public static void InitialBase()
         {
             Lessons = new List<Lesson>()

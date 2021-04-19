@@ -1,42 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Lesson1.ASP.NET.Models;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Lesson1.ASP.NET.Interfaces
 {
     public interface IRepositoryDb
     {
         /// <summary>
-        /// Метод создания сущности в базе.
+        /// The method for creating an entity in the database.
         /// </summary>
-        /// <typeparam name="T">Нужный класс.</typeparam>
+        /// <typeparam name="T">The right class.</typeparam>
         /// <param name="model"></param>
-        void Create<T>(T model) where T : class;
+        /// <returns>true - object created, false - creation error</returns>
+        bool Create<T>(T model) where T : class;
 
         /// <summary>
-        /// Метод удаления сущности из базы.
+        /// The method for removing an entity from the database.
         /// </summary>
-        /// <typeparam name="T">Нужный класс.</typeparam>
-        /// <param name="id">id объекта в базе.</param>
-        /// <returns>true - объект удален, false - ошибка удаления</returns>
+        /// <typeparam name="T">The right class.</typeparam>
+        /// <param name="id">id of the object in the database.</param>
+        /// <returns>true - object was deleted, false - error of deletion</returns>
         bool Delete<T>(int id) where T : class;
 
         /// <summary>
-        /// Метод изменения сущности в базе.
+        /// The method for changing an entity in the database.
         /// </summary>
-        /// <typeparam name="T">Нужный класс.</typeparam>
-        /// <param name="model">Сущность для изменения.</param>
-        /// <returns>true - объект изменен, false - ошибка изменения</returns>
+        /// <typeparam name="T">The right class.</typeparam>
+        /// <param name="model">Entity to change.</param>
+        /// <returns>true - object changed, false - change error</returns>
         bool Edit<T>(T model) where T : class;
 
 
         /// <summary>
-        /// Возвращает коллекцию объектов из базы.
+        /// Returns a collection of objects from the base.
         /// </summary>
-        /// <typeparam name="T">Нужный класс.</typeparam>
-        /// <returns>Коллекция объектов.</returns>
+        /// <typeparam name="T">The right class.</typeparam>
+        /// <returns>A collection of objects.</returns>
         List<T> GetCollectionModel<T>();
+
+
+        /// <summary>
+        /// The method returns an object from the collection.
+        /// </summary>
+        /// <typeparam name="T">The right class.</typeparam>
+        /// <param name="id">id of the object in the database.</param>
+        /// <returns>Object.</returns>
+        T GetOneObject<T>(int id) where T : class;
     }
 }

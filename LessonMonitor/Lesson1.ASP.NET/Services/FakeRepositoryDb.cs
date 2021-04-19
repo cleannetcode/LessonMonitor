@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Lesson1.ASP.NET.Data;
 using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Models;
@@ -10,41 +8,34 @@ namespace Lesson1.ASP.NET.Services
 {
     public class FakeRepositoryDb : IRepositoryDb
     {
-        public static List<Lesson> Lessons { get; set; } = new List<Lesson>();
-
-
-        public static void InitialBase()
-        {
-
-            var lesson1 = new Lesson()
-            { LessonId = 1, TitleLesson = "One", DescriptionLesson = "One Lesson", DateTimeLesson = DateTime.Now };
-            var lesson2 = new Lesson()
-            { LessonId = 2, TitleLesson = "Two", DescriptionLesson = "Two Lesson", DateTimeLesson = DateTime.Now };
-
-            Lessons.Add(lesson1);
-            Lessons.Add(lesson2);
-
-        }
-
-        public void Create<T>(T model) where T : class
+        public bool Create<T>(T model) where T : class
         {
             if (model != null)
             {
                 if (model is Lesson lesson)
                 {
-                    Lessons.Add(lesson);
+                    var lessonCopy = FakeBaseDb.Lessons.Find(l => l.LessonId == lesson.LessonId);
+                    if (lessonCopy == null)
+                    {
+                        FakeBaseDb.Lessons.Add(lesson);
+                        return true;
+                    }
+
+                    return false;
                 }
             }
+
+            return false;
         }
 
         public bool Delete<T>(int id) where T : class
         {
             if (id != 0)
             {
-                var temp = Lessons.FirstOrDefault(x => x.LessonId == id);
-                if (temp != null && temp is Lesson lesson)
+                var temp = FakeBaseDb.Lessons.FirstOrDefault(x => x.LessonId == id);
+                if (temp != null)
                 {
-                    Lessons.Remove(temp);
+                    FakeBaseDb.Lessons.Remove(temp);
                     return true;
                 }
             }
@@ -58,12 +49,15 @@ namespace Lesson1.ASP.NET.Services
             {
                 if (model is Lesson lesson)
                 {
-                    var temp = Lessons.FirstOrDefault(l => l.LessonId == lesson.LessonId);
+                    var lessIndexOf = FakeBaseDb.Lessons;
+                    var temp = FakeBaseDb.Lessons.FirstOrDefault(l => l.LessonId == lesson.LessonId);
+                    var indexOfTemp = FakeBaseDb.Lessons.IndexOf(lessIndexOf.Find(x => x.LessonId == temp.LessonId));
+
                     temp.TitleLesson = lesson.TitleLesson;
                     temp.DescriptionLesson = lesson.DescriptionLesson;
                     temp.DateTimeLesson = lesson.DateTimeLesson;
 
-                    Lessons.Add(temp);
+                    FakeBaseDb.Lessons[indexOfTemp] = temp;
 
                     return true;
                 }
@@ -74,7 +68,23 @@ namespace Lesson1.ASP.NET.Services
 
         public List<T> GetCollectionModel<T>()
         {
-            return Lessons as List<T>;
+            return FakeBaseDb.Lessons as List<T>;
+        }
+
+        public T GetOneObject<T>(int id) where T : class
+        {
+            if (id != 0)
+            {
+                var temp = FakeBaseDb.Lessons.FirstOrDefault(l => l.LessonId == id);
+                if (temp != null)
+                {
+                    return temp as T;
+                }
+
+                return null;
+            }
+
+            return null;
         }
     }
 }
