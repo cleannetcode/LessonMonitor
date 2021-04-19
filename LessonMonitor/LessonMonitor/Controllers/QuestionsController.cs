@@ -8,26 +8,25 @@ namespace LessonMonitor.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-
     public class QuestionsController : ControllerBase
     {
+                
         [HttpGet]
-        public Question[] Get()
+        public Question[] Get(int count)
         {
             var random = new Random();
-            var questions = new List<Question>();
+            var questionsExamples = new List<Question>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < count; i++)
             {
                 var question = new Question();
-
-                question.UserName = "User" + random.Next(101, 3011);
-                question.Text = "Question text num " + i;
-
-                questions.Add(question);
+                question.Id = i + 1;
+                question.Text = "Question text " + random.Next(10331, 3122011);
+                question.User = new User(random.Next(1, 23));
+                questionsExamples.Add(question);
             }
 
-            return questions.ToArray();
+            return questionsExamples.ToArray();
         }
     }
 }
