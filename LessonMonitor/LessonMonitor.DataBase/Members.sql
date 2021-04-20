@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Members]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
+	[Id] INT NOT NULL IDENTITY (1, 1), 
     [Name] NVARCHAR(50) NOT NULL, 
     [Nicknames] NVARCHAR(MAX) NULL, 
     [Email] NVARCHAR(50) NULL, 
@@ -11,4 +11,5 @@
     [HomeworkId] INT NOT NULL, 
     [QuestionId] INT NOT NULL, 
     [MemberStatisticId] INT NOT NULL,
+    CONSTRAINT [PK_Members] PRIMARY KEY CLUSTERED ([Id] ASC),
 )
