@@ -6,5 +6,6 @@
     [Duration] INT NULL, 
     [Members] NVARCHAR(MAX) NULL, 
     [Difficulty] INT NULL, 
-    [Group] NVARCHAR(50) NULL
+    [Group] NVARCHAR(50) NULL, 
+    [Hashtags] NVARCHAR(MAX) NULL
 )
