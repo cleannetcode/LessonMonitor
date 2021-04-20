@@ -56,4 +56,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Hashtags" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="60bb0f40-230a-4da7-905a-c49125d295a1" ChangeDateTime="04/20/2021 21:08:31">
+    <Property Name="ElementName" Value="[dbo].[Questions].[Member]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Questions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MemberId" />
+  </Operation>
 </Operations>

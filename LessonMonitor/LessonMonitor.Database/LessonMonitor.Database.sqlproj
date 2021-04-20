@@ -63,6 +63,7 @@
     <Build Include="Lessons.sql" />
     <Build Include="Homeworks.sql" />
     <Build Include="Timecodes.sql" />
+    <Build Include="Questions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="LessonMonitor.Database.refactorlog" />
