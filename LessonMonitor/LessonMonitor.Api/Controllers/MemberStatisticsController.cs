@@ -18,7 +18,14 @@ namespace LessonMonitor.Api.Controllers
 
         public MemberStatisticsController()
         {
-            _context = new List<Member>();
+            _context = new List<Member>()
+            {
+                new Member { Id = 1, UserName = "pingvin1308", FullName = "Роман" },
+                new Member { Id = 2, UserName = "coder", FullName = "Михаил" },
+                new Member { Id = 3, UserName = "eniluck", FullName = "Андрей" },
+                new Member { Id = 4, UserName = "emedvedeva", FullName = "Евгения" },
+                new Member { Id = 5, UserName = "kalilask4", FullName = "Диана" },
+            };
         }
 
         /// <summary>
