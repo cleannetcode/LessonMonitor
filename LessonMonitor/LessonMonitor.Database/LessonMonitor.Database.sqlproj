@@ -63,8 +63,8 @@
     <Build Include="Tables\MemberStatistics.sql" />
     <Build Include="Tables\HomeworkStates.sql" />
     <Build Include="Tables\Skills.sql" />
-    <Build Include="Tables\MembersSkills.sql" />
     <Build Include="Tables\Topics.sql" />
+    <Build Include="Tables\MemberSkills.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="LessonMonitor.Database.refactorlog" />

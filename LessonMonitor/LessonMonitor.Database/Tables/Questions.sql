@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Questions]
 (
-    [Id] INT NOT NULL,
-    [LessonId] INT NOT NULL, 
+    [QuestionId] INT NOT NULL PRIMARY KEY,
+    [LessonId] INT NOT NULL,
+    [TopicId] INT NULL,
     [MemberId] INT NOT NULL, 
-    [QuestionText] NVARCHAR(MAX) NOT NULL, 
-    PRIMARY KEY ([Id] )
+    [QuestionText] NVARCHAR(MAX) NOT NULL
 )

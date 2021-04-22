@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Topics]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[TopicId] INT NOT NULL PRIMARY KEY,
 	[Name] NVARCHAR(50) NOT NULL,
-	[LessonId] INT NULL
+	[LessonId] INT NOT NULL
 )
