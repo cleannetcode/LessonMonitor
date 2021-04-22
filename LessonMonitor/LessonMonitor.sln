@@ -3,11 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillsController", "SkillsController\SkillsController.csproj", "{B1123A49-FEF0-4CE6-AEDF-C9235D663AFB}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF36ADD5-768D-44C4-AA74-90FC0BB7455A}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1123A49-FEF0-4CE6-AEDF-C9235D663AFB}.1|Any CPU.ActiveCfg = 1|Any CPU
+		{B1123A49-FEF0-4CE6-AEDF-C9235D663AFB}.1|Any CPU.Build.0 = 1|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		1|Any CPU = 1|Any CPU
 	EndGlobalSection
 EndGlobal
