@@ -3,9 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LessonMonitor.DataBase", "LessonMonitor.DataBase", "{42FBF4D8-B6C3-4BD7-BC32-18ABAEDADD12}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.Database", "LessonMonitor.Database\LessonMonitor.Database.sqlproj", "{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64ADE5BF-DED8-4A56-8C17-365EDE8DF63C} = {42FBF4D8-B6C3-4BD7-BC32-18ABAEDADD12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF36ADD5-768D-44C4-AA74-90FC0BB7455A}
