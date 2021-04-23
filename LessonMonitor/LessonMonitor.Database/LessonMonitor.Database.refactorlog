@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="b4a73944-f88e-4db9-a0f6-bfb5d0fe25ba" ChangeDateTime="04/20/2021 00:21:20">
+    <Property Name="ElementName" Value="[dbo].[Lessons].[FullName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Lessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="307070b9-82c2-4e03-8b2b-9dd676874e3e" ChangeDateTime="04/20/2021 00:21:28">
+    <Property Name="ElementName" Value="[dbo].[Lessons].[Age]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Lessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StartDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bb89ba58-a2a6-4a2c-9d4c-db0e51b45b22" ChangeDateTime="04/20/2021 00:21:35">
+    <Property Name="ElementName" Value="[dbo].[Lessons].[Nicknames]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Lessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Duration" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="27c6bc76-fe13-43f4-b03c-95916f7840f8" ChangeDateTime="04/20/2021 00:21:40">
+    <Property Name="ElementName" Value="[dbo].[Lessons].[Links]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Lessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Members" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="71cc7458-1bca-4ed8-861c-86c44beb7460" ChangeDateTime="04/20/2021 20:46:18">
+    <Property Name="ElementName" Value="[dbo].[Homeworks].[FiDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Homeworks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FinishDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="96a78293-5681-46c9-9f64-fed531f912a8" ChangeDateTime="04/20/2021 20:54:58">
+    <Property Name="ElementName" Value="[dbo].[Homeworks].[Lesson_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Homeworks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LessonId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9413feb3-193f-41ae-be59-d950e99557c7" ChangeDateTime="04/20/2021 20:56:22">
+    <Property Name="ElementName" Value="[dbo].[Timecodes].[Time]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Timecodes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TimeStart" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6119a813-5895-4c0c-9652-8aac8b0cf3ba" ChangeDateTime="04/20/2021 20:59:34">
+    <Property Name="ElementName" Value="[dbo].[Lessons].[hashtags]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Lessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Hashtags" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="60bb0f40-230a-4da7-905a-c49125d295a1" ChangeDateTime="04/20/2021 21:08:31">
+    <Property Name="ElementName" Value="[dbo].[Questions].[Member]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Questions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MemberId" />
+  </Operation>
+</Operations>
