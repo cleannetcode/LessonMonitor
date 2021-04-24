@@ -14,11 +14,11 @@ namespace LessonMonitor.Api.Controllers
     [Route("[controller]")]
     public class MemberStatisticsController: ControllerBase
     {
-        private readonly List<Member> _context;
+        private readonly List<Member> _members;
 
         public MemberStatisticsController()
         {
-            _context = new List<Member>()
+            _members = new List<Member>()
             {
                 new Member { Id = 1, UserName = "pingvin1308", FullName = "Роман" },
                 new Member { Id = 2, UserName = "coder", FullName = "Михаил" },
@@ -36,7 +36,7 @@ namespace LessonMonitor.Api.Controllers
         [HttpGet]
         public ActionResult<MemberStatistics> Get(int memberId)
         {
-            var member = _context.FirstOrDefault(x => x.Id.Equals(memberId));
+            var member = _members.FirstOrDefault(x => x.Id.Equals(memberId));
 
             if (member == null)
                 return NotFound("We can't find member with this id");
