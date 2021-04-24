@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="ea2f320f-4760-44cd-b037-8f1d48f4631b" ChangeDateTime="04/24/2021 16:36:06">
+    <Property Name="ElementName" Value="[dbo].[FK_LessonMembers_ToMember]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[LessonMembers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_LessonMembers_ToMembers]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8d802e41-583e-4683-95e0-6334ec4326bf" ChangeDateTime="04/24/2021 16:46:59">
+    <Property Name="ElementName" Value="[dbo].[Homeworks].[Оценка]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Homeworks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Mark" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a0f00859-e04c-48e2-b19d-5c83b7b3969e" ChangeDateTime="04/24/2021 16:48:51">
+    <Property Name="ElementName" Value="[dbo].[Homeworks].[LessonID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Homeworks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LessonId" />
+  </Operation>
+</Operations>
