@@ -36,5 +36,58 @@ namespace LessonMonitor.API.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("model")]
+        public WeatherForecast WeatherForecast()
+        {
+
+            var weather = new WeatherForecast();
+            weather.GetType();
+
+            var watherForecastModel = typeof(WeatherForecast);
+
+            var constructors = watherForecastModel.GetConstructors();
+            var defaultConstructors = constructors.FirstOrDefault(x => x.GetParameters().Length == 0);
+
+            var obj = defaultConstructors.Invoke(null);
+
+            var properties = watherForecastModel.GetProperties();
+
+            foreach (var property in properties)
+            {
+                if(_weatherForecast.TryGetValue(property.Name, out var value))
+                {
+                    //if(property.PropertyType.Name == "DateTime")
+                    //{
+                    //   var date = DateTime.Parse(value);
+                    //    property.SetValue(obj, date);
+                    //}
+
+                    //if (property.PropertyType.Name == "Int32")
+                    //{
+                    //    var number = int.Parse(value);
+                    //    property.SetValue(obj, number);
+                    //}
+
+                    //if (property.PropertyType.Name == "String")
+                    //{
+                    //    property.SetValue(obj, value);
+                    //}
+
+                    var specifiedValue = Convert.ChangeType(value, property.PropertyType);
+                    property.SetValue(obj, specifiedValue);
+
+                }
+            }
+
+            return (WeatherForecast)obj;
+        }
+
+        private Dictionary<string, string> _weatherForecast = new Dictionary<string, string>
+        {
+            { "Date", DateTime.Now.ToString() },
+            { "TemperatureC", "232" },
+            { "Summary", Guid.NewGuid().ToString() }
+        };
     }
 }
