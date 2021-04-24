@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Lessons]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(100) NOT NULL, 
+    [StartDate] DATETIME2 NOT NULL, 
+    [EndDate] DATETIME2 NULL, 
+    [CourseId] INT NOT NULL FOREIGN KEY REFERENCES Courses(Id)
+)
