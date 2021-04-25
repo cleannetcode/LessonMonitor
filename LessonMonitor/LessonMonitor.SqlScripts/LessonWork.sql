@@ -28,7 +28,6 @@ CREATE TABLE [Lessons]
     [CreatedDate] DATETIME2 DEFAULT GETDATE()
 )
 
-
 CREATE TABLE [VisitedLessons]
 (
     [MemberId] INT NOT NULL,
