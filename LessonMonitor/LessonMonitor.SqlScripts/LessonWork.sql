@@ -1,15 +1,4 @@
-﻿/*
-Post-Deployment Script Template							
---------------------------------------------------------------------------------------
- This file contains SQL statements that will be appended to the build script.		
- Use SQLCMD syntax to include a file in the post-deployment script.			
- Example:      :r .\myfile.sql								
- Use SQLCMD syntax to reference a variable in the post-deployment script.		
- Example:      :setvar TableName MyTable							
-			   SELECT * FROM [$(TableName)]					
---------------------------------------------------------------------------------------
-*/
-
+﻿
 USE LessonMonitorDb
 
 --DROP TABLE Members
@@ -27,9 +16,8 @@ CREATE TABLE [MemberAccounts]
 	[UserName] NVARCHAR(50) NOT NULL,
 	[Link] NVARCHAR(200) NULL, 
     [CreatedDate] DATETIME2 DEFAULT GETDATE(),
-	CONSTRAINT [FK_MemberAccounts_Members] FOREIGN KEY (MemberId) REFERENCES Memebers(Id)
+	CONSTRAINT [FK_MemberAccounts_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
 )
-
 
 CREATE TABLE [Lessons]
 (
@@ -51,3 +39,19 @@ CREATE TABLE [VisitedLessons]
 	CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
 
+INSERT Members (Name)
+VALUES ('Max')
+
+INSERT MemberAccounts (MemberId, UserName)
+VALUES (1, 'GitHub')
+
+INSERT Lessons (Title, [Description], StartDate)
+VALUES (N'Знакомимся с t-sql', 'создаем схему БД', GETDATE())
+
+INSERT VisitedLessons (MemberId, LessonId)
+VALUES (1, 1)
+
+SELECT * FROM Members m
+INNER JOIN MemberAccounts ma on ma.MemberId = m.Id
+INNER JOIN VisitedLessons vs on vs.LessonId = m.Id
+INNER JOIN Lessons les on les.Id = vs.LessonId
