@@ -2,8 +2,14 @@ using System;
 
 namespace LessonMonitor.API
 {
+    /// <summary>
+    /// WeatherForecast
+    /// </summary>
     public class WeatherForecast
     {
+        /// <summary>
+        /// testse
+        /// </summary>
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
