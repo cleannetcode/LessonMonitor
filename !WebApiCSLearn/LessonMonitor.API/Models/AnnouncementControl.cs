@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.API.Interfaces;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Models
 {

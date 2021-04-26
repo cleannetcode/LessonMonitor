@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.API.Interfaces;
+using LessonMonitor.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class AnnouncementsController : ControllerBase
     {
-        private readonly List<IAnnouncement> _announcements;
+        private readonly List<Announcement> _announcements;
         public AnnouncementsController()
         {
             DateTime date = new DateTime();
-            _announcements = new List<IAnnouncement>()
+            _announcements = new List<Announcement>()
             {
                 new Announcement(date.AddDays(3),"AspNet start","aspnet",true),
                 new Announcement(date.AddDays(13),"Mssql database from beginner to professional","mssql",true),
@@ -31,11 +32,13 @@ namespace LessonMonitor.API.Controllers
         /// <param name="header">gives information about all announcements which have the same header</param>
         /// <returns>IEnumerable<IAnnouncement></returns>
         [HttpGet]
-        public IEnumerable<IAnnouncement> Get(string header)//how can i return a result? when do i use an IEnumerable?
+        public ActionResult<IEnumerable<Announcement>> Get(string header)
         {
             var announcements = 
                 _announcements.Where(x => x.Header.ToLower().Equals(header.ToLower()));
-            return announcements;
+            if (announcements.Count().Equals(0))
+                return NotFound();
+            return Ok(announcements);
         }
     }
 }
