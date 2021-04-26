@@ -1,5 +1,9 @@
 ﻿
-USE LessonMonitorDb
+--CREATE DATABASE LessonMonitorDb
+
+--DROP DATABASE LessonMonitorDb
+
+USE LessonMonitorTestDb
 
 --DROP TABLE Members
 

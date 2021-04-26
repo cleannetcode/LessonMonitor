@@ -58,9 +58,9 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="CreateDb.sql" />
+    <None Include="LessonWork.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CreateTables.sql" />
+    <None Include="LessonMonitorDb.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,14 @@
+﻿
+CREATE DATABASE LessonMonitorDb
+
+--DROP DATABASE LessonMonitorDb
+
+USE [LessonMonitorDb]
+
+--DROP TABLE Members
+
+CREATE TABLE [Members] (
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[Name] NVARCHAR(50),
+	[CreatedDate] DATETIME2 DEFAULT GETDATE()
+)
