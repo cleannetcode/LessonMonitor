@@ -1,4 +1,9 @@
-﻿using Lesson1.ASP.NET.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -76,6 +81,49 @@ namespace Lesson1.ASP.NET.Controllers
             }
 
             return BadRequest("The lesson doesn't exist.");
+        }
+
+
+
+
+        [HttpPost("model")]
+        public List<string> GetTypeList(string nameClass)
+        {
+            var result = new List<string>();
+            var asm = Assembly.Load("Lesson1.ASP.NET");
+
+            var getTypes = GetTypesInNamespace(asm, "Lesson1.ASP.NET.Models", nameClass); // массив нужных типов
+
+            if (getTypes.Length == 1)
+            {
+                result.Clear();
+                foreach (var type in getTypes)
+                {
+                    result.Add($"Class in Namespace: Name class: {type.Name}, FullName: {type.FullName}");
+
+                    foreach (var propertyInfo in type.GetProperties())
+                    {
+                        string propType = propertyInfo.PropertyType.ToString();
+                        string[] masPropTypeSplit = propType.Split('.');
+                        string res = "Property name: " + propertyInfo.Name + "  Type:  " + masPropTypeSplit[1];
+                        result.Add(res);
+                    }
+                }
+            }
+            else
+            {
+                result.Add("No Type!");
+            }
+
+            return result;
+        }
+
+        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace, string nameClass) //поиск типов в нужном неймспейсе
+        {
+            return
+                assembly.GetTypes()
+                    .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).Where(x => x.Name == nameClass)
+                    .ToArray();
         }
     }
 }
