@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Lesson1.ASP.NET.Data;
+using Lesson1.ASP.NET.Infrastructure;
 using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Services;
 
@@ -25,6 +23,7 @@ namespace Lesson1.ASP.NET
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IValidator, ValidatorProperty>();
             services.AddScoped<IRepositoryDb, FakeRepositoryDb>();
 
             services.AddControllers();

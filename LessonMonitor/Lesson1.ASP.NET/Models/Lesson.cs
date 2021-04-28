@@ -1,4 +1,5 @@
 ﻿using System;
+using Lesson1.ASP.NET.Infrastructure;
 
 namespace Lesson1.ASP.NET.Models
 {
@@ -10,21 +11,23 @@ namespace Lesson1.ASP.NET.Models
         /// <summary>
         /// Id
         /// </summary>
+        [NullValidation]
         public int LessonId { get; set; }
-        
-        
+
+
         /// <summary>
         /// Название урока.
         /// </summary>
+        [NullValidation]
         public string TitleLesson { get; set; }
-        
-        
+
+
         /// <summary>
         /// Описание урока. 
         /// </summary>
         public string DescriptionLesson { get; set; }
-        
-        
+
+
         /// <summary>
         /// Дата проведения урока.
         /// </summary>

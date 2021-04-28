@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using Lesson1.ASP.NET.Interfaces;
 using Lesson1.ASP.NET.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +13,11 @@ namespace Lesson1.ASP.NET.Controllers
     public class LessonsController : ControllerBase
     {
         private IRepositoryDb _db;
+        private IValidator _validator;
 
-        public LessonsController(IRepositoryDb db)
+        public LessonsController(IRepositoryDb db, IValidator validator)
         {
+            _validator = validator;
             _db = db;
         }
 
@@ -37,6 +38,15 @@ namespace Lesson1.ASP.NET.Controllers
         [HttpPost("CreateLesson")]
         public IActionResult CreateLesson(Lesson lesson)
         {
+            try
+            {
+                _validator.NullValidatePropertyLesson(typeof(Lesson), lesson);
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"{e}");
+            }
+
             if (lesson != null)
             {
                 if (_db.Create(lesson))
@@ -87,7 +97,7 @@ namespace Lesson1.ASP.NET.Controllers
 
 
         [HttpPost("model")]
-        public List<string> GetTypeList(string nameClass)
+        public List<string> GetTypeList([FromQuery] string nameClass)
         {
             var result = new List<string>();
             var asm = Assembly.Load("Lesson1.ASP.NET");
@@ -117,6 +127,8 @@ namespace Lesson1.ASP.NET.Controllers
 
             return result;
         }
+
+
 
         private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace, string nameClass) //поиск типов в нужном неймспейсе
         {
