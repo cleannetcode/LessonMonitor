@@ -1,9 +1,6 @@
-﻿using LessonMonitor.Api.Models;
+﻿using LessonMonitor.Api.DataAccess;
+using LessonMonitor.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.Api.Controllers
 {
@@ -14,18 +11,11 @@ namespace LessonMonitor.Api.Controllers
     [Route("[controller]")]
     public class MemberStatisticsController: ControllerBase
     {
-        private readonly List<Member> _members;
+        private readonly MembersRepository _members;
 
         public MemberStatisticsController()
         {
-            _members = new List<Member>()
-            {
-                new Member { Id = 1, UserName = "pingvin1308", FullName = "Роман" },
-                new Member { Id = 2, UserName = "coder", FullName = "Михаил" },
-                new Member { Id = 3, UserName = "eniluck", FullName = "Андрей" },
-                new Member { Id = 4, UserName = "emedvedeva", FullName = "Евгения" },
-                new Member { Id = 5, UserName = "kalilask4", FullName = "Диана" },
-            };
+            _members = new MembersRepository();
         }
 
         /// <summary>
@@ -36,11 +26,11 @@ namespace LessonMonitor.Api.Controllers
         [HttpGet]
         public ActionResult<MemberStatistics> Get(int memberId)
         {
-            var member = _members.FirstOrDefault(x => x.Id.Equals(memberId));
+            var member = _members.GetById(memberId);
 
             if (member == null)
                 return NotFound("We can't find member with this id");
-
+            
             return new MemberStatistics()
             {
                 Member = member
