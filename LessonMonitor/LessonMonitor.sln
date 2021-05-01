@@ -3,7 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "LessonMonitor.DataBase\LessonMonitor.DataBase.sqlproj", "{94C1F45A-6294-4F3D-842B-1B4C55B61696}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.SqlScripts", "LessonMonitor.SqlScripts\LessonMonitor.SqlScripts.sqlproj", "{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94C1F45A-6294-4F3D-842B-1B4C55B61696}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA3C70D-099D-4B95-9A31-AA9EF46B0F46}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
