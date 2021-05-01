@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Lesson1.ASP.NET.Infrastructure;
 
 namespace Lesson1.ASP.NET.Models
@@ -19,12 +20,14 @@ namespace Lesson1.ASP.NET.Models
         /// Название урока.
         /// </summary>
         [NullValidation]
+        [Description("Название Урока.")]
         public string TitleLesson { get; set; }
 
 
         /// <summary>
         /// Описание урока. 
         /// </summary>
+        [Description("Описание урока.")]
         public string DescriptionLesson { get; set; }
 
 

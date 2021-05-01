@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lesson1.ASP.NET</name>
+    </assembly>
+    <members>
+        <member name="M:Lesson1.ASP.NET.Controllers.LessonsController.GetTypeList(System.String)">
+            <summary>
+            Получение информации о классе.
+            </summary>
+            <param name="nameClass">Название класса.</param>
+            <returns>Информация о классе.</returns>
+        </member>
+        <member name="T:Lesson1.ASP.NET.Data.FakeBaseDb">
+            <summary>
+            Fake base.
+            </summary>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Data.FakeBaseDb.InitialBase">
+            <summary>
+            Initial base.
+            </summary>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Interfaces.IRepositoryDb.Create``1(``0)">
+            <summary>
+            The method for creating an entity in the database.
+            </summary>
+            <typeparam name="T">The right class.</typeparam>
+            <param name="model"></param>
+            <returns>true - object created, false - creation error</returns>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Interfaces.IRepositoryDb.Delete``1(System.Int32)">
+            <summary>
+            The method for removing an entity from the database.
+            </summary>
+            <typeparam name="T">The right class.</typeparam>
+            <param name="id">id of the object in the database.</param>
+            <returns>true - object was deleted, false - error of deletion</returns>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Interfaces.IRepositoryDb.Edit``1(``0)">
+            <summary>
+            The method for changing an entity in the database.
+            </summary>
+            <typeparam name="T">The right class.</typeparam>
+            <param name="model">Entity to change.</param>
+            <returns>true - object changed, false - change error</returns>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Interfaces.IRepositoryDb.GetCollectionModel``1">
+            <summary>
+            Returns a collection of objects from the base.
+            </summary>
+            <typeparam name="T">The right class.</typeparam>
+            <returns>A collection of objects.</returns>
+        </member>
+        <member name="M:Lesson1.ASP.NET.Interfaces.IRepositoryDb.GetOneObject``1(System.Int32)">
+            <summary>
+            The method returns an object from the collection.
+            </summary>
+            <typeparam name="T">The right class.</typeparam>
+            <param name="id">id of the object in the database.</param>
+            <returns>Object.</returns>
+        </member>
+        <member name="T:Lesson1.ASP.NET.Models.Lesson">
+            <summary>
+            Сущность урок(занятие).
+            </summary>
+        </member>
+        <member name="P:Lesson1.ASP.NET.Models.Lesson.LessonId">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Lesson1.ASP.NET.Models.Lesson.TitleLesson">
+            <summary>
+            Название урока.
+            </summary>
+        </member>
+        <member name="P:Lesson1.ASP.NET.Models.Lesson.DescriptionLesson">
+            <summary>
+            Описание урока. 
+            </summary>
+        </member>
+        <member name="P:Lesson1.ASP.NET.Models.Lesson.DateTimeLesson">
+            <summary>
+            Дата проведения урока.
+            </summary>
+        </member>
+    </members>
+</doc>

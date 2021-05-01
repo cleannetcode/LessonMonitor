@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Lesson1.ASP.NET.Interfaces;
@@ -28,14 +29,14 @@ namespace Lesson1.ASP.NET.Controllers
         }
 
 
-        [HttpGet("GetLesson")]
+        [HttpGet("Get")]
         public IActionResult GetLesson(int idLesson)
         {
             return Ok(_db.GetOneObject<Lesson>(idLesson));
         }
 
 
-        [HttpPost("CreateLesson")]
+        [HttpPost("Create")]
         public IActionResult CreateLesson(Lesson lesson)
         {
             try
@@ -60,7 +61,7 @@ namespace Lesson1.ASP.NET.Controllers
         }
 
 
-        [HttpDelete("DeleteLesson")]
+        [HttpDelete("Delete")]
         public IActionResult DeleteLesson(int idLesson)
         {
             if (idLesson != 0)
@@ -77,7 +78,7 @@ namespace Lesson1.ASP.NET.Controllers
         }
 
 
-        [HttpPut("EditLesson")]
+        [HttpPut("Edit")]
         public IActionResult EditLesson(Lesson editLesson)
         {
             if (editLesson != null)
@@ -93,14 +94,39 @@ namespace Lesson1.ASP.NET.Controllers
             return BadRequest("The lesson doesn't exist.");
         }
 
+        [HttpGet("allModelClass")]
+        public List<string> GetTypeList()
+        {
+            var result = new List<string>();
+            var asm = Assembly.Load(("Lesson1.ASP.NET"));
 
+            var getTypesAll = GetTypesInNamespace(asm, "Lesson1.ASP.NET.Models");
 
+            if (getTypesAll.Length == 1)
+            {
+                result.Clear();
+                result.Add("Classes in Namespace # Lesson1.ASP.NET.Models # : ");
+                foreach (var type in getTypesAll)
+                {
+                    result.Add($"- {type.Name}");
+                    return result;
+                }
+            }
 
+            return result;
+        }
+
+        /// <summary>
+        /// Получение информации о классе.
+        /// </summary>
+        /// <param name="nameClass">Название класса.</param>
+        /// <returns>Информация о классе.</returns>
         [HttpPost("model")]
         public List<string> GetTypeList([FromQuery] string nameClass)
         {
             var result = new List<string>();
             var asm = Assembly.Load("Lesson1.ASP.NET");
+
 
             var getTypes = GetTypesInNamespace(asm, "Lesson1.ASP.NET.Models", nameClass); // массив нужных типов
 
@@ -117,6 +143,14 @@ namespace Lesson1.ASP.NET.Controllers
                         string[] masPropTypeSplit = propType.Split('.');
                         string res = "Property name: " + propertyInfo.Name + "  Type:  " + masPropTypeSplit[1];
                         result.Add(res);
+
+                        var description = propertyInfo.GetCustomAttributes<DescriptionAttribute>();
+                        foreach (var customAttributeData in description)
+                        {
+                            string descrString = $"{res}  : Description attribute value: {customAttributeData.Description}";
+                            result.Add(descrString);
+                        }
+
                     }
                 }
             }
@@ -129,12 +163,21 @@ namespace Lesson1.ASP.NET.Controllers
         }
 
 
-
-        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace, string nameClass) //поиск типов в нужном неймспейсе
+        [Description("Поиск определенного типа в нужном неймспейсе")]
+        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace, string nameClass) //поиск определенного типа в нужном неймспейсе
         {
             return
                 assembly.GetTypes()
                     .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).Where(x => x.Name == nameClass)
+                    .ToArray();
+        }
+
+        [Description("Коллекция всех типов в нужном неймспейсе")]
+        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace) //поиск типов в нужном неймспейсе
+        {
+            return
+                assembly.GetTypes()
+                    .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
                     .ToArray();
         }
     }
