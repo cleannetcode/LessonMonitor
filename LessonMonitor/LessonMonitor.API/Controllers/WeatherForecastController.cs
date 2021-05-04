@@ -57,23 +57,6 @@ namespace LessonMonitor.API.Controllers
             {
                 if(_weatherForecast.TryGetValue(property.Name, out var value))
                 {
-                    //if(property.PropertyType.Name == "DateTime")
-                    //{
-                    //   var date = DateTime.Parse(value);
-                    //    property.SetValue(obj, date);
-                    //}
-
-                    //if (property.PropertyType.Name == "Int32")
-                    //{
-                    //    var number = int.Parse(value);
-                    //    property.SetValue(obj, number);
-                    //}
-
-                    //if (property.PropertyType.Name == "String")
-                    //{
-                    //    property.SetValue(obj, value);
-                    //}
-
                     var specifiedValue = Convert.ChangeType(value, property.PropertyType);
                     property.SetValue(obj, specifiedValue);
 
