@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Reflection;
+using LessonMonitor.API.Reflection;
 
 namespace LessonMonitor.API
 {
@@ -21,7 +22,7 @@ namespace LessonMonitor.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IReflectionService, ReflectionService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
