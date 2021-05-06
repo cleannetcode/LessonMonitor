@@ -60,6 +60,6 @@ CREATE TABLE [dbo].[MemberSkills]
     CONSTRAINT [FK_MemberSkills_ToSkillsLevels_Id] FOREIGN KEY (LevelId) REFERENCES SkillLevels(Id)
 )
 
-INSERT Skills (Name) VALUES ("Junior")
-INSERT Skills (Name) VALUES ("Middle")
-INSERT Skills (Name) VALUES ("Senior")
+INSERT Skills (Name) VALUES ('Junior')
+INSERT Skills (Name) VALUES ('Middle')
+INSERT Skills (Name) VALUES ('Senior')
