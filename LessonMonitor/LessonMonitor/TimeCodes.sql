@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[TimeCodes]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Title] NCHAR(100) NOT NULL UNIQUE, 
+    [LessonId] INT NOT NULL, 
+    [MemberId] INT NOT NULL, 
+    [Time] TIME NOT NULL, 
+    CONSTRAINT [FK_TimeCodes_ToMembers_Id] FOREIGN KEY (MemberId) REFERENCES Members(Id) ON DELETE CASCADE, 
+    CONSTRAINT [FK_TimeCodes_ToLessons_Id] FOREIGN KEY (LessonId) REFERENCES Lessons(Id) ON DELETE CASCADE
+)

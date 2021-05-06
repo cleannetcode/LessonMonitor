@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="8176a5e6-26e8-4f4a-9960-9ec87f332f8d" ChangeDateTime="05/06/2021 11:58:29">
+    <Property Name="ElementName" Value="[dbo].[Members].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Members]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1d0ebf59-c25a-4d0f-934a-6dd8a3aa79f9" ChangeDateTime="05/06/2021 12:33:39">
+    <Property Name="ElementName" Value="[dbo].[MemberSkills].[Level]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MemberSkills]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LevelId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b045ad55-7f69-42f7-9172-8924c45858c3" ChangeDateTime="05/06/2021 12:40:55">
+    <Property Name="ElementName" Value="[dbo].[FK_TimeCodes_ToTable_1]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[TimeCodes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_TimeCodes_ToLesson_Id]" />
+  </Operation>
+</Operations>
