@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[SkillLevels]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Level] NCHAR(30) NOT NULL UNIQUE
+    [Level] NVARCHAR(50) NOT NULL UNIQUE
 )

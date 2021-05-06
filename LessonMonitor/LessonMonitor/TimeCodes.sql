@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[TimeCodes]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Title] NCHAR(100) NOT NULL UNIQUE, 
+    [Title] NVARCHAR(100) NOT NULL UNIQUE, 
     [LessonId] INT NOT NULL, 
     [MemberId] INT NOT NULL, 
     [Time] TIME NOT NULL, 
