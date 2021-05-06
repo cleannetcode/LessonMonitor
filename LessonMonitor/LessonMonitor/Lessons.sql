@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Lessons]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NVARCHAR(30) NOT NULL UNIQUE, 
+    [Description] NVARCHAR(250) NOT NULL, 
+    [LinkHomeWork] NVARCHAR(100) NULL, 
+    [LinkVideo] NVARCHAR(100) NULL, 
+    [DataTime] DATETIME NOT NULL
+)
