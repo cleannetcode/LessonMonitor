@@ -66,4 +66,7 @@
   <ItemGroup>
     <RefactorLog Include="LessonMonitor.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Script.PreDeployment1.sql" />
+  </ItemGroup>
 </Project>
