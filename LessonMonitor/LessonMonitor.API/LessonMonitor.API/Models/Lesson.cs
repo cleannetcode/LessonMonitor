@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.API.Models
 {
-    public class Lesson
+    public class Lesson : ModelBase
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime StartLessonDate { get; set; }
         public TimeSpan Duration { get; set; }
     }
 }
