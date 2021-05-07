@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,12 @@ namespace LessonMonitor.Api.Controllers
             }
 
             return skills.ToArray();
+        }
+
+        [HttpGet("model")]
+        public RoadMapModel GetModel()
+        {
+            throw new NotImplementedException();
         }
     }
 }
