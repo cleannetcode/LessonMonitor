@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using LessonMonitor.API.Application.DTOs;
 using LessonMonitor.API.Application.Interfaces;
 using LessonMonitor.API.Domain;
 using LessonMonitor.API.Infrastucture.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-    
-
     public class UserCacheRepository : IUserRepository
     {
         private readonly IUserRepository repository;
@@ -52,12 +49,12 @@ namespace LessonMonitor.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService, IUserRepository userRepository)
+        public UsersController(IUserService userService, IMapper mapper)
         {
-            _userRepository = userRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -151,11 +148,16 @@ namespace LessonMonitor.API.Controllers
         /// <param name="request"></param>
         /// <returns>В случае успешного выполнения вернется User</returns>
         [HttpPost("[action]")]
-        public async Task<IActionResult> SignUp(SignUpRequest request)
+        public async Task<UserDTO> SignUp(SignUpRequest request)
         {
-            return Ok(await _userService.SignUpAsync(request));
+            var user = _mapper.Map<User>(request);
+            user = await _userService.SignUpAsync(user);
+
+            return _mapper.Map<UserDTO>(user);
         }
     }
 
-    
+    public interface IUserProfile
+    {
+    }
 }

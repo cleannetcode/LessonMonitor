@@ -14,7 +14,6 @@ namespace LessonMonitor.API.Application.DTOs
         [MaxLength(20, ErrorMessage = "Максимальная длина ника не должна превышать 20 символов")]
         public string NickName { get; set; }
 
-        [Required(ErrorMessage = "Поле 'Возраст' обязательно для заполнения")]
         [Range(1, 100, ErrorMessage = "Возраст пользователя должен быть от 1 до 100 ")]
         public int Age { get; set; }
 

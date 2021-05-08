@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using LessonMonitor.API.Application.DTOs;
-using LessonMonitor.API.Application.Interfaces;
+﻿using LessonMonitor.API.Application.Interfaces;
+using LessonMonitor.API.Domain;
 using System.Threading.Tasks;
-using User = LessonMonitor.API.Domain.User;
 
 namespace LessonMonitor.API.Infrastucture.Services
 {
@@ -15,12 +13,9 @@ namespace LessonMonitor.API.Infrastucture.Services
             _usersRepository = usersRepository;
         }
 
-        public Task<User> SignUpAsync(SignUpRequest request)
+        public async Task<User> SignUpAsync(User user)
         {
-            var mapper = new Mapper(new MapperConfiguration(x => x.CreateMap<SignUpRequest, User>()));
-            var user = mapper.Map<User>(request);
-
-            return _usersRepository.AddAsync(user);
+            return await _usersRepository.AddAsync(user);
         }
     }
 }
