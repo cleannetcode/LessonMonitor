@@ -1,9 +1,9 @@
-﻿using LessonMonitor.API.Interfaces;
-using LessonMonitor.API.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReflectionAttributes.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -32,13 +32,20 @@ namespace LessonMonitor.API.Controllers
         /// <param name="header">gives information about all announcements which have the same header</param>
         /// <returns>IEnumerable<IAnnouncement></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<Announcement>> Get(string header)
+        public ActionResult<IEnumerable<Announcement>> Get([FromHeader] string header)
         {
-            var announcements = 
+            var announcements =
                 _announcements.Where(x => x.Header.ToLower().Equals(header.ToLower()));
-            if (announcements.Count().Equals(0))
+            if (!announcements.Any())
                 return NotFound();
             return Ok(announcements);
+        }
+
+        [HttpPost("AddAnnouncement")]
+        public ActionResult AddAnnouncement([FromQuery] Announcement announcement)
+        {
+            _announcements.Add(announcement);   
+            return Ok(announcement);
         }
     }
 }
