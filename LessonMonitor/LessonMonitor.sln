@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.API", "LessonMonitor.API\LessonMonitor.API.csproj", "{2D5C21A9-2B86-4E4B-B751-9A9F16D7DFB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D5C21A9-2B86-4E4B-B751-9A9F16D7DFB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5C21A9-2B86-4E4B-B751-9A9F16D7DFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5C21A9-2B86-4E4B-B751-9A9F16D7DFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5C21A9-2B86-4E4B-B751-9A9F16D7DFB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF36ADD5-768D-44C4-AA74-90FC0BB7455A}
+	EndGlobalSection
+EndGlobal
