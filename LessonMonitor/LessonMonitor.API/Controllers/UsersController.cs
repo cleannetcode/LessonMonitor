@@ -4,26 +4,42 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LessonMonitor.API.Application.DTOs;
+using LessonMonitor.API.Application.Interfaces;
+using LessonMonitor.API.Domain;
+using LessonMonitor.API.Infrastucture.Repositories;
 
 namespace LessonMonitor.API.Controllers
 {
+    
+
     public class UserCacheRepository : IUserRepository
     {
         private readonly IUserRepository repository;
 
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
+        public UserCacheRepository(UserRepository repository, ICacheManager cacheManager)
         {
             this.repository = repository;
         }
 
-        public User Get(string userName)
+        public Task<User> AddAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<User> Get(string userName)
         {
             // get from cache 
             // if null  var user = IUserRepository.Get(userName);
             //          save user into cache
             // else return user
 
-            return repository.Get(userName);
+            return await repository.GetAsync(userName);
+        }
+
+        public Task<User> GetAsync(string userName)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -31,23 +47,17 @@ namespace LessonMonitor.API.Controllers
     {
     }
 
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserService userService, IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            _userRepository = userRepository;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -134,5 +144,18 @@ namespace LessonMonitor.API.Controllers
                 //}
             }
         }
+
+        /// <summary>
+        /// Выполняет регистрацию пользователя
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>В случае успешного выполнения вернется User</returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SignUp(SignUpRequest request)
+        {
+            return Ok(await _userService.SignUpAsync(request));
+        }
     }
+
+    
 }

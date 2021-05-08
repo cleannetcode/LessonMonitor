@@ -1,3 +1,6 @@
+using LessonMonitor.API.Application.Interfaces;
+using LessonMonitor.API.Infrastucture.Repositories;
+using LessonMonitor.API.Infrastucture.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +35,9 @@ namespace LessonMonitor.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
