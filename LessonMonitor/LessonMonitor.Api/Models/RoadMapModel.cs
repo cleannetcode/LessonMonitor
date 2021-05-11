@@ -7,5 +7,7 @@ namespace LessonMonitor.Api.Models
 {
     public class RoadMapModel
     {
+        public string ClassName { get; set; }
+        public PropertyModel[] Properties { get; set; }
     }
 }

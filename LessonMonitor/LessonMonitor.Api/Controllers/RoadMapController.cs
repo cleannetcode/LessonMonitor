@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.Api.Controllers
@@ -41,9 +43,32 @@ namespace LessonMonitor.Api.Controllers
         }
 
         [HttpGet("model")]
-        public RoadMapModel GetModel()
+        public RoadMapModel[] GetModel()
         {
-            throw new NotImplementedException();
+            string selectedNamespace = "LessonMonitor.Api.Models";
+            var selectedTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(t => t.GetTypes())
+                .Where(t => t.IsClass && t.Namespace == selectedNamespace)
+                .ToArray();
+
+            var result = new RoadMapModel[selectedTypes.Length];
+
+            for (int i = 0; i < selectedTypes.Length; i++)
+            {
+                
+                result[i] = new RoadMapModel
+                {
+                    ClassName = selectedTypes[i].Name,
+                    Properties = selectedTypes[i].GetProperties()
+                                    .Select(prop => new PropertyModel { 
+                                        Name = prop.Name,
+                                        Type = prop.PropertyType,
+                                        Description = prop.GetCustomAttribute<DescriptionAttribute>()?.Description
+                                    }).ToArray()
+                };
+            }
+
+            return result;
         }
     }
 }
