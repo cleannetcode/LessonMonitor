@@ -63,7 +63,7 @@ namespace LessonMonitor.Api.Controllers
                                     .Select(prop => new PropertyModel { 
                                         Name = prop.Name,
                                         Type = prop.PropertyType,
-                                        Description = prop.GetCustomAttribute<DescriptionAttribute>()?.Description
+                                        Description = prop.GetCustomAttribute<MyDescriptionAttribute>()?.Description
                                     }).ToArray()
                 };
             }

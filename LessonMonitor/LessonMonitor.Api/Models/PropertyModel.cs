@@ -4,13 +4,13 @@ namespace LessonMonitor.Api.Models
 {
     public class PropertyModel
     {
-        // Название свойства
+        [MyDescription("Название свойства")]
         public string Name { get; set; }
 
-        // Тип свойства
+        [MyDescription("Тип свойства")]
         public Type Type { get; set; }
 
-        // Описание свойства
+        [MyDescription("Описание свойства")]
         public string Description { get; set; }
     }
 }
