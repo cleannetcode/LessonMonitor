@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.Api", "LessonMonitor.Api\LessonMonitor.Api.csproj", "{F1CAA3BD-F0C4-4DB4-AF14-F8E278FB8BE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Api", "LessonMonitor.Api\LessonMonitor.Api.csproj", "{F1CAA3BD-F0C4-4DB4-AF14-F8E278FB8BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.Tests", "LessonMonitor.Tests\LessonMonitor.Tests.csproj", "{69E14657-A756-4248-9C6E-7B7D936D74C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F1CAA3BD-F0C4-4DB4-AF14-F8E278FB8BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CAA3BD-F0C4-4DB4-AF14-F8E278FB8BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CAA3BD-F0C4-4DB4-AF14-F8E278FB8BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E14657-A756-4248-9C6E-7B7D936D74C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E14657-A756-4248-9C6E-7B7D936D74C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E14657-A756-4248-9C6E-7B7D936D74C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E14657-A756-4248-9C6E-7B7D936D74C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
