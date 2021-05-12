@@ -27,7 +27,7 @@ namespace LessonMonitor.Api.Controllers
         }
 
         [HttpGet]
-        public Skill[] GetRandom()
+        public Skill[] GetRandomSkills()
         {
             var random = new Random();
             var skills = new List<Skill>();
