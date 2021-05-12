@@ -1,3 +1,4 @@
+using LessonMonitor.Api;
 using LessonMonitor.Api.Controllers;
 using NUnit.Framework;
 
@@ -14,7 +15,8 @@ namespace LessonMonitor.RoadMapControllerTests
         public void GetModel_TestForDebug()
         {
             // arrange
-            var controller = new RoadMapController();
+            var skillRepository = new InMemorySkillRepository();
+            var controller = new RoadMapController(skillRepository);
 
             // act
             var result = controller.GetModel();

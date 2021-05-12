@@ -83,5 +83,20 @@ namespace LessonMonitor.Api.Controllers
 
             return result;
         }
+
+        // Рекомендуем пользователю для изучения навыки которыми он не обладает
+        [HttpGet("Recommendation")]
+        public Skill[] Recommendation([FromBody]User user)
+        {
+            // TODO: user проверка атрибута Validation для Email
+
+            var result = _skillRepository
+                .GetAll()
+                .Where(t => user.SkillsId.Contains(t.Id) == false)
+                .ToArray();
+
+            return result;
+        }
+
     }
 }
