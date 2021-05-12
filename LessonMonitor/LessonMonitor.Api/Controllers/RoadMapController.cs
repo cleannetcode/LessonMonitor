@@ -13,8 +13,21 @@ namespace LessonMonitor.Api.Controllers
     [Route("[controller]")]
     public class RoadMapController : ControllerBase
     {
+        private readonly ISkillRepository _skillRepository;
+
+        public RoadMapController(ISkillRepository skillRepository)
+        {
+            _skillRepository = skillRepository;
+        }
+
+        [HttpGet("GetById")]
+        public Skill GetById(int id)
+        {
+            return _skillRepository.GetById(id);
+        }
+
         [HttpGet]
-        public Skill[] Get()
+        public Skill[] GetRandom()
         {
             var random = new Random();
             var skills = new List<Skill>();
