@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        [Validation]
+        [ValidationEmailAddress]
         public string Email { get; set; }
 
         [MyDescription("Какие навыки есть у пользователя.")]

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -86,9 +87,26 @@ namespace LessonMonitor.Api.Controllers
 
         // Рекомендуем пользователю для изучения навыки которыми он не обладает
         [HttpGet("Recommendation")]
-        public Skill[] Recommendation([FromBody]User user)
+        public Skill[] Recommendation([FromQuery]User user)
         {
             // TODO: user проверка атрибута Validation для Email
+            var userType = user.GetType();
+            var emailProp = userType.GetProperty("Email");
+            var validationAttr = emailProp.GetCustomAttribute<ValidationEmailAddressAttribute>();
+            
+            if( validationAttr != null )
+            {
+                try
+                {
+                    MailAddress m = new MailAddress(user.Email);
+                }
+                catch (FormatException)
+                {
+                    throw new Exception($"{user.Email} не является адресом электронной почты.");
+                }
+            }
+            if (user.SkillsId == null)
+                user.SkillsId = new int[0];
 
             var result = _skillRepository
                 .GetAll()

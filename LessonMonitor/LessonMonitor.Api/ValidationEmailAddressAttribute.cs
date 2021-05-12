@@ -9,9 +9,8 @@ namespace LessonMonitor.Api
     /// Атрибут для проверки валидности модели
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ValidationAttribute: Attribute
+    public class ValidationEmailAddressAttribute: Attribute
     {
 
     }
-    // Подсмотреть можно зедсь https://referencesource.microsoft.com/#System.ComponentModel.DataAnnotations/DataAnnotations/RangeAttribute.cs
 }
