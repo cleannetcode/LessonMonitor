@@ -37,6 +37,8 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
+            ErrorMessageRegistry.ReBuild();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
