@@ -86,10 +86,9 @@ namespace LessonMonitor.Api.Controllers
         }
 
         // Рекомендуем пользователю для изучения навыки которыми он не обладает
-        [HttpGet("Recommendation")]
-        public Skill[] Recommendation([FromQuery]User user)
+        [HttpPost("Recommendation")]
+        public ActionResult<Skill[]> Recommendation([FromBody]User user)
         {
-            // TODO: user проверка атрибута Validation для Email
             var userType = user.GetType();
             var emailProp = userType.GetProperty("Email");
             var validationAttr = emailProp.GetCustomAttribute<ValidationEmailAddressAttribute>();
@@ -102,7 +101,7 @@ namespace LessonMonitor.Api.Controllers
                 }
                 catch (FormatException)
                 {
-                    throw new Exception($"{user.Email} не является адресом электронной почты.");
+                    return BadRequest($"{user.Email} не является адресом электронной почты.");
                 }
             }
             if (user.SkillsId == null)
@@ -113,7 +112,7 @@ namespace LessonMonitor.Api.Controllers
                 .Where(t => user.SkillsId.Contains(t.Id) == false)
                 .ToArray();
 
-            return result;
+            return Ok(result);
         }
 
     }
