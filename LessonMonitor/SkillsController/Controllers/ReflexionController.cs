@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using SkillsController.Reflexion;
 
@@ -13,10 +14,21 @@ namespace SkillsController.Controllers
         {
             var list = new List<string>();
             
-            list.Add("test");
-
             var model = typeof(Model);
+
+            list.Add("Class name " + model.ToString());
             
+            list.Add("Methods: ");
+            foreach (var member in model.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                list.Add(member.Name + " " + member.MemberType.ToString() + " " + member.GetType().ToString());
+            }
+
+            list.Add("Fields: ");
+            foreach (var member in model.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                list.Add(member.Name + " " + member.MemberType.ToString() + " " + member.GetType().ToString());
+            }
 
             
             return list;
