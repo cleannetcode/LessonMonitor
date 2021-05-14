@@ -8,6 +8,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using LessonMonitor.API.Reflection;
+using LessonMonitor.API.Data.Interfaces;
+using LessonMonitor.API.Data.Repositoris;
 
 namespace LessonMonitor.API
 {
@@ -23,7 +25,9 @@ namespace LessonMonitor.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IReflectionService, ReflectionService>();
+            services.AddScoped<ILessonRepository, LessonRepository>();
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

@@ -1,27 +1,21 @@
-﻿using System;
+﻿using LessonMonitor.API.Services.Attributes;
+using System;
 
 namespace LessonMonitor.API.Models
 {
+    [Description("Homework class")]
     public class Homework : ModelBase
     {
-        /// <summary>
-        /// Наименование домашнего задания
-        /// </summary>
+        [Description("Наименование домашнего задания")]
         public string Title { get; set; }
 
-        /// <summary>
-        /// Описание задния
-        /// </summary>
+        [Description("Описание задния")]
         public string Task { get; set; }
 
-        /// <summary>
-        /// Дата начала выполнения домашнего задания
-        /// </summary>
+        [Description("Дата начала выполнения домашнего задания")]
         public DateTime BeginDate { get; set; }
 
-        /// <summary>
-        /// Дата завершения домашнего задания
-        /// </summary>
+        [Description("Дата завершения домашнего задания")]
         public DateTime CompletionDate { get; set; }
     }
 }

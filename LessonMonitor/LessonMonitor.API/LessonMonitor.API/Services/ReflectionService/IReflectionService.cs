@@ -7,6 +7,6 @@ namespace LessonMonitor.API.Reflection
 {
     public interface IReflectionService
     {
-        IEnumerable<ReflectionClassInfo> GetAllClassesInfo();
+        IEnumerable<ClassInfo> GetAllClassesInfo();
     }
 }

@@ -25,7 +25,7 @@ namespace LessonMonitor.API.Controllers
         /// <returns>List of Classes Info</returns>
         /// <response code="200">Return List of Classes Info</response>
         [HttpGet]
-        public ActionResult<IEnumerable<ReflectionClassInfo>> GetAllClassesInfo()
+        public ActionResult<IEnumerable<ClassInfo>> GetAllClassesInfo()
         {
             var result = _reflectionService.GetAllClassesInfo();
             if (result is null || result.Count() == 0)
