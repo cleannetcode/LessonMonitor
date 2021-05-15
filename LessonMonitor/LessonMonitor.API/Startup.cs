@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace LessonMonitor.API
 {
@@ -44,11 +44,18 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseMiddleware<MyMiddlewareComponent>();
+
+            //app.Use((httpContext, next) =>
+            //{
+            //    var task = next();
+
+            //    return task;
+            //});
 
             app.UseEndpoints(endpoints =>
             {
