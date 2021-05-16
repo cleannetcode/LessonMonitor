@@ -1,16 +1,10 @@
+using LessonMonitor.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace LessonMonitor.API
 {
@@ -26,7 +20,7 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IHttpLogger, HttpLogger>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,14 +42,17 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.UseMiddleware<MyMiddlewareComponent>();
+            
+            app.Use(async (httpContext, next) =>
+            {
+                var httpLogger = httpContext.RequestServices.GetService<IHttpLogger>();
+                var connectionId = httpContext.Connection.Id;
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
+                await httpLogger!.LogRequestAsync(httpContext.Request, connectionId);
+                await httpLogger.LogResponseAsync(httpContext.Response, connectionId);
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
