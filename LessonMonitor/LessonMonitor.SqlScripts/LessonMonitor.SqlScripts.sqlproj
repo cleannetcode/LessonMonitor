@@ -63,4 +63,7 @@
   <ItemGroup>
     <None Include="LessonMonitorDb.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="LessonMonitorDbNF.sql" />
+  </ItemGroup>
 </Project>
