@@ -5,7 +5,7 @@ GO
 USE LessonMonitor
 GO
 
--- Удалить если существуют таблицы
+-- РЈРґР°Р»РёС‚СЊ РµСЃР»Рё СЃСѓС‰РµСЃС‚РІСѓСЋС‚ С‚Р°Р±Р»РёС†С‹
 IF OBJECT_ID ('dbo.Homeworks', 'U') IS NOT NULL  
    DROP TABLE dbo.Homeworks; 
 
@@ -21,19 +21,19 @@ IF OBJECT_ID ('dbo.MemberInternetResource', 'U') IS NOT NULL
 IF OBJECT_ID ('dbo.Members', 'U') IS NOT NULL  
    DROP TABLE dbo.Members;  
 
--- Создание таблиц
+-- РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†
 CREATE TABLE dbo.Members(
-	Id int NOT NULL PRIMARY KEY, --IDENTITY(1,1),
+	Id int NOT NULL PRIMARY KEY IDENTITY(1,1),
 	LastName NVARCHAR(200) NULL,
 	FirstName NVARCHAR(200) NULL,
 	Patronomyc NVARCHAR(200) NULL
 )
 
-insert into dbo.Members (id, LastName, FirstName, Patronomyc) values (1, 'Тестовый', 'Тест', 'Тестович');
+insert into dbo.Members (LastName, FirstName, Patronomyc) values (N'РўРµСЃС‚РѕРІС‹Р№', N'РўРµСЃС‚', N'РўРµСЃС‚РѕРІРёС‡');
 GO
 
 CREATE TABLE dbo.MemberInternetResource(
-	Id int NOT NULL PRIMARY KEY,
+	Id int NOT NULL PRIMARY KEY IDENTITY(1,1),
 	MemberId int NOT NULL,
 	NickName NVARCHAR(200) NULL,
 	InternetResourseName NVARCHAR(200) NULL,
@@ -41,11 +41,11 @@ CREATE TABLE dbo.MemberInternetResource(
 	CONSTRAINT [FK_MemberInternetResource_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
 ) 
 
-insert into dbo.MemberInternetResource (id, MemberId, NickName, InternetResourseName, Link) values (1, 1, 'Test', 'GitHub', 'http://github.com/test');
+insert into dbo.MemberInternetResource (MemberId, NickName, InternetResourseName, Link) values (1, N'Test', N'GitHub', N'http://github.com/test');
 GO
 
 CREATE TABLE dbo.Lessons(
-	Id int NOT NULL PRIMARY KEY,
+	Id int NOT NULL PRIMARY KEY IDENTITY(1,1),
 	Name NVARCHAR(200) NULL,
 	Theme NVARCHAR(200) NULL,
 	Description NVARCHAR(1000) NULL,
@@ -54,34 +54,32 @@ CREATE TABLE dbo.Lessons(
 ) 
 
 insert into dbo.Lessons (
-	id, 
 	Name, 
 	Theme, 
 	Description, 
 	StartDate, 
 	Duration) 
-values (1,
-		'Знакомимся с t-sql и создаем схему БД', 
-		'SQL SERVER', 
-		'На этом занятии мы начнем изучать язык t-sql. Посмотрим что такое DDL, как строится схема базы данных. увидим что такое: CREATE, ALTER, DROP для таблиц и колонок',
+values (N'Р—РЅР°РєРѕРјРёРјСЃСЏ СЃ t-sql Рё СЃРѕР·РґР°РµРј СЃС…РµРјСѓ Р‘Р”', 
+		N'SQL SERVER', 
+		N'РќР° СЌС‚РѕРј Р·Р°РЅСЏС‚РёРё РјС‹ РЅР°С‡РЅРµРј РёР·СѓС‡Р°С‚СЊ СЏР·С‹Рє t-sql. РџРѕСЃРјРѕС‚СЂРёРј С‡С‚Рѕ С‚Р°РєРѕРµ DDL, РєР°Рє СЃС‚СЂРѕРёС‚СЃСЏ СЃС…РµРјР° Р±Р°Р·С‹ РґР°РЅРЅС‹С…. СѓРІРёРґРёРј С‡С‚Рѕ С‚Р°РєРѕРµ: CREATE, ALTER, DROP РґР»СЏ С‚Р°Р±Р»РёС† Рё РєРѕР»РѕРЅРѕРє',
 		convert(date,'25.04.2021',104),
 		160
 	);
 GO
 
 CREATE TABLE dbo.LessonMembers(
-	Id int NOT NULL,
+	Id int NOT NULL PRIMARY KEY IDENTITY(1,1),
 	MemberId int NOT NULL,
 	LessonId int NOT NULL,
 	CONSTRAINT [FK_LessonMembers_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
 	CONSTRAINT [FK_LessonMembers_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )  
 
-insert into dbo.LessonMembers (id, MemberId, LessonId) values (1, 1, 1);
+insert into dbo.LessonMembers (MemberId, LessonId) values (1, 1);
 GO 
 
 CREATE TABLE dbo.Homeworks(
-	Id int NOT NULL PRIMARY KEY,
+	Id int NOT NULL PRIMARY KEY IDENTITY(1,1),
 	MemberId int NULL,
 	LessonId int NULL,
 	Verified bit NULL,
@@ -91,5 +89,5 @@ CREATE TABLE dbo.Homeworks(
 	CONSTRAINT [FK_Homeworks_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
 
-insert into dbo.Homeworks (id, MemberId, LessonId,Verified,Mark,GithubLink)
-values (1, 1, 1, 0, null, 'https://github.com/cleannetcode/LessonMonitor/pull/57');
+insert into dbo.Homeworks (MemberId, LessonId,Verified,Mark,GithubLink)
+values (1, 1, 0, null, N'https://github.com/cleannetcode/LessonMonitor/pull/57');
