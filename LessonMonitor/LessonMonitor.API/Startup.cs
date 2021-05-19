@@ -50,7 +50,7 @@ namespace LessonMonitor.API
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
-            app.Use(async (httpContext, next) =>
+            app.Use((httpContext, next) =>
             {
                 Logger logger = new Logger();
                 logger.WriteToFileAsync(httpContext.Request);

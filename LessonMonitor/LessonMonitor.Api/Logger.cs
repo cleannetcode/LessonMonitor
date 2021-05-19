@@ -28,7 +28,7 @@ namespace LessonMonitor.API
             request.EnableBuffering();
             using (var reader = new StreamReader(request.Body,leaveOpen: true))
             {
-                string body = await reader.ReadToEndAsync();
+                var body = reader.ReadToEnd();
 
                 WriteToFile($"Body: {request.Body}");
                 request.Body.Position = 0;
@@ -39,7 +39,7 @@ namespace LessonMonitor.API
         {
             using (var reader = new StreamReader(response.Body, leaveOpen: true))
             {
-                string body = await reader.ReadToEndAsync();
+                var body = reader.ReadToEnd();
 
                 WriteToFile($"Body: {response.Body}");
                 response.Body.Position = 0;
