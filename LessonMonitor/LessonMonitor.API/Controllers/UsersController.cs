@@ -11,7 +11,7 @@ namespace LessonMonitor.API.Controllers
     {
         private readonly IUserRepository repository;
 
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
+        public UserCacheRepository(IUserRepository repository, ICacheManager cacheManager)
         {
             this.repository = repository;
         }
@@ -35,7 +35,11 @@ namespace LessonMonitor.API.Controllers
     {
         public User Get(string userName)
         {
-            throw new NotImplementedException();
+            return new User()
+            {
+                Age = 20,
+                Name = userName
+            };
         }
     }
 
@@ -81,6 +85,12 @@ namespace LessonMonitor.API.Controllers
             }
 
             return users.ToArray();
+        }
+
+        [HttpPost("ReturnUser")]
+        public User ReturnUser(User user)
+        {
+            return user;
         }
 
         [HttpGet("model")]
