@@ -50,12 +50,16 @@ namespace LessonMonitor.API
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            app.Use(async (httpContext, next) =>
+            {
+                Logger logger = new Logger();
+                logger.WriteToFileAsync(httpContext.Request);
 
-            //    return task;
-            //});
+                var task = next();
+
+                logger.WriteToFileAsync(httpContext.Response);
+                return task;
+            });
 
             app.UseEndpoints(endpoints =>
             {
