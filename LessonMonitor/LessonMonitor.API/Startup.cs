@@ -48,16 +48,18 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            // Создать свой компонент middleware как отдельный класс, который будет сохранять запросы в файл.
+            app.UseMiddleware<MyMiddlewareComponent>();
 
+            // Создать свой компонент middleware как метод Use, который будет сохранять запросы в файл.
             app.Use((httpContext, next) =>
             {
-                Logger logger = new Logger();
+                Logger logger = new Logger("From method USE");
                 logger.WriteToFileAsync(httpContext.Request);
 
                 var task = next();
 
-                logger.WriteToFileAsync(httpContext.Response);
+                //logger.WriteToFileAsync(httpContext.Response);
                 return task;
             });
 
