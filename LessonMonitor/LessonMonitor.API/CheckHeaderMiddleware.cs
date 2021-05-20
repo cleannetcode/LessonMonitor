@@ -21,7 +21,7 @@ namespace LessonMonitor.API
             if (customHeader.Key == null)
             {
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync("Отсутствует кастомный заголовок: TestHeader");
+                await context.Response.WriteAsync($"Отсутствует кастомный заголовок: {_customHeader}");
             }
             else
             {
