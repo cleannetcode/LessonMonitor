@@ -1,0 +1,4 @@
+/WeatherForecast : Bad requers
+/WeatherForecast : Ok
+/WeatherForecasth : Bad requers
+/WeatherForecast : Ok
