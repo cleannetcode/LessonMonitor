@@ -1,6 +1,7 @@
 using LessonMonitor.API.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -57,11 +58,14 @@ namespace LessonMonitor.API
             app.Use((httpContext, next) =>
             {
                 Logger logger = new Logger("From method USE");
-                logger.WriteToFileAsync(httpContext.Request);
+
+                logger.WriteToFile(httpContext.Request);
 
                 var task = next();
 
-                //logger.WriteToFileAsync(httpContext.Response);
+                // Сохранение Response не реализовано, но можно вот так
+                // https://stackoverflow.com/questions/43403941/how-to-read-asp-net-core-response-body
+
                 return task;
             });
 

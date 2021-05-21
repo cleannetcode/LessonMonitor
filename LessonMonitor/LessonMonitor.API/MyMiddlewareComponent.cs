@@ -15,9 +15,13 @@ namespace LessonMonitor.API
         public Task Invoke(HttpContext context)
         {
             Logger logger = new Logger("From class");
-            logger.WriteToFileAsync(context.Request);
+            logger.WriteToFile(context.Request);
 
-            return _next(context);
+            var task = _next(context);
+
+            // Here could be yours logging logic for Response
+
+            return task;
         }
     }
 }

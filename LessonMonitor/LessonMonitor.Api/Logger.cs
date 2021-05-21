@@ -16,45 +16,26 @@ namespace LessonMonitor.API
 
         private readonly string directoryToSave = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string logName = "log.txt";
-        private readonly string _prefix;
+        private readonly string _logLinePrefix;
 
         public Logger()
         {
         }
 
-        public Logger(string prefix)
+        public Logger(string logLinePrefix)
         {
-            _prefix = prefix;
+            _logLinePrefix = logLinePrefix;
         }
 
         /// <summary>
         /// Записать информацию о запросе в файл
         /// </summary>
-        public void WriteToFileAsync(HttpRequest request)
+        public void WriteToFile(HttpRequest request)
         {
             WriteToFile($"Host: {request.Host}");
             WriteToFile($"Method: {request.Method}"); // Get, Post, Put ... etc
             WriteToFile($"QueryString: {request.QueryString}");
-
-            var result = GetListOfStringsFromStreamMoreEfficient(request.Body);
-
-            foreach (var str in result)
-            {
-                WriteToFile($"{str}");
-            }
-        }
-
-        /// <summary>
-        /// Записать информацию об ответе в файл
-        /// </summary>
-        public void WriteToFileAsync(HttpResponse response)
-        {
-            var result = GetListOfStringsFromStreamMoreEfficient(response.Body);
-
-            foreach (var str in result)
-            {
-                WriteToFile($"{str}");
-            }
+            WriteToFile($"Request body: {GetBodyFromRequest(request)}");
         }
 
         /// <summary>
@@ -63,7 +44,7 @@ namespace LessonMonitor.API
         private void WriteToFile(string text)
         {
             string filePath = Path.Combine(directoryToSave, logName);
-            string formattedString = $"{_prefix} {DateTime.Now.ToString("dd.mm.yyyy HH:ss")} - {text}";
+            string formattedString = $"{_logLinePrefix} {DateTime.Now.ToString("dd.mm.yyyy HH:ss")} - {text}";
 
             // честно взято отсюда https://github.com/NLog/NLog/blob/08cfda2cbb955a5cf18e26f85c4fa72f7cd35d76/src/NLog/Common/InternalLogger.cs#L396
             // О lock https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/keywords/lock-statement
@@ -76,59 +57,22 @@ namespace LessonMonitor.API
             }
         }
 
-        //https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/middleware/request-response?view=aspnetcore-5.0
-        private List<string> GetListOfStringsFromStreamMoreEfficient(Stream requestBody)
+        // https://markb.uk/asp-net-core-read-raw-request-body-as-string.html
+        private string GetBodyFromRequest(HttpRequest request)
         {
-            StringBuilder builder = new StringBuilder();
-            byte[] buffer = ArrayPool<byte>.Shared.Rent(4096);
-            List<string> results = new List<string>();
-
-            while (true)
+            if (!request.Body.CanSeek)
             {
-                var bytesRemaining = requestBody.ReadAsync(buffer, offset: 0, buffer.Length).Result;
-
-                if (bytesRemaining == 0)
-                {
-                    results.Add(builder.ToString());
-                    break;
-                }
-
-                // Instead of adding the entire buffer into the StringBuilder
-                // only add the remainder after the last \n in the array.
-                var prevIndex = 0;
-                int index;
-                while (true)
-                {
-                    index = Array.IndexOf(buffer, (byte)'\n', prevIndex);
-                    if (index == -1)
-                    {
-                        break;
-                    }
-
-                    var encodedString = Encoding.UTF8.GetString(buffer, prevIndex, index - prevIndex);
-
-                    if (builder.Length > 0)
-                    {
-                        // If there was a remainder in the string buffer, include it in the next string.
-                        results.Add(builder.Append(encodedString).ToString());
-                        builder.Clear();
-                    }
-                    else
-                    {
-                        results.Add(encodedString);
-                    }
-
-                    // Skip past last \n
-                    prevIndex = index + 1;
-                }
-
-                var remainingString = Encoding.UTF8.GetString(buffer, prevIndex, bytesRemaining - prevIndex);
-                builder.Append(remainingString);
+                request.EnableBuffering();
             }
 
-            ArrayPool<byte>.Shared.Return(buffer);
+            request.Body.Position = 0;
 
-            return results;
+            var reader = new StreamReader(request.Body, Encoding.UTF8);
+            var body = reader.ReadToEndAsync().Result;
+
+            request.Body.Position = 0;
+
+            return body;
         }
     }
 }
