@@ -1,5 +1,7 @@
+using LessonMonitor.API.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,12 +28,13 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
+
+            services.AddScoped<IUserRepository, UserRespository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,14 +51,23 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            // Создать свой компонент middleware как отдельный класс, который будет сохранять запросы в файл.
+            app.UseMiddleware<MyMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            // Создать свой компонент middleware как метод Use, который будет сохранять запросы в файл.
+            app.Use((httpContext, next) =>
+            {
+                Logger logger = new Logger("From method USE");
 
-            //    return task;
-            //});
+                logger.WriteToFile(httpContext.Request);
+
+                var task = next();
+
+                // Сохранение Response не реализовано, но можно вот так
+                // https://stackoverflow.com/questions/43403941/how-to-read-asp-net-core-response-body
+
+                return task;
+            });
 
             app.UseEndpoints(endpoints =>
             {
