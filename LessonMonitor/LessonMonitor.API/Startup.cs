@@ -9,8 +9,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace LessonMonitor.API
 {
@@ -48,7 +51,27 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+                
+                var path = context.Request.Path;
+                var nameLogFile = "log.txt";
+                using StreamWriter file = new StreamWriter(nameLogFile, true);
+                /*
+                 * Подсмотрел на https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file
+                 * понятия не имею для чего здесь using, на метаните глянул это чтото для disposable обьектов, а что это также не понятно,
+                 * подозреваю за ними нужно следить и освобождать их вручную) думаю это все относится к stream и это должно быть одна большая тема?.
+                 * Это на самостоятельное изучение?:-D
+                 */
+                file.WriteLine(path + " : " + (context.Response.StatusCode != 200 ? "Bad requers" : "Ok"));
+                file.Close();
+            });
+
+            //app.UseMiddleware<CheckHeaderMiddleware>("TestHeader"); /* Альтернативный вызов */
+            app.UseCheckHeader("TestHeader");
+            
+            app.UseMiddleware<MyMiddlewareComponent>();
 
             //app.Use((httpContext, next) =>
             //{
@@ -63,4 +86,6 @@ namespace LessonMonitor.API
             });
         }
     }
+
+    
 }
