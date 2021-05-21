@@ -1,16 +1,11 @@
+using LessonMonitor.API.Controllers;
+using LessonMonitor.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace LessonMonitor.API
 {
@@ -32,6 +27,11 @@ namespace LessonMonitor.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
+
+            services.AddScoped<ILogService, FileLogService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +47,8 @@ namespace LessonMonitor.API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseRequestLogger();
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
