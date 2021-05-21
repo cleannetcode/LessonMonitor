@@ -12,9 +12,13 @@ namespace LessonMonitor.API.Services
 
         public async Task LogRequestAsync(HttpRequest request, string connectionId)
         {
+            request.EnableBuffering();
+
             var requestBody = await new StreamReader(request.Body)
                 .ReadToEndAsync();
-            
+
+            request.Body.Seek(0, SeekOrigin.Begin);
+
             var logMessage = new
             {
                 Path = request.Path,
