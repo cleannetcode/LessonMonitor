@@ -49,7 +49,7 @@ namespace LessonMonitor.API.Controllers
         {
             this.userRepository = userRepository;
         }
-
+        [HttpPost]
         [HttpGet]
         public User[] Get(string userName)
         {

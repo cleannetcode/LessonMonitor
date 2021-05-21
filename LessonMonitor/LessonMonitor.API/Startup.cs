@@ -71,7 +71,7 @@ namespace LessonMonitor.API
             //app.UseMiddleware<CheckHeaderMiddleware>("TestHeader"); /* Альтернативный вызов */
             app.UseCheckHeader("TestHeader");
             
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.UseMiddleware<MyMiddlewareComponent>();
 
             //app.Use((httpContext, next) =>
             //{
