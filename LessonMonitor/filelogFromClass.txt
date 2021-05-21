@@ -1,0 +1,16 @@
+Request:
+Header:      Microsoft.AspNetCore.HttpSys.Internal.RequestHeaders
+Host:        localhost:44391
+HttpContext: Microsoft.AspNetCore.Http.DefaultHttpContext
+IsHttps:     True
+Method:      GET
+Path:        /Users/model
+Protocol:    HTTP/2
+Scheme:      https
+
+Response:
+Header:      Microsoft.AspNetCore.HttpSys.Internal.HeaderCollection
+StatusCode:  200
+HttpContext: Microsoft.AspNetCore.Http.DefaultHttpContext
+HasStarted:  False
+Body:        Microsoft.AspNetCore.Server.IIS.Core.HttpResponseStream

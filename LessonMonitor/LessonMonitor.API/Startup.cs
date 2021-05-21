@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -48,14 +49,34 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.UseMiddleware<MyMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            app.Use((httpContext, next) =>
+            {
+                var task = next();
 
-            //    return task;
-            //});
+                using (FileStream fs = new FileStream(@"..\filelog.txt", FileMode.OpenOrCreate))
+                {
+                    fs.Write(Encoding.Default.GetBytes("Request:" + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Header:      " + httpContext.Request.Headers.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Host:        " + httpContext.Request.Host.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("HttpContext: " + httpContext.Request.HttpContext.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("IsHttps:     " + httpContext.Request.IsHttps.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Method:      " + httpContext.Request.Method.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Path:        " + httpContext.Request.Path.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Protocol:    " + httpContext.Request.Protocol.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Scheme:      " + httpContext.Request.Scheme.ToString() + "\n"));
+
+                    fs.Write(Encoding.Default.GetBytes("\n" + "Response:" + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Header:      " + httpContext.Response.Headers.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("StatusCode:  " + httpContext.Response.StatusCode.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("HttpContext: " + httpContext.Response.HttpContext.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("HasStarted:  " + httpContext.Response.HasStarted.ToString() + "\n"));
+                    fs.Write(Encoding.Default.GetBytes("Body:        " + httpContext.Response.Body.ToString() + "\n"));
+                }
+
+                    return task;
+            });
 
             app.UseEndpoints(endpoints =>
             {
