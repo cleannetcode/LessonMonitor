@@ -21,6 +21,11 @@ namespace LessonMonitor.API
             
         }
 
+        public void Test()
+        {
+
+        }
+
         public class RequiredAttribute : Attribute
         {
 

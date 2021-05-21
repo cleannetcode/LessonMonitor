@@ -18,6 +18,5 @@ namespace LessonMonitor.API
                     webBuilder.UseStartup<Startup>();
                 });
         }
-
     }
 }
