@@ -31,7 +31,7 @@ namespace LessonMonitor.API
             services.AddScoped<ILogService, FileLogService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +49,18 @@ namespace LessonMonitor.API
             app.UseRouting();
 
             app.UseRequestLogger();
+
+            /** also you can this code for log requests **/
+            /**
+            app.Use(async (context, next) =>
+            {
+                var logService =  new FileLogService();
+
+                await logService.LogAsync(context.Request);
+
+                await next();
+            });
+            **/
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
