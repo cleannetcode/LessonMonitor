@@ -12,7 +12,10 @@ namespace LessonMonitor.API.Services
 
         public async Task LogRequestAsync(HttpRequest request, string connectionId)
         {
-            request.EnableBuffering();
+            if (request.Body.CanSeek is false)
+            {
+                request.EnableBuffering();
+            }
 
             var requestBody = await new StreamReader(request.Body)
                 .ReadToEndAsync();
