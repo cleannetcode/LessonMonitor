@@ -38,14 +38,19 @@ namespace LessonMonitor.API.Services
 
             if (request.ContentLength > 0 && request.Body.CanRead)
             {
-                var stream = new MemoryStream();
+                using var stream = new MemoryStream();
+
+                request.EnableBuffering();
+
                 await request.Body
-                    .CopyToAsync(stream)
-                    .ConfigureAwait(false);
+                .CopyToAsync(stream)
+                .ConfigureAwait(false);
 
                 stream.Position = 0;
                 requestContent = await new StreamReader(stream, Encoding.UTF8)
                     .ReadToEndAsync();
+
+                request.Body.Position = 0;
             }
 
             return requestContent;
