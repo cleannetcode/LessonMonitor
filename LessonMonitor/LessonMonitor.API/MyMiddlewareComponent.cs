@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using LessonMonitor.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LessonMonitor.API
 {
@@ -12,9 +14,13 @@ namespace LessonMonitor.API
             _next = next;
         }
 
-        public Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, [FromServices] IHttpLogger logger)
         {
-            return _next(context);
+            var connectionId = context.Connection.Id;
+
+            await logger.LogRequestAsync(context.Request, connectionId);
+            await logger.LogResponseAsync(context.Response, connectionId);
+            await _next(context);
         }
     }
 }
