@@ -22,6 +22,9 @@ CREATE TABLE DateofReceivingAchivment
 	StudentID INT FOREIGN KEY REFERENCES Student(ID)
 )
 
+ALTER TABLE DateofReceivingAchivment
+ADD DateofReceivingAchivment DATETIME NOT NULL
+
 CREATE TABLE Skill
 (
 	ID INT PRIMARY KEY NOT NULL,
@@ -34,6 +37,9 @@ CREATE TABLE DateofReceivingSkill
 	SkillID INT FOREIGN KEY REFERENCES Skill(ID),
 	StudentID INT FOREIGN KEY REFERENCES Student(ID)
 )
+
+ALTER TABLE DateofReceivingSkill
+ADD DateofReceivingSkill DATETIME NOT NULL
 
 CREATE TABLE Lecture
 (
