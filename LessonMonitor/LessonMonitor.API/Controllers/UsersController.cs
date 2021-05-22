@@ -11,7 +11,7 @@ namespace LessonMonitor.API.Controllers
     {
         private readonly IUserRepository repository;
 
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
+        public UserCacheRepository(UserRepository repository, ICacheManager cacheManager)
         {
             this.repository = repository;
         }
@@ -31,7 +31,7 @@ namespace LessonMonitor.API.Controllers
     {
     }
 
-    public class UserRespository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         public User Get(string userName)
         {
@@ -43,11 +43,11 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UsersController(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -133,6 +133,12 @@ namespace LessonMonitor.API.Controllers
                 //    }
                 //}
             }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Store([FromBody] User user)
+        {
+            return Ok();
         }
     }
 }
