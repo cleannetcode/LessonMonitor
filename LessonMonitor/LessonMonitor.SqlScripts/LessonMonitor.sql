@@ -26,6 +26,7 @@ CREATE TABLE dbo.Achievements (
 CREATE TABLE dbo.Lectures (
     Id INT NOT NULL IDENTITY(1,1),
     Name NVARCHAR(50) NOT NULL,
+    Date DATETIME2 NOT NULL,
     CONSTRAINT PK_Lectures PRIMARY KEY (Id)
 )
 
