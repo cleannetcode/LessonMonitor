@@ -8,8 +8,9 @@ namespace LessonMonitor.DataAccess
 
         public string Name { get; set; }
 
-        public int Age { get; set; }
+        public string Nicknames { get; set; }
 
+        public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -11,12 +11,10 @@ namespace LessonMonitor.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUsersService _usersService;
-        private readonly IUsersRepository _usersRepository;
 
-        public UsersController(IUsersService usersService, IUsersRepository usersRepository)
+        public UsersController(IUsersService usersService)
         {
             _usersService = usersService;
-            _usersRepository = usersRepository;
         }
 
         [HttpGet]
@@ -26,29 +24,33 @@ namespace LessonMonitor.API.Controllers
 
             var userCore = users.SingleOrDefault(f => f.Name == userName);
 
-            if (userCore == null) throw new Exception("User not found");
+            if (userCore == null) throw new Exception("Such a user isn't found.");
 
             var user = new User
             {
-                Age = userCore.Age,
-                Name = userCore.Name
+                Name = userCore.Name,
+                Email = userCore.Email,
+                Nicknames = userCore.Nicknames 
             };
 
             return new[] { user };
         }
 
         [HttpPost]
-        public User Create(User newUser)
+        public Core.User Create(User newUser)
         {
             var user = new Core.User 
             {
-                Age = newUser.Age,
-                Name = newUser.Name
+                Name = newUser.Name,
+                Email = newUser.Email,
+                Nicknames = newUser.Nicknames,
+                CreatedDate = DateTime.Now
+
             };
 
             _usersService.Create(user);
 
-            return newUser;
+            return user;
         }
 
 

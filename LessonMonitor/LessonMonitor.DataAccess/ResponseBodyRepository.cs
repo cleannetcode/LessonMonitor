@@ -17,7 +17,7 @@ namespace LessonMonitor.DataAccess
         {
             var data = File.ReadAllText(_path);
 
-            if (string.IsNullOrEmpty(data)) throw new Exception("Null or Empty.");
+            if (string.IsNullOrEmpty(data)) throw new Exception("Data Null or Empty.");
 
             var dataRows = data.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 

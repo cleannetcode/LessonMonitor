@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
@@ -8,27 +9,28 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class TopicsController : ControllerBase
     {
-        public TopicsController() {}
+        private readonly ITopicsService _topicService;
+        public TopicsController(ITopicsService topicsService) 
+        {
+            _topicService = topicsService;
+        }
 
         [HttpPost]
-        public Topic[] Add(string theme)
+        public Core.Topic Create(string theme)
         {
             if (string.IsNullOrEmpty(theme))
             {
-                throw new ArgumentException($"'{nameof(theme)}' cannot be null or empty.", nameof(theme));
+                throw new ArgumentException($"'{nameof(theme)}' can't be null or empty.", nameof(theme));
             }
 
-            var topics = new List<Topic>();
-
-            var topic = new Topic
+            var topic = new Core.Topic
             {
-                Id = Guid.NewGuid(),
                 Theme = "#" + theme
             };
 
-            topics.Add(topic);
+            _topicService.Create(topic);
 
-            return topics.ToArray();
+            return topic;
         }
     }
 }

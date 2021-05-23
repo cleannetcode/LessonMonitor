@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -8,41 +10,64 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class QuestionsController : ControllerBase
     {
-        public QuestionsController() { }
+        private readonly IQuestionsService _questionsService;
+        private readonly IUsersService _usersService;
+        public QuestionsController(IUsersService usersService, IQuestionsService questionsService)
+        {
+            _usersService = usersService;
+            _questionsService = questionsService;
+        }
 
         [HttpPost]
-        public Question[] Add(string question)
+        public Core.Question Create(string userName, string question)
         {
+            if (string.IsNullOrEmpty(userName))
+            {
+                throw new ArgumentException($"'{nameof(userName)}' can't be null or empty.", nameof(userName));
+            }
+
+            var users = _usersService.Get();
+
+            var userCore = users.SingleOrDefault(f => f.Name == userName);
+
+            if (userCore == null) throw new Exception("Such a user isn't found.");
+
             if (string.IsNullOrEmpty(question))
             {
-                throw new ArgumentException($"'{nameof(question)}' cannot be null or empty.", nameof(question));
+                throw new ArgumentException($"'{nameof(question)}' can't be null or empty.", nameof(question));
             }
+
+            var questionModel = new Core.Question
+            {
+                Description = question,
+                CreateTime = DateTime.Now,
+                User = userCore
+            };
+
+            _questionsService.Create(questionModel);
+
+            return questionModel;
+        }
+
+        [HttpGet]
+        public Question[] Get()
+        {
+            var coreQuestions = _questionsService.Get();
+
+            if (coreQuestions == null || coreQuestions.Length == 0) throw new Exception("Array of questions isn't found.");
 
             var questions = new List<Question>();
 
-            var topic = new Topic
+            foreach (var question in coreQuestions)
             {
-                Id = Guid.NewGuid(),
-                Theme = "#Controllers"
-            };
+                var newQuestion = new Question
+                {
+                    Description = question.Description,
+                    CreateTime = question.CreateTime
+                };
 
-            var user = new User
-            {
-                //Id = Guid.NewGuid(),
-                Name = "Roman",
-                Age = 25
-            };
-
-            var newQuestion = new Question
-            {
-                Id = Guid.NewGuid(),
-                Description = question,
-                CreateTime = DateTime.Now,
-                Topic = topic,
-                User = user
-            };
-
-            questions.Add(newQuestion);
+                questions.Add(newQuestion);
+            }
 
             return questions.ToArray();
         }

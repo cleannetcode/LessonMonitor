@@ -1,45 +1,44 @@
 ﻿using LessonMonitor.Core;
 using System;
+using System.Linq;
 
 namespace LessonMonitor.DataAccess
 {
     public class UsersRepository : IUsersRepository
     {
-        public UsersRepository()
-        {
-
-        }
+        public UsersRepository() {}
 
         public Core.User[] Get()
         {
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                Name = "Test",
-                Age = 22
-            };
+            using SqlDbContext _context = new SqlDbContext();
 
-            return new[] {
-                new Core.User
+            return _context.Users.Select(f => 
+                new Core.User() 
                 {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Age = user.Age
+                    Id = f.Id,
+                    Name = f.Name,
+                    Email = f.Email,
+                    Nicknames = f.Nicknames,
+                    CreatedDate = f.CreatedDate
                 }
-            };
+                ).ToArray();
         }
 
         public void Create(Core.User user)
         {
-            var newUser = new User
+            using SqlDbContext _context = new SqlDbContext();
+
+            var newUser = new DataAccess.User
             {
-                Id = Guid.NewGuid(),
+                Id = user.Id,
                 Name = user.Name,
-                Age = user.Age,
+                Email = user.Email,
                 CreatedDate = DateTime.Now
             };
 
+            _context.Users.Add(newUser);
 
+            _context.SaveChanges();
         }
     }
 }

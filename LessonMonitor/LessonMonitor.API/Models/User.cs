@@ -8,10 +8,11 @@ namespace LessonMonitor.API
         [Required]
         public string Name { get; set; }
 
+        public string Nicknames { get; set; }
+
         [Required]
-        [Range(1, 100)]
-        [Display]
-        public int Age { get; set; }
+        public string Email { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Description("Test Method")]
         public void Test([Description("First parameter")] string value)

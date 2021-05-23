@@ -20,7 +20,9 @@ namespace LessonMonitor.BussinesLogic
 
         public void Create(User user)
         {
-            if (user == null) throw new Exception("User not found");
+            if (user == null) throw new Exception("Such a user isn't found.");
+
+            user.Id = Guid.NewGuid();
 
             _usersRepository.Create(user);
         }
