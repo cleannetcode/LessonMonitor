@@ -28,7 +28,7 @@ namespace LessonMonitor.API.Controllers
 
             var user = new User
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
                 Name = "Roman",
                 Age = 25
             };

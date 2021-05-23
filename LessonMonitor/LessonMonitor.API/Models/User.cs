@@ -5,8 +5,6 @@ namespace LessonMonitor.API
     [Description("User class")]
     public class User
     {
-        public Guid Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 

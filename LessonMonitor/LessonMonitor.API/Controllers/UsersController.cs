@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -9,29 +10,47 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        public UsersController() { }
+        private readonly IUsersService _usersService;
+        private readonly IUsersRepository _usersRepository;
+
+        public UsersController(IUsersService usersService, IUsersRepository usersRepository)
+        {
+            _usersService = usersService;
+            _usersRepository = usersRepository;
+        }
 
         [HttpGet]
         public User[] Get(string userName)
         {
-            var random = new Random();
-            var users = new List<User>();
+            var users = _usersService.Get();
 
-            for (int i = 0; i < 10; i++)
+            var userCore = users.SingleOrDefault(f => f.Name == userName);
+
+            if (userCore == null) throw new Exception("User not found");
+
+            var user = new User
             {
+                Age = userCore.Age,
+                Name = userCore.Name
+            };
 
-                var user = new User
-                {
-                    Id = Guid.NewGuid(),
-                    Name = userName + "-" + i,
-                    Age = random.Next(20, 51)
-                };
-
-                users.Add(user);
-            }
-
-            return users.ToArray();
+            return new[] { user };
         }
+
+        [HttpPost]
+        public User Create(User newUser)
+        {
+            var user = new Core.User 
+            {
+                Age = newUser.Age,
+                Name = newUser.Name
+            };
+
+            _usersService.Create(user);
+
+            return newUser;
+        }
+
 
         [HttpGet("model")]
         public void GetModel([FromQuery]User user)
