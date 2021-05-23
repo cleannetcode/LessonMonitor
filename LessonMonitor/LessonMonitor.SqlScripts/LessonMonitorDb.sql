@@ -88,3 +88,22 @@ CREATE TABLE [MembersAchievements]
     CONSTRAINT [FK_MembersAchievements_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
     CONSTRAINT [FK_MembersAchievements_Achievements] FOREIGN KEY (AchievementId) REFERENCES Achievements(Id)
 )
+
+CREATE TABLE [Lessons]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1,1), 
+    [Title] NVARCHAR(200) NOT NULL, 
+    [Description] NVARCHAR(1000) NULL, 
+    [StartDate] DATETIME2 NULL, 
+    [CreatedDate] DATETIME2 DEFAULT GETDATE()
+)
+
+CREATE TABLE [MembersLessons]
+(
+    [MemberId] INT NOT NULL,
+	[LessonId] INT NOT NULL,
+	[CreatedDate] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT [PK_MemberId_LessonId] PRIMARY KEY (MemberId, LessonId),
+	CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
+	CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
+)
