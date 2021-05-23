@@ -541,3 +541,51 @@
     "successful": 1
   }
 },
+{
+  "ControllerName": "Questions",
+  "ActionName": "Add",
+  "Response": [
+    {
+      "id": "c03b9d8b-ab3f-47cb-8517-738190aa7c84",
+      "description": "DML ?",
+      "createTime": "2021-05-23T14:30:37.3740086+05:00",
+      "topic": {
+        "id": "865d1066-5c52-499b-8301-fe5fa9655321",
+        "theme": "#Controllers"
+      },
+      "user": {
+        "name": "Roman",
+        "age": 25
+      }
+    }
+  ]
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Add",
+  "Response": [
+    {
+      "id": "07259617-f28a-4432-af70-31b5036475f5",
+      "description": "T-SQL и DML, управляем данными ?",
+      "createTime": "2021-05-23T14:47:39.7405349+05:00",
+      "topic": {
+        "id": "63ac1a70-9545-410e-8f41-2299d4e5087e",
+        "theme": "#Controllers"
+      },
+      "user": {
+        "name": "Roman",
+        "age": 25
+      }
+    }
+  ]
+},
+{
+  "ControllerName": "Topics",
+  "ActionName": "Add",
+  "Response": [
+    {
+      "id": "a841e3b0-5e99-4335-a66b-95f9f63562de",
+      "theme": "#T-SQL DML"
+    }
+  ]
+},

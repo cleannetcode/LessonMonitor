@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LessonMonitor.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -6,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace LessonMonitor.API.Service
+namespace LessonMonitor.DataAccess
 {
-    public class ResponseBodyWriter : IResponseBodyWriter
+    public class ResponseBodyRepository : IResponseBodyRepository
     {
         private readonly string _path = "logs.json";
 
@@ -30,17 +31,13 @@ namespace LessonMonitor.API.Service
             return result.ToArray();
         }
 
-        public void SaveHttpContextLogs(string response, HttpContext context)
+        public void SaveHttpContextLogs(string response, HttpContext context, ControllerActionDescriptor actionDescriptor)
         {
             dynamic responseBody = JsonConvert.DeserializeObject(response);
 
-            var actionDesc = context.GetEndpoint()
-                   .Metadata
-                   .GetMetadata<ControllerActionDescriptor>();
-
             var newJson = new JObject();
-            newJson["ControllerName"] = $"{actionDesc.ControllerName}";
-            newJson["ActionName"] = $"{actionDesc.ActionName}";
+            newJson["ControllerName"] = $"{actionDescriptor.ControllerName}";
+            newJson["ActionName"] = $"{actionDescriptor.ActionName}";
             newJson["Response"] = responseBody;
 
             var result = newJson.ToString() + ",\n";

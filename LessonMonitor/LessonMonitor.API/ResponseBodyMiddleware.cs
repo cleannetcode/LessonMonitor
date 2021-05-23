@@ -1,6 +1,6 @@
-﻿
-using LessonMonitor.API.Service;
+﻿using LessonMonitor.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace LessonMonitor.API
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IResponseBodyWriter service)
+        public async Task Invoke(HttpContext context, IResponseBodyRepository service)
         {
             Stream originalBody = context.Response.Body;
 
@@ -30,7 +30,11 @@ namespace LessonMonitor.API
 
                     var responseBody = new StreamReader(memStream).ReadToEnd();
 
-                    service.SaveHttpContextLogs(responseBody, context);
+                    var actionDesc = context.GetEndpoint()
+                                  .Metadata
+                                  .GetMetadata<ControllerActionDescriptor>();
+
+                    service.SaveHttpContextLogs(responseBody, context, actionDesc);
 
                     memStream.Position = 0;
                     await memStream.CopyToAsync(originalBody);
