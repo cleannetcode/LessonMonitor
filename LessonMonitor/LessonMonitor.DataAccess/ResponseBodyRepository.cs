@@ -35,10 +35,12 @@ namespace LessonMonitor.DataAccess
         {
             dynamic responseBody = JsonConvert.DeserializeObject(response);
 
-            var newJson = new JObject();
-            newJson["ControllerName"] = $"{actionDescriptor.ControllerName}";
-            newJson["ActionName"] = $"{actionDescriptor.ActionName}";
-            newJson["Response"] = responseBody;
+            var newJson = new JObject
+            {
+                ["ControllerName"] = $"{actionDescriptor.ControllerName}",
+                ["ActionName"] = $"{actionDescriptor.ActionName}",
+                ["Response"] = responseBody
+            };
 
             var result = newJson.ToString() + ",\n";
 

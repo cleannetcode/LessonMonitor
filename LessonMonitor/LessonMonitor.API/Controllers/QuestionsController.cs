@@ -19,7 +19,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost]
-        public Core.Question Create(string userName, string question)
+        public IActionResult Create(string userName, string question)
         {
             if (string.IsNullOrEmpty(userName))
             {
@@ -46,7 +46,7 @@ namespace LessonMonitor.API.Controllers
 
             _questionsService.Create(questionModel);
 
-            return questionModel;
+            return Ok(new { Successful = "Question is created" });
         }
 
         [HttpGet]

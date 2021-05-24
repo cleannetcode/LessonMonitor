@@ -1,9 +1,5 @@
 ﻿using LessonMonitor.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess
 {
@@ -36,6 +32,7 @@ namespace LessonMonitor.DataAccess
             new Core.Question()
             {
                 Id = q.Id,
+                UserId = q.UserId,
                 Description = q.Description,
                 CreateTime = q.CreateTime
             }

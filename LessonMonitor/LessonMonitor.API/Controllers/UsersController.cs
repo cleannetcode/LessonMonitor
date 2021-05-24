@@ -37,20 +37,20 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost]
-        public Core.User Create(User newUser)
+        public IActionResult Create(string Name, string Email, string Nicknames)
         {
-            var user = new Core.User 
+            var user = new Core.User
             {
-                Name = newUser.Name,
-                Email = newUser.Email,
-                Nicknames = newUser.Nicknames,
+                Name = Name,
+                Email = Email,
+                Nicknames = Nicknames,
                 CreatedDate = DateTime.Now
 
             };
 
             _usersService.Create(user);
 
-            return user;
+            return Ok(new { Successful = "User is created" });
         }
 
 

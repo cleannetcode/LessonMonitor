@@ -16,7 +16,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost]
-        public Core.Topic Create(string theme)
+        public IActionResult Create(string theme)
         {
             if (string.IsNullOrEmpty(theme))
             {
@@ -30,7 +30,7 @@ namespace LessonMonitor.API.Controllers
 
             _topicService.Create(topic);
 
-            return topic;
+            return Ok( new { Successful = "New Topic is created" });
         }
     }
 }

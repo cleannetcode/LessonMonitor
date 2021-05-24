@@ -14,7 +14,7 @@ namespace LessonMonitor.API
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IResponseBodyRepository service)
+        public async Task Invoke(HttpContext context, IResponseBodyRepository _responseBodyRepository)
         {
             Stream originalBody = context.Response.Body;
 
@@ -34,7 +34,7 @@ namespace LessonMonitor.API
                                   .Metadata
                                   .GetMetadata<ControllerActionDescriptor>();
 
-                    service.SaveHttpContextLogs(responseBody, context, actionDesc);
+                    _responseBodyRepository.SaveHttpContextLogs(responseBody, context, actionDesc);
 
                     memStream.Position = 0;
                     await memStream.CopyToAsync(originalBody);

@@ -17,6 +17,7 @@ namespace LessonMonitor.BussinesLogic
             if (question == null) throw new Exception("Such a question isn't found.");
 
             question.Id = Guid.NewGuid();
+            question.UserId = question.User.Id;
 
             _questionsRepository.Create(question);
         }
