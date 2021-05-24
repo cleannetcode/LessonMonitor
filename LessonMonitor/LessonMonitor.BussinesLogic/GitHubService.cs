@@ -22,6 +22,8 @@ namespace LessonMonitor.BussinesLogic
         {
             if (string.IsNullOrEmpty(nickname)) throw new Exception("Parameter is empty");
 
+            nickname.Trim();
+
             HttpWebRequest webRequest = System.Net.WebRequest.Create($"https://api.github.com/users/{nickname}") as HttpWebRequest;
 
             if (webRequest != null)

@@ -763,3 +763,48 @@
     "link": "https://github.com/AshtonBro"
   }
 },
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": "Evgenii Solovev",
+    "nickname": "AshtonBro",
+    "link": "https://github.com/AshtonBro"
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": null,
+    "nickname": "Misha902",
+    "link": "https://github.com/Misha902"
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": null,
+    "nickname": "coder1coder",
+    "link": "https://github.com/coder1coder"
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": null,
+    "nickname": "coder1coder",
+    "link": "https://github.com/coder1coder"
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": "Alexander",
+    "nickname": "trulander",
+    "link": "https://github.com/trulander"
+  }
+},
