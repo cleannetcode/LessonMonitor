@@ -1,5 +1,4 @@
-﻿//using LessonMonitor.API.Models;
-using LessonMonitor.BusinessLogic;
+﻿using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess.InMemory;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +18,7 @@ namespace LessonMonitor.API.Controllers
 
             _skillService = new SkillService(skillRepository);
         }
-
+        
         [HttpGet("GetById")]
         public Models.Skill GetById(int id)
         {
@@ -32,7 +31,7 @@ namespace LessonMonitor.API.Controllers
                 Title = skill.Title
             };
         }
-
+        
         [HttpGet("GetAllSkills")]
         public Models.Skill[] GetAllSkills()
         {
@@ -50,7 +49,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost("AddSkill")]
-        public Models.Skill AddSkill(Models.Request.Skill skill)
+        public Models.Skill AddSkill(Models.Request.SkillDto skill)
         {
             var addedSkill = _skillService.Add(new Core.Models.Skill()
             {
@@ -65,7 +64,7 @@ namespace LessonMonitor.API.Controllers
                 ParentId = addedSkill.ParentId
             };
         }
-
+        
         [HttpDelete("RemoveSkill")]
         public bool RemoveSkill(Models.Skill skill)
         {

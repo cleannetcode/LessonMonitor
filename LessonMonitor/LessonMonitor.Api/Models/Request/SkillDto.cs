@@ -2,7 +2,7 @@
 
 namespace LessonMonitor.API.Models.Request
 {
-    public class Skill
+    public class SkillDto
     {
         [Required]
         [MaxLength(250)]
