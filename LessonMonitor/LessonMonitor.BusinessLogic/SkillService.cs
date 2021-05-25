@@ -3,7 +3,7 @@ using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.BusinessLogic
 {
-    public class SkillService
+    public class SkillService : ISkillService
     {
         private readonly ISkillRepository _skillRepository;
 

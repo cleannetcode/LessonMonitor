@@ -1,4 +1,5 @@
-﻿using LessonMonitor.BusinessLogic;
+﻿//using LessonMonitor.API.Models;
+using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess.InMemory;
 using Microsoft.AspNetCore.Mvc;
@@ -49,11 +50,10 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost("AddSkill")]
-        public Models.Skill AddSkill(Models.Skill skill)
+        public Models.Skill AddSkill(Models.Request.Skill skill)
         {
             var addedSkill = _skillService.Add(new Core.Models.Skill()
             {
-                Id = skill.Id,
                 Title = skill.Title,
                 ParentId = skill.ParentId
             });
