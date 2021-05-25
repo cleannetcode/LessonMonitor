@@ -1,10 +1,7 @@
 ﻿using LessonMonitor.Core;
 using LessonMonitor.Core.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess.InMemory
 {
@@ -56,22 +53,6 @@ namespace LessonMonitor.DataAccess.InMemory
             }).ToArray();
         }
 
-        // Не нравится реализация данного метода.
-        // Может быть нужно было использоваться какой то DTO без поля id, который принимает данный метод?
-        // Здесь я не могу использовать SkillEntity т.к. интерфейс ISkillRepository расположен в LessonMonitor.Core
-        // и у данного проект установлена зависимость на LessonMonitor.Core
-        // Добавить зависимость в LessonMonitor.Core на LessonMonitor.DataAccess.InMemory нельзя т.к. возникает ошибка
-        /*
-        ---------------------------
-        Microsoft Visual Studio
-        ---------------------------
-        A reference to 'LessonMonitor.DataAccess.InMemory' could not be added. Adding this project as a reference would cause a circular dependency.
-        ---------------------------
-        ОК   
-        ---------------------------
-         */
-        // в связи с этим вопрос: вообще правильно ли так делать? или что то я не понимаю и надо ещё понять
-        // Может быть надо DTO положить в какой то отдельный слой? Для чего это будет нужно?
         public Skill Add(Skill skill)
         {
             int nextId = skills.Max(s => s.Id) + 1;
