@@ -38,7 +38,7 @@ namespace LessonMonitor.DataAccess.InMemory
             if (foundSkill == null)
                 return null;
 
-            return new Core.Skill
+            return new Core.Models.Skill
             {
                 Id = foundSkill.Id,
                 Title = foundSkill.Title,
@@ -48,7 +48,7 @@ namespace LessonMonitor.DataAccess.InMemory
 
         public Skill[] GetAll()
         {
-            return skills.Select(s=> new Core.Skill()
+            return skills.Select(s=> new Core.Models.Skill()
             {
                 Id = s.Id,
                 Title = s.Title,

@@ -20,7 +20,7 @@ namespace LessonMonitor.DataAccess
             };
 
             return new[] {
-                new Core.User
+                new Core.Models.User
                 {
                     Name = user.Name,
                     Age = user.Age
