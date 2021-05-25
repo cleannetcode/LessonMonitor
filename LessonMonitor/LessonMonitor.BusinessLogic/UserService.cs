@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

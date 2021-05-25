@@ -3,6 +3,8 @@ using System;
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
+using LessonMonitor.API.Models;
+using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -20,19 +22,19 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet]
-        public User[] Get(string userName)
+        public Models.User[] Get(string userName)
         {
             var user = _userService.Get();
 
-            var result = new User();
+            var result = new Models.User();
 
             return new[] { result };
         }
 
         [HttpPost]
-        public User Create(User newUser)
+        public Models.User Create(Models.User newUser)
         {
-            var user = new Core.User()
+            var user = new Core.Models.User()
             {
                 Age = newUser.Age,
                 Name = newUser.Name
@@ -44,7 +46,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet("model")]
-        public void GetModel([FromQuery] User user)
+        public void GetModel([FromQuery] Models.User user)
         {
             var model = user.GetType();
 

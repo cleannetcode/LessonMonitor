@@ -1,6 +1,6 @@
 using System;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.API.Models
 {
     /// <summary>
     /// WeatherForecast

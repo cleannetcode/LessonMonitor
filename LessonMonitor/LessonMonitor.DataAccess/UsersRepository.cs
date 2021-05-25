@@ -10,7 +10,7 @@ namespace LessonMonitor.DataAccess
 
         }
 
-        public Core.User[] Get()
+        public Core.Models.User[] Get()
         {
             var user = new User()
             {
@@ -28,7 +28,7 @@ namespace LessonMonitor.DataAccess
             };
         }
 
-        public void Create(Core.User user)
+        public void Create(Core.Models.User user)
         {
 
         }
