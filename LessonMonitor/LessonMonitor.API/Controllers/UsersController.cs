@@ -30,10 +30,17 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost]
-        public void Create(User newUser)
+        public User Create(User newUser)
         {
-            var user = new User();
+            var user = new Core.User()
+            {
+                Age = newUser.Age,
+                Name = newUser.Name
+            };
+
             _userService.Create(user);
+
+            return newUser;
         }
 
         [HttpGet("model")]

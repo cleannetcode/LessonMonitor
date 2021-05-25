@@ -3,6 +3,6 @@
     public interface IUserService
     {
         void Create(object user);
-        object[] Get();
+        User[] Get();
     }
 }

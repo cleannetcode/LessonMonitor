@@ -16,7 +16,7 @@ namespace LessonMonitor.BusinessLogic
             _userRepository = userRepository;
         }
 
-        public object[] Get()
+        public User[] Get()
         {
             var users = _userRepository.Get();
 
