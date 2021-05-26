@@ -18,7 +18,7 @@ CREATE TABLE [Questions]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (4, 2),
 	[MemberId] INT NOT NULL,
-	[Discription] NVARCHAR(MAX) NOT NULL, 
+	[Description] NVARCHAR(MAX) NOT NULL, 
 	[CreatedDate] DATETIME2 DEFAULT GETDATE(),
 	CONSTRAINT [FK_Questions_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
 )
@@ -66,62 +66,74 @@ INSERT Members (Name, Nicknames, Email, CreateDate)
 VALUES (N'Andrey', N'eniluck', N'eniluck@gmail.com', '2021-05-22T00:07:50.4079379+05:00')
 INSERT Members (Name, Nicknames, Email, CreateDate)
 VALUES (N'Evgeniya', N'emedvedeva', N'emedvedeva@gmail.com', '2021-05-22T00:07:50.4079379+05:00')
+INSERT Members (Name, Nicknames, Email, CreateDate)
+VALUES (N'Nehochuha', N'Nehochuha', N'nlodir@gmail.com', '2021-05-21T00:07:50.4079379+05:00')
+INSERT Members (Name, Nicknames, Email, CreateDate)
+VALUES (N'Danya', N'DanyeIIo', N'danyeIIo@gmail.com', '2021-05-21T00:07:50.4079379+05:00')
+INSERT Members (Name, Nicknames, Email, CreateDate)
+VALUES (N'Mike', N'Dead 5thjuly', N'5thjulyr@gmail.com', '2021-07-05T00:07:50.4079379+05:00')
 
 -- Заполняем таблицу Questions
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (1, N'Что такое рекурсия?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (1, N'Какая разница между GET и POST HTTP методами?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (1, N'Что такое JSON?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (1, N'Какую проблему решает Docker? Каковы его плюсы и минусы?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Чем принципиально отличаются unit-тесты от интеграционных тестов?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое Exception?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N' Для чего служат try, catch, finally? В каком случае может не выполниться блок finally?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (3, N'Что такое call stack? Какие ключевые слова вы знаете?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (3, N'Что такое ASP.NET?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (3, N'Какие существуют типы Action filters?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (3, N'Что такое Web Service?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N'Что такое CLR?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N'Что такое сборщик мусора (Garbage Collector) на базовом уровне?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N'Что такое делегат?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N'Отличается ли Delegate от Action?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое LINQ и для чего используется? Приведите несколько примеров применения LINQ', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое пространство имен (namespace) и зачем это нужно?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое Nullable-тип?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Чем отличается абстрактный класс от интерфейса?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Что такое IaaS, PaaS, SaaS и каковы различия между ними?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Что такое асинхронность и чем она отличается от многопоточности?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Какие знаете паттерны?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Для чего нужен паттерн Strategy?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (7, N'Какое различие между const и read only?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (7, N'Что такое асинхронность и чем она отличается от многопоточности?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (7, N'Что означают ключевые слова async / await?', GETDATE())
-INSERT Questions (MemberId, Discription, CreatedDate)
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (7, N'Какие типы JOIN существуют в SQL?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (9, N'кто такой junior?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (9, N'Какая зарплата у разработчика?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (9, N'Как долго будут идти уроки?', GETDATE())
 
 -- Заполняем таблицу Lessons
 INSERT Lessons (Title, Description, StartDate, CreatedDate)
@@ -551,3 +563,100 @@ INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 93, GETDATE())
 INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 98, GETDATE())
+
+INSERT MembersLessons (MemberId, LessonId, CreatedDate)
+VALUES (10, 93, GETDATE())
+INSERT MembersLessons (MemberId, LessonId, CreatedDate)
+VALUES (10, 98, GETDATE())
+
+-- Динамическое заполнение данных
+INSERT INTO MembersLessons(MemberId, LessonId, CreatedDate)
+SELECT Id, 3, GETDATE() FROM Members
+
+INSERT INTO MembersLessons(MemberId, LessonId, CreatedDate)
+SELECT Id, 8, GETDATE() FROM Members
+
+INSERT INTO MembersLessons(MemberId, LessonId, CreatedDate)
+SELECT Id, 13, GETDATE() FROM Members
+
+-- UPDATE
+UPDATE Timecodes
+SET Timecodes.Description = 'Вводный данные (UPDATE)'
+WHERE Id = 2
+
+UPDATE Questions
+SET Description  = 'Какие существуют типы Filters в ASP.NET? (UPDATE)'
+WHERE Id = 22
+
+-- Имя участника
+SELECT Name FROM Members
+
+-- Название урока
+SELECT Description FROM Lessons
+
+-- Кол-во вопросов
+SELECT COUNT(Id) as 'Кол-во вопросов' FROM Questions
+
+-- Кол-во таймкодов
+SELECT COUNT(Id) as 'Кол-во таймкодов' FROM Timecodes
+
+-- Кол-во посещенных занятий
+SELECT COUNT(MemberId) as 'кол-во посещенных занятий' FROM MembersLessons
+
+-- Подсчёт кол-во уроков каждой категории GROUP BY
+SELECT Title, COUNT(Id) as 'Кол-во уроков' FROM Lessons
+GROUP BY Title
+
+-- DISTINCT возвращает только уникальные значения
+SELECT DISTINCT Title FROM Lessons
+
+-- Темы урока и их кол-во по темам
+SELECT DISTINCT Title, COUNT(Title) as 'Кол-во пройденных лекция по темам' FROM Lessons
+GROUP By Title
+
+-- Сортитовка по дате
+SELECT * FROM Lessons l
+WHERE l.CreatedDate > '2021-05-24 00:48:21.8733333'
+
+SELECT * FROM Lessons l
+WHERE l.CreatedDate < GETDATE()
+
+-- Количество посещений каждого участника
+SELECT m.Name, COUNT(ml.LessonId) as 'Кол-во посещений' FROM Members m
+LEFT JOIN MembersLessons ml ON m.Id = ml.MemberId
+GROUP BY m.Name, m.Id
+
+-- Количество таймокодов у каждой лекции
+SELECT l.Description, COUNT(t.Timecode) as 'Кол-во таймкодов у каждого урока' from Lessons l
+LEFT JOIN Timecodes t ON l.Id = t.LessonId
+GROUP BY l.Description
+
+-- Собираем таймкод для конкретного занятия
+SELECT t.Timecode, t.[Description] FROM Timecodes t
+LEFT JOIN Lessons l ON l.Id = t.LessonId
+WHERE l.Id = 13
+
+SELECT t.Timecode, t.[Description] FROM Timecodes t
+LEFT JOIN Lessons l ON l.Id = t.LessonId
+WHERE l.Id IN (13, 38, 73, 58)
+
+-- Собираем таймкод для конкретных занятий у которых в описании присутствует выражение C# 
+SELECT t.Timecode, t.[Description] FROM Timecodes t
+LEFT JOIN Lessons l ON l.Id = t.LessonId
+WHERE l.id IN (SELECT Id FROM Lessons le
+WHERE le.Description like '%C#%')
+
+-- Практика JOIN 
+SELECT
+m.[Name],
+m.Nicknames,
+l.Title,
+l.[Description],
+q.Discription,
+t.Timecode
+
+FROM Members m
+LEFT JOIN MembersLessons ml on m.Id = ml.MemberId
+LEFT JOIN Lessons l on l.Id = ml.LessonId
+LEFT JOIN Timecodes t on t.LessonId = ml.LessonId
+LEFT JOIN Questions q on q.MemberId = m.Id
