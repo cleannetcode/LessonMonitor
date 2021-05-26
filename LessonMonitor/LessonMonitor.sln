@@ -9,13 +9,13 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{DE2AA10A-F3C0-444A-8211-42709A44F396}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BusinessLogic", "LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj", "{DE0EDC94-CBD5-46AE-95B4-8E23EF30C868}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic", "LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj", "{DE0EDC94-CBD5-46AE-95B4-8E23EF30C868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DataAccess", "LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj", "{D154A998-5835-43C2-8D89-9AD2273CA7E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess", "LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj", "{D154A998-5835-43C2-8D89-9AD2273CA7E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{29242F4F-1D73-41FD-A59B-69BEA3853585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{29242F4F-1D73-41FD-A59B-69BEA3853585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DataAccess.InMemory", "LessonMonitor.DataAccess.InMemory\LessonMonitor.DataAccess.InMemory.csproj", "{4C11502A-BAC8-496F-A4D9-AA1597EB1833}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.InMemory", "LessonMonitor.DataAccess.InMemory\LessonMonitor.DataAccess.InMemory.csproj", "{4C11502A-BAC8-496F-A4D9-AA1597EB1833}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
