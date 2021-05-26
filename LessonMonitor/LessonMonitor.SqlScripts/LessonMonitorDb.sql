@@ -107,3 +107,11 @@ CREATE TABLE [MembersLessons]
 	CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
 	CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
+
+CREATE TABLE [Timecodes]
+(
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY (1,1),
+    [LessonId] INT NOT NULL,
+    [Timecode] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT [FK_Timecodes_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
+)

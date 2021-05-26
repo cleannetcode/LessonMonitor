@@ -67,6 +67,6 @@
     <None Include="LessonMonitorDbNF.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FillBD.sql" />
+    <None Include="LessonDb.sql" />
   </ItemGroup>
 </Project>
