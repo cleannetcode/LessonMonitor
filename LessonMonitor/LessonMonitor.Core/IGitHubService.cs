@@ -1,7 +1,9 @@
-﻿namespace LessonMonitor.Core
+﻿using LessonMonitor.Core.Models;
+
+namespace LessonMonitor.Core
 {
     public interface IGitHubService
     {
-        object[] GetSomeData();
+        public GitHubUser GetUserByLogin(string login);
     }
 }

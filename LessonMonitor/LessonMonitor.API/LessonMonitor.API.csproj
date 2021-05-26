@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj" />
+    <ProjectReference Include="..\LessonMonitor.Core\LessonMonitor.Core.csproj" />
     <ProjectReference Include="..\LessonMonitor.DataAccess.InMemory\LessonMonitor.DataAccess.InMemory.csproj" />
     <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
   </ItemGroup>
