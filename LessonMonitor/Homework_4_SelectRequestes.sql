@@ -1,4 +1,4 @@
-use Homework_4
+п»їuse Homework_4
 
 SELECT *FROM Students 
 WHERE TypeAccount IN ('Watcher', 'Admin')
@@ -8,18 +8,18 @@ SELECT DISTINCT TOPIC FROM Questions
 SELECT Nickname FROM Students
 SELECT Name From Lessons
 
---кол-во вопросов и таймкодов
+--РєРѕР»-РІРѕ РІРѕРїСЂРѕСЃРѕРІ Рё С‚Р°Р№РјРєРѕРґРѕРІ
 SELECT COUNT (*) AS CountQuestion FROM Questions
 SELECT COUNT (*) AS CountTimecodes FROM Timecodes
 
---кол-во посещений уроков
+--РєРѕР»-РІРѕ РїРѕСЃРµС‰РµРЅРёР№ СѓСЂРѕРєРѕРІ
 SELECT LessonID, COUNT (*) AS CountVisit FROM VisitorsLessons
 GROUP BY LessonID
 
---уроки по дате
+--СѓСЂРѕРєРё РїРѕ РґР°С‚Рµ
 SELECT *FROM Lessons ORDER BY Date DESC
 
---таймкоды по уроку
+--С‚Р°Р№РјРєРѕРґС‹ РїРѕ СѓСЂРѕРєСѓ
 SELECT Timecodes.Name, Timecodes.Timecode, Lessons.Name AS LessonName
 FROM Timecodes
 INNER JOIN Lessons ON Lessons.ID = Timecodes.LessonId

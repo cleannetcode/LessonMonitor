@@ -1,7 +1,7 @@
-CREATE DATABASE Homework_4
+п»їCREATE DATABASE Homework_4
 USE Homework_4
 
---Таймкода, Вопросы, Уроки, Участники
+--РўР°Р№РјРєРѕРґР°, Р’РѕРїСЂРѕСЃС‹, РЈСЂРѕРєРё, РЈС‡Р°СЃС‚РЅРёРєРё
 CREATE TABLE Questions
 (
 	ID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
