@@ -2,11 +2,6 @@
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using Microsoft.AspNetCore.Mvc;
-using Octokit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -14,11 +9,11 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class GitHubController : Controller
     {
-        [HttpGet("GetUserByName")]
-        public ActionResult<GitHubUser> GetById(string nickname)
+        [HttpGet("GetUserByLogin")]
+        public ActionResult<GitHubUser> GetUserByLogin(string login)
         {
             IGitHubService gitHubService = new GitHubService();
-            var user = gitHubService.GetUserByLogin(nickname);
+            var user = gitHubService.GetUserByLogin(login);
 
             if (user == null)
                 return NotFound();
