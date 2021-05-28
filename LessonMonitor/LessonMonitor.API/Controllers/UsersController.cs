@@ -10,19 +10,19 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUsersService _usersService;
+        private readonly IUsersService _userService;
 
-        public UsersController()
+        public UsersController(IUsersService usersService)
         {
             IUsersRepository usersRepository = new UsersRepository();
 
-            IUsersService _usersService = new UsersService(usersRepository);
+            _userService = new UsersService(usersRepository);
         }
 
         [HttpGet]
         public User[] Get(string userName)
         {
-            IUsersService userService = _usersService;
+            IUsersService userService = _userService;
 
             var user = userService.Get();
 
@@ -33,7 +33,7 @@ namespace LessonMonitor.API.Controllers
         [HttpPost]
         public User Create(User newUser)
         {
-            IUsersService userService = _usersService;
+            IUsersService userService = _userService;
 
             var user = new Core.User();
 
