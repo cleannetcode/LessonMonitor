@@ -20,7 +20,7 @@ namespace LessonMonitor.BussinesLogic
 
         public GitInfo GetInfo(string nickname)
         {
-            if (string.IsNullOrEmpty(nickname)) throw new Exception("Parameter is empty");
+            if (string.IsNullOrEmpty(nickname)) throw new ArgumentNullException($"'{nameof(nickname)}' can't be null or empty.", nameof(nickname));
 
             nickname.Trim();
 

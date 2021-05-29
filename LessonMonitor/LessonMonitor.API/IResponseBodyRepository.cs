@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Collections.Generic;
 
-namespace LessonMonitor.Core
+namespace LessonMonitor.API
 {
     public interface IResponseBodyRepository
     {
