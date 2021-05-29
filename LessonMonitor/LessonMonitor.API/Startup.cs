@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LessonMonitor.Core.Interfaces;
+using LessonMonitor.Data;
+using LessonMonitor.Services;
 
 namespace LessonMonitor.API
 {
@@ -26,6 +29,10 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IHomeworkRepository, HomeworkRepository>();
+            services.AddScoped<IRandomizerService, RandomizerService>();
+            services.AddScoped<IHomeworkService, HomeworkService>();
+            services.AddScoped<IGithubService, GithubService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
