@@ -1,5 +1,4 @@
-﻿using LessonMonitor.Core;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.API
 {
     public class ResponseBodyRepository : IResponseBodyRepository
     {

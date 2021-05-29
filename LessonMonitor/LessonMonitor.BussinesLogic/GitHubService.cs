@@ -56,7 +56,12 @@ namespace LessonMonitor.BussinesLogic
                 }
                 catch
                 {
-                    throw new Exception("Not Deserializable.");
+                    return new Core.GitInfo
+                    {
+                        Name = null,
+                        Nickname = "Not found",
+                        Link = null,
+                    };
                 }
             }
 

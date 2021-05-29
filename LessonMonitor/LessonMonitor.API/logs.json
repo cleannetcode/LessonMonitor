@@ -808,3 +808,30 @@
     "link": "https://github.com/trulander"
   }
 },
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": "Evgenii Solovev",
+    "nickname": "AshtonBro",
+    "link": "https://github.com/AshtonBro"
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": null,
+    "nickname": "Not found",
+    "link": null
+  }
+},
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": "Roman Trufanov",
+    "nickname": "pingvin1308",
+    "link": "https://github.com/pingvin1308"
+  }
+},

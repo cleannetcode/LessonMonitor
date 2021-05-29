@@ -1,5 +1,4 @@
-﻿using LessonMonitor.Core;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.IO;
 using System.Threading.Tasks;
