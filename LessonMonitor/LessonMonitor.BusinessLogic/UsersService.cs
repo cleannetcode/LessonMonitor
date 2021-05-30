@@ -4,16 +4,22 @@ namespace LessonMonitor.BusinessLogic
 {
 	public class UsersService : IUsersService
 	{
-		private IUsersRepository _usersRepository;
+		private readonly IUsersRepository _usersRepository;
 
-		public UsersService(IUsersRepository usersRepository)
+		private readonly GithubClient _githubClient;
+
+		public UsersService(IUsersRepository usersRepository,
+			GithubClient githubClient)
 		{
 			_usersRepository = usersRepository;
+			_githubClient = githubClient;
 		}
 
 		public User[] Get()
 		{
 			var users = _usersRepository.Get();
+
+			var githubUser = _githubClient.Get("nickname");
 
 			return users;
 		}
@@ -24,5 +30,16 @@ namespace LessonMonitor.BusinessLogic
 		}
 	}
 
+	public class GithubClient
+	{
+		public GithubUser Get(string nickname)
+		{
+			return new GithubUser();
+		}
+	}
 
+	public class GithubUser
+	{
+
+	}
 }
