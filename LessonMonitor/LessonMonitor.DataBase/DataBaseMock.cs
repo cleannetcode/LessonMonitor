@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
+using LessonMonitor.Domain.Models.DataAccess;
 
 namespace LessonMonitor.DataBase
 {
-    public class DataBaseMook
+    public class DataBaseMock
     {
-        private List<UserDataLayer> _users;
-        public DataBaseMook()
+        public List<UserDataLayer> Users { get; };
+        public DataBaseMock()
         {
             for (int i = 0; i < 10; i++)
             {
                 var rand = new Random();
-                _users.Add(new UserDataLayer()
+                Users.Add(new UserDataLayer()
                 {
                     Id = i,
                     Age = rand.Next(1,100),
@@ -20,7 +21,10 @@ namespace LessonMonitor.DataBase
                 });
             }
         }
-    }
 
-    
+        public void AddUser(UserDataLayer user)
+        {
+            Users.Add(user);
+        }
+    }
 }

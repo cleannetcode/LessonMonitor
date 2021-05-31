@@ -5,11 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\BisinessLogic" />
-      <Folder Include="Interfaces\DataAccess" />
       <Folder Include="Interfaces\Presentation" />
-      <Folder Include="Models\BisinessLogic" />
-      <Folder Include="Models\Presentation" />
     </ItemGroup>
 
 </Project>
