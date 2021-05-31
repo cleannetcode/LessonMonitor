@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Interfaces\BisinessLogic" />
+      <Folder Include="Interfaces\DataAccess" />
+      <Folder Include="Interfaces\Presentation" />
+      <Folder Include="Models\BisinessLogic" />
+      <Folder Include="Models\Presentation" />
+    </ItemGroup>
+
+</Project>

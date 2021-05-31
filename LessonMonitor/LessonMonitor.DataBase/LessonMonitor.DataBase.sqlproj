@@ -57,4 +57,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataBaseMook.cs" />
+  </ItemGroup>
 </Project>
