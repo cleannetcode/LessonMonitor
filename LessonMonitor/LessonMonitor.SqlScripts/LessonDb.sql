@@ -18,7 +18,7 @@ CREATE TABLE [Questions]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (4, 2),
 	[MemberId] INT NOT NULL,
-	[Description] NVARCHAR(MAX) NOT NULL, 
+	[Description] NVARCHAR(300) NOT NULL, 
 	[CreatedDate] DATETIME2 DEFAULT GETDATE(),
 	CONSTRAINT [FK_Questions_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
 )
@@ -27,7 +27,7 @@ CREATE TABLE [Lessons]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (3,5), 
 	[Title] NVARCHAR(200) NOT NULL, 
-	[Description] NVARCHAR(1000) NULL, 
+	[Description] NVARCHAR(500) NULL, 
 	[StartDate] DATETIME2 NULL, 
 	[CreatedDate] DATETIME2 DEFAULT GETDATE()
 )
@@ -38,15 +38,15 @@ CREATE TABLE [MembersLessons]
 	[LessonId] INT NOT NULL,
 	[CreatedDate] DATETIME2 DEFAULT GETDATE(),
 	CONSTRAINT [PK_MemberId_LessonId] PRIMARY KEY (MemberId, LessonId),
-	CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
-	CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
+	CONSTRAINT [FK_MembersLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
+	CONSTRAINT [FK_MembersLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
 
 CREATE TABLE [Timecodes]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (2,4),
 	[LessonId] INT NOT NULL,
-	[Description] NVARCHAR(1000) NULL,
+	[Description] NVARCHAR(600) NULL,
 	[Timecode] TIME(3),
 	CONSTRAINT [FK_Timecodes_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
@@ -83,6 +83,8 @@ VALUES (1, N'Что такое JSON?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (1, N'Какую проблему решает Docker? Каковы его плюсы и минусы?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (1, N'Каковы его плюсы и минусы?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (6, N'Чем принципиально отличаются unit-тесты от интеграционных тестов?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое Exception?', GETDATE())
@@ -105,11 +107,19 @@ VALUES (4, N'Что такое делегат?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (4, N'Отличается ли Delegate от Action?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (4, N'Какие знаете коллекции??', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (4, N'Что такое enum flags?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (4, N'Что делает оператор yield?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое LINQ и для чего используется? Приведите несколько примеров применения LINQ', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое пространство имен (namespace) и зачем это нужно?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Что такое Nullable-тип?', GETDATE())
+INSERT Questions (MemberId, Description , CreatedDate)
+VALUES (5, N'Что такое Key-value структуры?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
 VALUES (5, N'Чем отличается абстрактный класс от интерфейса?', GETDATE())
 INSERT Questions (MemberId, Description , CreatedDate)
@@ -195,6 +205,10 @@ VALUES (8, N'Типы нормализации', '04:53:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (8, N'Практика нормализации БД', '05:10:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (8, N'Практика БД', '05:10:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (8, N'ДЗ', '05:10:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (13, N'Создаём схему БД', '07:12:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (13, N'Ошибки при создании БД', '07:22:55.000')
@@ -220,6 +234,8 @@ INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (23, N'Причина ошибки', '09:34:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (28, N'ANSI оператор INTERSECT', '10:15:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (28, N'Оператор INTO', '10:15:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (28, N'DISTINCT может', '10:33:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
@@ -291,6 +307,12 @@ VALUES (68, N'Развиваем бизнес логику в нашем при�
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (68, N'Проблем в реализации', '18:29:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (68, N'Что такое класс', '18:29:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (68, N'Чем отличается класс от абстрактного класса', '18:29:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (68, N'Модификаторы доступа', '18:29:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (73, N'Что такое класс', '19:12:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (73, N'Что можно объявить в классе', '19:32:55.000')
@@ -306,6 +328,8 @@ INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (78, N'Собственный атрибут валидации', '20:42:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (78, N'Что такое валидация', '20:52:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (78, N'Что такое аттрибуты-валидация', '20:52:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (83, N'Аттрибуты валидации моделей', '21:53:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
@@ -331,6 +355,10 @@ VALUES (93, N'Анбоксинг простых типов', '23:37:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (93, N'Абстракции', '23:49:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (93, N'Какие примитивные типы знаете', '23:49:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (93, N' Что такое Nullable-тип', '23:49:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (98, N'За что отвечает неймспейс', '23:13:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (98, N'пространства имён', '23:12:55.000')
@@ -338,6 +366,8 @@ INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (98, N'Области видимости', '23:17:55.000')
 INSERT Timecodes (LessonId, Description, Timecode)
 VALUES (98, N'Структуры данных', '23:19:55.000')
+INSERT Timecodes (LessonId, Description, Timecode)
+VALUES (98, N'Структуры', '23:10:55.000')
 
 -- Заполняем таблицу посещенных лекций MembersLessons
 INSERT MembersLessons (MemberId, LessonId, CreatedDate)
@@ -555,7 +585,7 @@ INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 73, GETDATE())
 INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 78, GETDATE())
-INSERT M7mbersLessons (MemberId, LessonId, CreatedDate)
+INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 83, GETDATE())
 INSERT MembersLessons (MemberId, LessonId, CreatedDate)
 VALUES (7, 88, GETDATE())
@@ -611,7 +641,7 @@ GROUP BY Title
 SELECT DISTINCT Title FROM Lessons
 
 -- Темы урока и их кол-во по темам
-SELECT DISTINCT Title, COUNT(Title) as 'Кол-во пройденных лекция по темам' FROM Lessons
+SELECT Title, COUNT(Title) as 'Кол-во пройденных лекция по темам' FROM Lessons
 GROUP By Title
 
 -- Сортитовка по дате
@@ -632,8 +662,10 @@ LEFT JOIN Timecodes t ON l.Id = t.LessonId
 GROUP BY l.Description
 
 -- Собираем таймкод для конкретного занятия
+--Так как мы собираем таймкоды конкретного занятия, то следует использовать INNER JOIN.
+--Потому что, если у занятия нету таймкодов, то мы не должны ничего вывести.
 SELECT t.Timecode, t.[Description] FROM Timecodes t
-LEFT JOIN Lessons l ON l.Id = t.LessonId
+INNER JOIN Lessons l ON l.Id = t.LessonId
 WHERE l.Id = 13
 
 SELECT t.Timecode, t.[Description] FROM Timecodes t
@@ -643,8 +675,10 @@ WHERE l.Id IN (13, 38, 73, 58)
 -- Собираем таймкод для конкретных занятий у которых в описании присутствует выражение C# 
 SELECT t.Timecode, t.[Description] FROM Timecodes t
 LEFT JOIN Lessons l ON l.Id = t.LessonId
-WHERE l.id IN (SELECT Id FROM Lessons le
-WHERE le.Description like '%C#%')
+WHERE l.id IN (
+	SELECT Id FROM Lessons le
+	WHERE le.Description like '%C#%'
+)
 
 -- Практика JOIN 
 SELECT
@@ -658,5 +692,64 @@ t.Timecode
 FROM Members m
 LEFT JOIN MembersLessons ml on m.Id = ml.MemberId
 LEFT JOIN Lessons l on l.Id = ml.LessonId
-LEFT JOIN Timecodes t on t.LessonId = ml.LessonId
+INNER JOIN Timecodes t on t.LessonId = ml.LessonId
 LEFT JOIN Questions q on q.MemberId = m.Id
+
+-- Статистика вывод Имя участника, Название урока, кол-во вопросов, кол-во таймкодов, кол-во посещенных занятий
+USE [LessonDb]
+
+SELECT
+m.Id,
+m.[Name],
+COUNT(q.Id) as 'QuantityQuestions'
+
+INTO CountQuestions
+FROM Members m
+RIGHT JOIN Questions q on q.MemberId = m.Id
+GROUP BY m.Id, m.Name 
+
+SELECT
+m.Id,
+m.[Name],
+COUNT(l.Id) as 'QuantityVisitedLessons'
+
+INTO CountLessons
+FROM Members m
+LEFT JOIN MembersLessons ml on ml.MemberId = m.Id
+LEFT JOIN Lessons l on l.Id = ml.LessonId
+GROUP BY m.Id, m.Name
+
+SELECT
+ml.MemberId,
+l.Id as 'LessonId',
+l.Title,
+l.Description,
+COUNT(t.Id) as 'QuantityTimecodes'
+
+INTO LessonStatistic
+FROM Lessons l
+RIGHT JOIN MembersLessons ml on ml.LessonId = l.Id
+RIGHT JOIN Timecodes t on t.LessonId = l.Id
+GROUP BY ml.MemberId, l.Id, l.Description, l.Title
+ORDER BY ml.MemberId
+
+SELECT 
+m.Id,
+m.[Name],
+m.Email,
+cl.QuantityVisitedLessons,
+cq.QuantityQuestions,
+ls.LessonId,
+ls.Title,
+ls.[Description],
+ls.QuantityTimecodes
+
+FROM Members m
+LEFT JOIN CountLessons cl on cl.Id = m.Id
+LEFT JOIN CountQuestions cq on cq.Id = m.Id
+LEFT JOIN LessonStatistic ls on ls.MemberId = m.Id
+ORDER BY m.Id
+
+DROP TABLE CountLessons
+DROP TABLE CountQuestions
+DROP TABLE LessonStatistic
