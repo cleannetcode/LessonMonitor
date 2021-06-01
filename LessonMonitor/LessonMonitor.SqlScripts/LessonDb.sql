@@ -753,3 +753,24 @@ ORDER BY m.Id
 DROP TABLE CountLessons
 DROP TABLE CountQuestions
 DROP TABLE LessonStatistic
+
+-- Cделать два запроса с одинаковым планом
+SELECT l.* FROM Lessons l
+WHERE l.Id in (
+	SELECT DISTINCT t.LessonId FROM Timecodes t
+	WHERE t.Timecode BETWEEN '01:12:55.000' AND '10:33:55.000'
+)
+
+SELECT DISTINCT l.* FROM Lessons l
+INNER JOIN Timecodes t on t.LessonId = l.Id 
+WHERE t.Timecode BETWEEN '01:12:55.000' AND '10:33:55.000'
+
+SELECT m.* FROM Members m
+WHERE m.Id in (
+	SELECT DISTINCT q.MemberId FROM Questions q
+	WHERE q.Id BETWEEN 10 AND 48
+)
+
+SELECT DISTINCT m.* FROM Members m
+INNER JOIN Questions q on q.MemberId = m.Id
+WHERE q.Id BETWEEN 10 AND 48
