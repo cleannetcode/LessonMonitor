@@ -4,135 +4,67 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LessonMonitor.Domain.Interfaces.BisinessLogic;
+using LessonMonitor.Domain.Models.BusinessLogic;
+using LessonMonitor.Domain.Models.Presentation;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private IUsersService _service;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUsersService service)
         {
-            this.userRepository = userRepository;
+            _service = service;
         }
 
-        [HttpGet]
-        public User[] Get(string userName)
+        [HttpGet("GetById")]
+        public UserPresentationLayer GetById(int id)
         {
-            // sOlid
-
-            // провалидировать входной параметр
-            // IValidator.Validate(userName);
-
-            // получить информацию
-            // var user = IUserRepository.Get(userName);
-
-            // преобразовать информацию в выходной параметр
-            // new UserModel { Name = user.Name };
-            // IMapper.Map();
-            // IUserFactory.Create();
-            // IUserBuilder.Build();
-
-            var random = new Random();
-            var users = new List<User>();
-
-            for (int i = 0; i < 10; i++)
+            var user = _service.GetUserById(id);
+            if (user != null)
             {
-                var user = new User();
-
-                user.Name = userName + i;
-                user.Age = random.Next(20, 51);
-
-                users.Add(user);
-            }
-
-            return users.ToArray();
-        }
-
-        [HttpGet("model")]
-        public void GetModel([FromQuery] User user)
-        {
-            var model = user.GetType();
-
-            foreach (var propetry in model.GetProperties())
-            {
-                foreach (var customAttribute in propetry.CustomAttributes)
+                return new UserPresentationLayer()
                 {
-                    if (customAttribute.AttributeType.Name == "RequiredAttribute")
-                    {
-                        var value = propetry.GetValue(user);
-                        var specifiedValue = Convert.ChangeType(value, propetry.PropertyType);
-
-                        if (value is DateTime dateValue && dateValue == default(DateTime))
-                        {
-                            throw new Exception($"{propetry.Name}: {value}");
-                        }
-
-                        if (value is int intValue && intValue == default(int))
-                        {
-                            throw new Exception($"{propetry.Name}: {value}");
-                        }
-
-                        if (value == null)
-                        {
-                            throw new Exception($"{propetry.Name}: {value}");
-                        }
-                    }
-                }
-
-                //var rangeAttribute = propetry.GetCustomAttribute<RangeAttribute>();
-
-
-                //if (rangeAttribute != null)
-                //{
-                //    var value = propetry.GetValue(user);
-
-                //    var isValueNotInRange = value is int intValue
-                //        && (intValue <= rangeAttribute.MinValue
-                //        || intValue >= rangeAttribute.MaxValue);
-
-                //    rangeAttribute.Test();
-
-                //    if (isValueNotInRange)
-                //    {
-                //        throw new Exception($"{propetry.Name}: {value} - not in range ({rangeAttribute.MinValue}, {rangeAttribute.MaxValue})");
-                //    }
-                //}
+                    Id = user.Id,
+                    Name = user.Name,
+                    Age = user.Age
+                };    
+            }
+            else
+            {
+                return null;
             }
         }
+        
+        [HttpGet("GetAllUsers")]
+        public UserPresentationLayer[] GetAllUsers()
+        {
+            var result = new List<UserPresentationLayer>();
+            foreach (var user in _service.GetAllUsers())
+            {
+                result.Add(new UserPresentationLayer()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Age = user.Age
+                });
+            }
+            return result.ToArray();
+        }
+        [HttpPost("CreateNewUser")]
+        public bool CreateNewUser(UserPresentationLayer newUser)
+        {
+            return _service.CreateNewUser(new UserBusinessLayer()
+            {
+                Name = newUser.Name,
+                Age = newUser.Age
+            });
+        }
+     
     }
 }
