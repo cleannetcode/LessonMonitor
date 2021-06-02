@@ -7,9 +7,10 @@ namespace LessonMonitor.DataBase
 {
     public class DataBaseMock
     {
-        public List<UserDataLayer> Users { get; };
+        public List<UserDataLayer> Users { get; }
         public DataBaseMock()
         {
+            Users = new List<UserDataLayer>();
             for (int i = 0; i < 10; i++)
             {
                 var rand = new Random();

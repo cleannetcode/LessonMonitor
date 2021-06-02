@@ -11,6 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LessonMonitor.API.Controllers;
+using LessonMonitor.BL;
+using LessonMonitor.DataAccess;
+using LessonMonitor.DataBase;
+using LessonMonitor.Domain.Interfaces.BisinessLogic;
+using LessonMonitor.Domain.Interfaces.DataAccess;
 
 namespace LessonMonitor.API
 {
@@ -26,7 +32,9 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<DataBaseMock>();
+            services.AddTransient<IUsersRepository, UserRepositoryMock>();
+            services.AddTransient<IUsersService, UserService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -47,7 +47,7 @@ namespace LessonMonitor.BL
             {
                 _repository.CreateNewUser(new UserDataLayer()
                 {
-                    Id = user.Id,
+                    Id = new Random().Next(99999999,999999999),
                     Age = user.Age,
                     Name = user.Name
                 });

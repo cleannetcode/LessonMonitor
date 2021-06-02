@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LessonMonitor.BL\LessonMonitor.BL.csproj" />
+    <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
     <ProjectReference Include="..\LessonMonitor.Domain\LessonMonitor.Domain.csproj" />
   </ItemGroup>
 

@@ -8,9 +8,9 @@ namespace LessonMonitor.DataAccess
     public class UserRepositoryMock : IUsersRepository
     {
         private DataBaseMock _db;
-        public UserRepositoryMock()
+        public UserRepositoryMock(DataBaseMock dataBaseMock)
         {
-            _db = new DataBaseMock();
+            _db = dataBaseMock;
         }
         public UserDataLayer[] GetAllUsers()
         {
@@ -37,7 +37,9 @@ namespace LessonMonitor.DataAccess
             if (user != null)
             {
                 _db.AddUser(user);
+                return true;
             }
+            return false;
         }
     }
 }
