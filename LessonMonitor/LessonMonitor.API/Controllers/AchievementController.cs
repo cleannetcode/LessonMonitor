@@ -11,10 +11,9 @@ namespace LessonMonitor.API.Controllers
     {
         private readonly IAchievementService _achievementService;
 
-        public AchievementController()
+        public AchievementController(IAchievementService achievementService)
         {
-            IAchievementRepository achievementRepository = new AchievementRepository();
-            _achievementService = new AchievementService(achievementRepository);
+            _achievementService = achievementService;
         }
 
         [HttpGet]

@@ -14,9 +14,7 @@ namespace LessonMonitor.API.Controllers
 
         public UsersController(IUsersService usersService)
         {
-            IUsersRepository usersRepository = new UsersRepository();
-
-            _userService = new UsersService(usersRepository);
+            _userService = usersService;
         }
 
         [HttpGet]

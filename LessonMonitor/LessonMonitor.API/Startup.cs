@@ -1,3 +1,7 @@
+using LessonMonitor.API.Controllers;
+using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +36,12 @@ namespace LessonMonitor.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
+
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
+
+            services.AddScoped<IAchievementService, AchievementService>();
+            services.AddScoped<IAchievementRepository, AchievementRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
