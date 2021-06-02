@@ -1,86 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.DataAccess;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUsersService _userService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUsersService usersService)
         {
-            this.userRepository = userRepository;
+            _userService = usersService;
         }
 
         [HttpGet]
         public User[] Get(string userName)
         {
-            // sOlid
+            IUsersService userService = _userService;
 
-            // провалидировать входной параметр
-            // IValidator.Validate(userName);
+            var user = userService.Get();
 
-            // получить информацию
-            // var user = IUserRepository.Get(userName);
+            var result = new User();
 
-            // преобразовать информацию в выходной параметр
-            // new UserModel { Name = user.Name };
-            // IMapper.Map();
-            // IUserFactory.Create();
-            // IUserBuilder.Build();
+            return new[] { result };
+        }
+        [HttpPost]
+        public User Create(User newUser)
+        {
+            IUsersService userService = _userService;
 
-            var random = new Random();
-            var users = new List<User>();
+            var user = new Core.User();
 
-            for (int i = 0; i < 10; i++)
-            {
-                var user = new User();
+            userService.Create(user);
 
-                user.Name = userName + i;
-                user.Age = random.Next(20, 51);
-
-                users.Add(user);
-            }
-
-            return users.ToArray();
+            return  newUser;
         }
 
         [HttpGet("model")]
@@ -113,25 +70,6 @@ namespace LessonMonitor.API.Controllers
                         }
                     }
                 }
-
-                //var rangeAttribute = propetry.GetCustomAttribute<RangeAttribute>();
-
-
-                //if (rangeAttribute != null)
-                //{
-                //    var value = propetry.GetValue(user);
-
-                //    var isValueNotInRange = value is int intValue
-                //        && (intValue <= rangeAttribute.MinValue
-                //        || intValue >= rangeAttribute.MaxValue);
-
-                //    rangeAttribute.Test();
-
-                //    if (isValueNotInRange)
-                //    {
-                //        throw new Exception($"{propetry.Name}: {value} - not in range ({rangeAttribute.MinValue}, {rangeAttribute.MaxValue})");
-                //    }
-                //}
             }
         }
     }
