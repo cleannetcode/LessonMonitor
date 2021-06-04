@@ -29,9 +29,10 @@ namespace LessonMonitor.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
 
-            services.AddSingleton<IGitHubClient, GitHubClient>();
-            services.AddTransient<IUsersRepository, UsersRepository>();
-            services.AddTransient<IHomeworksRepository, GitHubHomeworksRepository>();
+            services.AddTransient<IGitHubClient, GitHubClient>();
+
+            services.AddSingleton<IUsersRepository, UsersRepository>();
+            services.AddSingleton<IHomeworksRepository, GitHubHomeworksRepository>();
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IHomeworksService, HomeworksService>();
