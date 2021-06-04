@@ -1,53 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.API.Models;
+using LessonMonitor.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUsersService _usersService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUsersService usersService)
         {
-            this.userRepository = userRepository;
+            _usersService = usersService;
+        }
+
+        [HttpPost("[action]")]
+        public User Create(UserRequest userRequest)
+        {
+            var user = new Core.Models.User()
+            {
+                Name = userRequest.Name,
+                Age = userRequest.Age
+            };
+
+            _usersService.Create(user);
+
+            return new User() {
+                Name = user.Name,
+                Age = user.Age
+            };
         }
 
         [HttpGet]
@@ -72,10 +56,11 @@ namespace LessonMonitor.API.Controllers
 
             for (int i = 0; i < 10; i++)
             {
-                var user = new User();
-
-                user.Name = userName + i;
-                user.Age = random.Next(20, 51);
+                var user = new User
+                {
+                    Name = userName + i,
+                    Age = random.Next(20, 51)
+                };
 
                 users.Add(user);
             }
@@ -84,7 +69,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet("model")]
-        public void GetModel([FromQuery] User user)
+        public void GetModel([FromQuery] UserRequest user)
         {
             var model = user.GetType();
 
