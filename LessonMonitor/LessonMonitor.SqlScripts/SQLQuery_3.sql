@@ -1,5 +1,8 @@
 CREATE DATABASE HomeWorkSQL3
 
+-- DROP DATABASE HomeWorkSQL3
+-- DROP TABLE Lecture
+
 CREATE TABLE Students (
     Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     NickName NVARCHAR(50) NOT NULL,
@@ -13,12 +16,12 @@ CREATE TABLE Attainments (
     CreateDate DATETIME2 DEFAULT GETDATE()
 )
 
-CREATE TABLE Skill (
+CREATE TABLE Skills (
     Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     Title NVARCHAR(50) NOT NULL
 )
 
-CREATE TABLE Lecture (
+CREATE TABLE Lectures (
     Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     Title NVARCHAR(50) NOT NULL,
     StartDate DATETIME2 NOT NULL
@@ -49,3 +52,4 @@ CREATE TABLE StudentAttainments(
     CONSTRAINT [FK_StudentAttainments_Attainments] FOREIGN KEY (AttainmentId) REFERENCES Attainments(Id),
     CONSTRAINT [FK_StudentAttainments_Students] FOREIGN KEY (StudentId) REFERENCES Students(Id)
 )
+
