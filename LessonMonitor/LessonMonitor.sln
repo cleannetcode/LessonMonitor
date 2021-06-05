@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.API", "Lesson
 		{C4C11467-E41F-4469-8945-BBEC68644189} = {C4C11467-E41F-4469-8945-BBEC68644189}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BussinesLogic", "LessonMonitor.BussinesLogic\LessonMonitor.BussinesLogic.csproj", "{58B37F66-4379-4468-9416-963CA2F5940C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BussinesLogic", "LessonMonitor.BussinesLogic\LessonMonitor.BussinesLogic.csproj", "{58B37F66-4379-4468-9416-963CA2F5940C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DataAccess", "LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj", "{C4C11467-E41F-4469-8945-BBEC68644189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess", "LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj", "{C4C11467-E41F-4469-8945-BBEC68644189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{CA77FEFB-DA67-471E-8CF4-F93CE16500E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{CA77FEFB-DA67-471E-8CF4-F93CE16500E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

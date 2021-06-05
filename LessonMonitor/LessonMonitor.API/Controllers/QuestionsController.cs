@@ -46,7 +46,7 @@ namespace LessonMonitor.API.Controllers
 
             _questionsService.Create(questionModel);
 
-            return Ok(new { Successful = "Question is created" });
+            return Ok(new { Successful = $"Question: '{question}' is created from {userName}" });
         }
 
         [HttpGet]

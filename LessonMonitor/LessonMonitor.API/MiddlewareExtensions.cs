@@ -14,9 +14,5 @@ namespace LessonMonitor.API
             return builder.UseMiddleware<AuthorizationMiddleware>();
         }
 
-        public static IApplicationBuilder UseProcessingTimeMiddleware(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<ProcessingTimeMiddleware>();
-        }
     }
 }

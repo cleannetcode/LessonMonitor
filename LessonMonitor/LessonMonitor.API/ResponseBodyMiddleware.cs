@@ -36,6 +36,7 @@ namespace LessonMonitor.API
                     _responseBodyRepository.SaveHttpContextLogs(responseBody, context, actionDesc);
 
                     memStream.Position = 0;
+
                     await memStream.CopyToAsync(originalBody);
                 }
             }

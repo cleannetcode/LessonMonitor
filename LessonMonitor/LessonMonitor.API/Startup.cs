@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.API
 {
@@ -33,15 +34,19 @@ namespace LessonMonitor.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
 
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
+
             services.AddScoped<ITopicsService, TopicsService>();
             services.AddScoped<ITopicsRepository, TopicsRepository>();
-            services.AddScoped<IQuestionsService, QuestionsService>();
-            services.AddScoped<IQuestionsRepository, QuestionsRepository>();
-            services.AddScoped<IResponseBodyRepository, ResponseBodyRepository>();
-            services.AddScoped<IGitHubService, GitHubService>();
-            services.AddScoped<IGitHubRepository, GitHubRepository>();
+
+            services.AddTransient<IQuestionsService, QuestionsService>();
+            services.AddTransient<IQuestionsRepository, QuestionsRepository>();
+
+            services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
+            services.AddSingleton<IGitHubService, GitHubService>();
+            services.AddSingleton<IGitHubRepository, GitHubRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +60,8 @@ namespace LessonMonitor.API
             }
 
             ErrorMessageRegistry.ReBuild();
+
+            DIViewer.RunDemo();
 
             app.UseHttpsRedirection();
 
@@ -111,7 +118,7 @@ namespace LessonMonitor.API
             });
 
             app.UseAuthorizationMiddleware();
-            app.UseProcessingTimeMiddleware();
+
             app.UseResponseBodyMiddleware();
 
             app.UseEndpoints(endpoints =>

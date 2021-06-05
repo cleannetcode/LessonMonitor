@@ -17,8 +17,8 @@ namespace LessonMonitor.DataAccess
                 {
                     Id = f.Id,
                     Name = f.Name,
-                    Email = f.Email,
                     Nicknames = f.Nicknames,
+                    Email = f.Email,
                     CreatedDate = f.CreatedDate
                 }
                 ).ToArray();
@@ -32,6 +32,7 @@ namespace LessonMonitor.DataAccess
             {
                 Id = user.Id,
                 Name = user.Name,
+                Nicknames = user.Nicknames,
                 Email = user.Email,
                 CreatedDate = DateTime.Now
             };
