@@ -5,7 +5,7 @@
 
 USE [LessonMonitorDb]
 
-CREATE TABLE [Members]
+CREATE TABLE [Users]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1, 1), 
     [Name] NVARCHAR(50) NOT NULL, 
@@ -15,17 +15,17 @@ CREATE TABLE [Members]
     [CreateDate] DATETIME2 DEFAULT GETDATE()
 )
 
--- 1 к 1 (1 Links 1 Members)
+-- 1 к 1 (1 Links 1 Users)
 CREATE TABLE [Links] 
 (
-    [MemberId] INT NOT NULL,
+    [UserId] INT NOT NULL,
     [GitHub] NVARCHAR(MAX) NULL,
     [Discord] NVARCHAR(MAX) NULL,
     [YouTube] NVARCHAR(MAX) NULL,
     [VK] NVARCHAR(MAX) NULL,
     [Facebook] NVARCHAR(MAX) NULL,
     [Twitter] NVARCHAR(MAX) NULL,
-    CONSTRAINT [FK_Links_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
+    CONSTRAINT [FK_Links_Users] FOREIGN KEY (UserId) REFERENCES Users(Id)
 )
 
 CREATE TABLE [Topics]
@@ -46,27 +46,27 @@ CREATE TABLE [Homeworks]
     CONSTRAINT [FK_Homeworks_Topics] FOREIGN KEY (TopicId) REFERENCES Topics(Id)
 )
 
--- Промежуточная между Members и Homeworks
+-- Промежуточная между Users и Homeworks
 -- Много ко многим (Много Member много Homeworks и наоборот)
-CREATE TABLE [MembersHomeworks]
+CREATE TABLE [UsersHomeworks]
 (
     [Id] INT NOT NULL IDENTITY (1, 1),
-    [MemberId] INT NOT NULL,
+    [UserId] INT NOT NULL,
     [HomeworkId] INT NOT NULL,
     [CreatedDate] DATETIME2 DEFAULT GETDATE(),
-    CONSTRAINT [PK_MemberId_HomeworkId] PRIMARY KEY (MemberId, HomeworkId),
-    CONSTRAINT [FK_MembersHomeworks_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
-    CONSTRAINT [FK_MembersHomeworks_Homeworks] FOREIGN KEY (HomeworkId) REFERENCES Homeworks(Id)
+    CONSTRAINT [PK_UserId_HomeworkId] PRIMARY KEY (UserId, HomeworkId),
+    CONSTRAINT [FK_UsersHomeworks_Users] FOREIGN KEY (UserId) REFERENCES Users(Id),
+    CONSTRAINT [FK_UsersHomeworks_Homeworks] FOREIGN KEY (HomeworkId) REFERENCES Homeworks(Id)
 )
 
 -- 1 ко многим (1 Member много Questions)
 CREATE TABLE [Questions]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (1, 1),
-    [MemberId] INT NOT NULL,
+    [UserId] INT NOT NULL,
     [Discription] NVARCHAR(MAX) NOT NULL, 
     [CreatedDate] DATETIME2 DEFAULT GETDATE(),
-    CONSTRAINT [FK_Questions_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id)
+    CONSTRAINT [FK_Questions_Users] FOREIGN KEY (UserId) REFERENCES Users(Id)
 )
 
 CREATE TABLE [Achievements]
@@ -76,17 +76,17 @@ CREATE TABLE [Achievements]
     [Rank] NVARCHAR(100) NOT NULL
 )
 
--- Промежуточная между Members и Achievements
--- Много ко многим (Много Achievements много Members и наоборот)
-CREATE TABLE [MembersAchievements]
+-- Промежуточная между Users и Achievements
+-- Много ко многим (Много Achievements много Users и наоборот)
+CREATE TABLE [UsersAchievements]
 (
     [Id] INT NOT NULL IDENTITY (1, 1),
-    [MemberId] INT NOT NULL,
+    [UserId] INT NOT NULL,
     [AchievementId] INT NOT NULL,
     [CreatedDate] DATETIME2 DEFAULT GETDATE(),
-    CONSTRAINT [PK_MemberId_AchievementId] PRIMARY KEY (MemberId, AchievementId),
-    CONSTRAINT [FK_MembersAchievements_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
-    CONSTRAINT [FK_MembersAchievements_Achievements] FOREIGN KEY (AchievementId) REFERENCES Achievements(Id)
+    CONSTRAINT [PK_UserId_AchievementId] PRIMARY KEY (UserId, AchievementId),
+    CONSTRAINT [FK_UsersAchievements_Users] FOREIGN KEY (UserId) REFERENCES Users(Id),
+    CONSTRAINT [FK_UsersAchievements_Achievements] FOREIGN KEY (AchievementId) REFERENCES Achievements(Id)
 )
 
 CREATE TABLE [Lessons]
@@ -98,13 +98,13 @@ CREATE TABLE [Lessons]
     [CreatedDate] DATETIME2 DEFAULT GETDATE()
 )
 
-CREATE TABLE [MembersLessons]
+CREATE TABLE [UsersLessons]
 (
-    [MemberId] INT NOT NULL,
+    [UserId] INT NOT NULL,
 	[LessonId] INT NOT NULL,
 	[CreatedDate] DATETIME2 DEFAULT GETDATE(),
-	CONSTRAINT [PK_MemberId_LessonId] PRIMARY KEY (MemberId, LessonId),
-	CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
+	CONSTRAINT [PK_UserId_LessonId] PRIMARY KEY (UserId, LessonId),
+	CONSTRAINT [FK_VisitedLessons_Users] FOREIGN KEY (UserId) REFERENCES Users(Id),
 	CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
 )
 
