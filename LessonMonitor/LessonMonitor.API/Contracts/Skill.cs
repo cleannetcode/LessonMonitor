@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LessonMonitor.API.Models
+namespace LessonMonitor.API.Contracts
 {
     public class Skill
     {

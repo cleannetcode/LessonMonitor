@@ -1,4 +1,5 @@
-﻿using LessonMonitor.BusinessLogic;
+﻿using LessonMonitor.API.Contracts;
+using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess.InMemory;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,11 @@ namespace LessonMonitor.API.Controllers
         }
         
         [HttpGet("GetById")]
-        public Models.Skill GetById(int id)
+        public Skill GetById(int id)
         {
             var skill = _skillService.GetById(id);
 
-            return new Models.Skill()
+            return new Contracts.Skill()
             {
                 Id = skill.Id,
                 ParentId = skill.ParentId,
@@ -33,13 +34,11 @@ namespace LessonMonitor.API.Controllers
         }
         
         [HttpGet("GetAllSkills")]
-        public Models.Skill[] GetAllSkills()
+        public Skill[] GetAllSkills()
         {
             var skills = _skillService.GetAll();
 
-            var result = new Models.Skill();
-
-            return skills.Select(s => new Models.Skill()
+            return skills.Select(s => new Contracts.Skill()
             {
                 Id = s.Id,
                 Title = s.Title,
@@ -49,15 +48,15 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpPost("AddSkill")]
-        public Models.Skill AddSkill(Models.Request.SkillDto skill)
+        public Skill AddSkill(NewSkill newSkill)
         {
             var addedSkill = _skillService.Add(new Core.Models.Skill()
             {
-                Title = skill.Title,
-                ParentId = skill.ParentId
+                Title = newSkill.Title,
+                ParentId = newSkill.ParentId
             });
              
-            return new Models.Skill()
+            return new Contracts.Skill()
             {
                 Id = addedSkill.Id,
                 Title = addedSkill.Title,
@@ -66,7 +65,7 @@ namespace LessonMonitor.API.Controllers
         }
         
         [HttpDelete("RemoveSkill")]
-        public bool RemoveSkill(Models.Skill skill)
+        public bool RemoveSkill(Skill skill)
         {
             return _skillService.Remove(new Core.Models.Skill()
             {

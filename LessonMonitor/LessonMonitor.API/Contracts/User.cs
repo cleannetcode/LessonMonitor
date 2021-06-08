@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace LessonMonitor.API.Models
+namespace LessonMonitor.API.Contracts
 {
     [Description("Test")]
     public class User

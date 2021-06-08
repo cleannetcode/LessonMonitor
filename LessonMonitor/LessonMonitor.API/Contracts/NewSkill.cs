@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LessonMonitor.API.Models.Request
+namespace LessonMonitor.API.Contracts
 {
-    public class SkillDto
+    public class NewSkill
     {
         [Required]
         [MaxLength(250)]

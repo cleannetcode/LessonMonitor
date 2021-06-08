@@ -1,4 +1,4 @@
-﻿using LessonMonitor.API.Models;
+﻿using LessonMonitor.API.Contracts;
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace LessonMonitor.API.Controllers
             var user = gitHubService.GetUserByLogin(login);
 
             if (user == null)
-                return NotFound();
+                return NoContent();
 
             GitHubUser returnUser = new GitHubUser()
             {

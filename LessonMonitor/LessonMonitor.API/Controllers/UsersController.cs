@@ -20,17 +20,17 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet]
-        public Models.User[] Get(string userName)
+        public Contracts.User[] Get(string userName)
         {
             var user = _userService.Get();
 
-            var result = new Models.User();
+            var result = new Contracts.User();
 
             return new[] { result };
         }
 
         [HttpPost]
-        public Models.User Create(Models.User newUser)
+        public Contracts.User Create(Contracts.User newUser)
         {
             var user = new Core.Models.User()
             {
@@ -44,7 +44,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet("model")]
-        public void GetModel([FromQuery] Models.User user)
+        public void GetModel([FromQuery] Contracts.User user)
         {
             var model = user.GetType();
 

@@ -1,4 +1,4 @@
-﻿using LessonMonitor.API.Models;
+﻿using LessonMonitor.API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

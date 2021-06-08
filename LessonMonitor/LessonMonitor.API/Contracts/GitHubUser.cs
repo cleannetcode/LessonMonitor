@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.API.Models
+namespace LessonMonitor.API.Contracts
 {
     public class GitHubUser
     {
