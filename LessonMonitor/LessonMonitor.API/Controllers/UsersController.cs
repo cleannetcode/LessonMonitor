@@ -3,14 +3,27 @@ using System;
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
+using LessonMonitor.Core.Services;
 
 namespace LessonMonitor.API.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	public class HomeworksController : ControllerBase
+	{
+		private readonly IHomeworksService _homeworksService;
+
+		public HomeworksController(IHomeworksService homeworksService)
+		{
+			_homeworksService = homeworksService;
+		}
+	}
+
+	[ApiController]
+	[Route("[controller]")]
 	public class UsersController : ControllerBase
 	{
-		private IUsersService _userService;
+		private readonly IUsersService _userService;
 
 		public UsersController()
 		{
