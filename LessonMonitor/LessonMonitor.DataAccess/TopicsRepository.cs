@@ -1,14 +1,20 @@
 ﻿using LessonMonitor.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.DataAccess
 {
     public class TopicsRepository : ITopicsRepository
     {
-        public TopicsRepository() {}
+        private readonly IDbContextFactory<SqlDbContext> _contextFactory;
+
+        public TopicsRepository()
+        {
+
+        }
 
         public void Create(Core.Topic topic)
         {
-            using SqlDbContext _context = new SqlDbContext();
+            using var context = _contextFactory.CreateDbContext();
 
             var newTopic = new DataAccess.Topic
             {
@@ -17,9 +23,9 @@ namespace LessonMonitor.DataAccess
                 
             };
 
-            _context.Topics.Add(newTopic);
+            context.Topics.Add(newTopic);
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

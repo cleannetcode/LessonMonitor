@@ -2517,3 +2517,12 @@
     "link": "https://github.com/AshtonBro"
   }
 },
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": null,
+    "nickname": "Not found",
+    "link": null
+  }
+},

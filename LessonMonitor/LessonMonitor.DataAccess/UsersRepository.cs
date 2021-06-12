@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.Core;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -6,27 +7,31 @@ namespace LessonMonitor.DataAccess
 {
     public class UsersRepository : IUsersRepository
     {
-        public UsersRepository() {}
+        private readonly IDbContextFactory<SqlDbContext> _contextFactory;
+        public UsersRepository()
+        {
+            
+        }
 
         public Core.User[] Get()
         {
-            using SqlDbContext _context = new SqlDbContext();
+            using var context = _contextFactory.CreateDbContext();
 
-            return _context.Users.Select(f => 
-                new Core.User() 
-                {
-                    Id = f.Id,
-                    Name = f.Name,
-                    Nicknames = f.Nicknames,
-                    Email = f.Email,
-                    CreatedDate = f.CreatedDate
-                }
-                ).ToArray();
+                return context.Users.Select(f =>
+                    new Core.User()
+                    {
+                        Id = f.Id,
+                        Name = f.Name,
+                        Nicknames = f.Nicknames,
+                        Email = f.Email,
+                        CreatedDate = f.CreatedDate
+                    }
+                    ).ToArray();
         }
 
         public void Create(Core.User user)
         {
-            using SqlDbContext _context = new SqlDbContext();
+            using var context = _contextFactory.CreateDbContext();
 
             var newUser = new DataAccess.User
             {
@@ -37,9 +42,9 @@ namespace LessonMonitor.DataAccess
                 CreatedDate = DateTime.Now
             };
 
-            _context.Users.Add(newUser);
+            context.Users.Add(newUser);
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

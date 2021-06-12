@@ -27,7 +27,6 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -46,6 +45,10 @@ namespace LessonMonitor.API
             services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
             services.AddSingleton<IGitHubService, GitHubService>();
             services.AddSingleton<IGitHubRepository, GitHubRepository>();
+
+            services.AddDbContext<SqlDbContext>(
+               options => options.UseSqlServer(Configuration.GetConnectionString("SqlContext"))
+               );
 
         }
 

@@ -12,8 +12,7 @@ namespace LessonMonitor.DataAccess
 
         public void SaveInfo(Core.GitInfo gitInfo)
         {
-            using SqlDbContext _context = new SqlDbContext();
-
+            
             var newGitInfo = new DataAccess.GitInfo
             {
                 Name = gitInfo.Name,

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace LessonMonitor.DataAccess
+﻿namespace LessonMonitor.DataAccess
 {
     public class GitInfo
     {
