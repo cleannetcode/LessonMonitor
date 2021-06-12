@@ -10,6 +10,7 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class HomeworkController : ControllerBase
     {
+        
         [HttpPost]
         public IActionResult GetHomeWorks(Homework model)
         {

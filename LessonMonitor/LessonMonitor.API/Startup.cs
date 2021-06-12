@@ -80,7 +80,6 @@ namespace LessonMonitor.API
 
                 HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
 
-                // ѕолучить заголовки, св€занные с ответом.
                 WebHeaderCollection myWebHeaderCollection = myHttpWebResponse.Headers;
 
                 using StreamWriter file = new("HeaderLines.txt");
@@ -100,10 +99,8 @@ namespace LessonMonitor.API
                     }
                 }
 
-                // ѕолучите заголовки использу€ new свойства (AllKeys)
                 string[] headers = myWebHeaderCollection.AllKeys;
 
-                // перечислить через коллекцию
                 foreach (string header in headers)
                 {
                     file.WriteLine(myWebHeaderCollection.Get(header));
