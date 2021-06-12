@@ -11,5 +11,7 @@ namespace HW_ASP_1
 		public string Name { get; set; }
 		public int Numbers { get; set; }
 		public string Brand { get; set; }
+		public DateTime Date { get; set; }
+		
 	}
 }
