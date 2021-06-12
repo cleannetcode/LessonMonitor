@@ -18,7 +18,6 @@ namespace LessonMonitor.BussinesLogic.NTests
         public HomeworksServiceNTests()
         {
             
-
         }
 
         [SetUp]
