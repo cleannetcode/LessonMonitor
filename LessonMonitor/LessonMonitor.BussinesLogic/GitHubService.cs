@@ -1,9 +1,8 @@
-﻿using LessonMonitor.API.Controllers;
-using LessonMonitor.Core;
+﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Services;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 

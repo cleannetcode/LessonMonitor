@@ -1,6 +1,6 @@
-using LessonMonitor.API.Controllers;
 using LessonMonitor.BussinesLogic;
-using LessonMonitor.Core;
+using LessonMonitor.Core.Services;
+using LessonMonitor.Core.Repositories;
 using LessonMonitor.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
+using LessonMonitor.DataAccess.Repositories;
 
 namespace LessonMonitor.API
 {

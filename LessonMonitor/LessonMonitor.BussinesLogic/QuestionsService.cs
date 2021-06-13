@@ -1,4 +1,6 @@
 ﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Services;
 using System;
 
 namespace LessonMonitor.BussinesLogic

@@ -1,18 +1,17 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using LessonMonitor.Core.Repositories;
 
 namespace LessonMonitor.BussinesLogic.MsTests
 {
     [TestClass]
     public class HomeworksServiceMsTests
     {
-
         private readonly Mock<IHomeworksRepository> _homeworkRepositoryMock;
         private readonly HomeworksService _service;
 
@@ -20,7 +19,6 @@ namespace LessonMonitor.BussinesLogic.MsTests
         {
             _homeworkRepositoryMock = new Mock<IHomeworksRepository>();
             _service = new HomeworksService(_homeworkRepositoryMock.Object);
-
         }
 
         // unit testing name patterns (find name methods for test in google)
@@ -36,7 +34,6 @@ namespace LessonMonitor.BussinesLogic.MsTests
                 .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
-
 
             // act - запускаем тестируемый метод
             var result = _service.Create(homework);
@@ -79,12 +76,12 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // act
             bool result = false;
 
-            var exceprtion = Assert.ThrowsException<BusinessException>(() => result = _service.Create(homework));
+            var exceprtion = Assert.ThrowsException<HomeworkException>(() => result = _service.Create(homework));
 
             // assert
             exceprtion.Should().NotBeNull()
               .And
-              .Match<BusinessException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+              .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
 
             result.Should().BeFalse();
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);

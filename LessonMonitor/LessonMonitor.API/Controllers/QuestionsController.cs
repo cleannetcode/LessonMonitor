@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using LessonMonitor.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

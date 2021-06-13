@@ -1,8 +1,8 @@
-﻿using LessonMonitor.Core;
+﻿using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Repositories
 {
     public class QuestionsRepository : IQuestionsRepository
     {

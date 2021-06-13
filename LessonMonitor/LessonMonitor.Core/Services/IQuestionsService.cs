@@ -1,6 +1,6 @@
-﻿namespace LessonMonitor.Core
+﻿namespace LessonMonitor.Core.Services
 {
-    public interface IQuestionsRepository
+    public interface IQuestionsService
     {
         void Create(Question question);
         Question[] Get();

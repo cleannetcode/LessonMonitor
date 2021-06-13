@@ -1,7 +1,7 @@
-﻿using LessonMonitor.Core;
+﻿using LessonMonitor.Core.Repositories;
 using System;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Repositories
 {
     public class GitHubRepository : IGitHubRepository
     {

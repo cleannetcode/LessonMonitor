@@ -1,6 +1,6 @@
 ﻿using LessonMonitor.Core.Models;
 
-namespace LessonMonitor.Core
+namespace LessonMonitor.Core.Repositories
 {
     public interface IHomeworksRepository
     {

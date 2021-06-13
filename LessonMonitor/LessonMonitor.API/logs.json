@@ -2526,3 +2526,12 @@
     "link": null
   }
 },
+{
+  "ControllerName": "GitHub",
+  "ActionName": "GetReqInfo",
+  "Response": {
+    "name": "Evgenii Solovev",
+    "nickname": "AshtonBro",
+    "link": "https://github.com/AshtonBro"
+  }
+},

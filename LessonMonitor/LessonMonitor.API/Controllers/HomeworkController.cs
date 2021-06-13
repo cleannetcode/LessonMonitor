@@ -12,7 +12,7 @@ namespace LessonMonitor.API.Controllers
     {
         
         [HttpPost]
-        public IActionResult GetHomeWorks(Homework model)
+        public IActionResult GetHomeworks(Homework homework)
         {
             return Ok(new { Successful = 1 });
         }

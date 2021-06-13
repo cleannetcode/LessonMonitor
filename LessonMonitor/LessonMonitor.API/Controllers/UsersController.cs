@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core;
+﻿using LessonMonitor.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;

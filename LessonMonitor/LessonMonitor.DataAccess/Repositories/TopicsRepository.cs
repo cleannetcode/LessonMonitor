@@ -1,7 +1,8 @@
 ﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Repositories
 {
     public class TopicsRepository : ITopicsRepository
     {

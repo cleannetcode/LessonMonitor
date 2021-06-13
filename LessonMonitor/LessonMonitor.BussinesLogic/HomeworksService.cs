@@ -1,6 +1,6 @@
-﻿using LessonMonitor.Core;
-using LessonMonitor.Core.Exceprions;
+﻿using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
 using System;
 
 namespace LessonMonitor.BussinesLogic
@@ -16,7 +16,6 @@ namespace LessonMonitor.BussinesLogic
             _homeworksRepository = homeworksRepository;
         }
 
-
         public bool Create(Homework homework)
         {
             // Валидация
@@ -29,10 +28,9 @@ namespace LessonMonitor.BussinesLogic
                 || string.IsNullOrWhiteSpace(homework.Title) 
                 || homework.MemberId <= 0;
 
-
             if (isInvalid)
             {
-                throw new BusinessException(HOMEWORK_IS_INVALID);
+                throw new HomeworkException(HOMEWORK_IS_INVALID);
             }
 
             // сохранение в базе

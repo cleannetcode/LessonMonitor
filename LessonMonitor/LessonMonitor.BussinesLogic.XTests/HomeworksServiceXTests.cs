@@ -3,6 +3,7 @@ using FluentAssertions;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
 using Moq;
 using System;
 using Xunit;
@@ -11,7 +12,6 @@ namespace LessonMonitor.BussinesLogic.XTests
 {
     public class HomeworksServiceXTests
     {
-
         private Mock<IHomeworksRepository> _homeworkRepositoryMock;
         private HomeworksService _service;
 
@@ -20,7 +20,6 @@ namespace LessonMonitor.BussinesLogic.XTests
             _homeworkRepositoryMock = new Mock<IHomeworksRepository>();
             _service = new HomeworksService(_homeworkRepositoryMock.Object);
         }
-
 
         // unit testing name patterns (find name methods for test in google)
         // MethodName_Conditions_Result
@@ -35,7 +34,6 @@ namespace LessonMonitor.BussinesLogic.XTests
                 .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
-
 
             // act - запускаем тестируемый метод
             var result = _service.Create(homework);
@@ -78,12 +76,12 @@ namespace LessonMonitor.BussinesLogic.XTests
             // act
             bool result = false;
 
-            var exceprtion = Assert.Throws<BusinessException>(() => result = _service.Create(homework));
+            var exceprtion = Assert.Throws<HomeworkException>(() => result = _service.Create(homework));
 
             // assert
             exceprtion.Should().NotBeNull()
                 .And
-                .Match<BusinessException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+                .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
 
             result.Should().BeFalse();
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
