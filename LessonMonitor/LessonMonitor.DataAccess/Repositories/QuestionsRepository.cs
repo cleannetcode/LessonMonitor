@@ -1,20 +1,15 @@
 ﻿using LessonMonitor.Core.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace LessonMonitor.DataAccess.Repositories
 {
     public class QuestionsRepository : IQuestionsRepository
     {
-        private readonly IDbContextFactory<SqlDbContext> _contextFactory;
-        public QuestionsRepository()
-        {
+        public QuestionsRepository() {}
 
-        }
-
-        public void Create(Core.Question question)
+        public void Add(Core.Question question)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using SqlDbContext _context = new SqlDbContext();
 
             var newQuestion = new DataAccess.Question
             {
@@ -24,16 +19,16 @@ namespace LessonMonitor.DataAccess.Repositories
                 CreateTime = question.CreateTime,
             };
 
-            context.Questions.Add(newQuestion);
+            _context.Questions.Add(newQuestion);
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public Core.Question[] Get()
         {
-            using var context = _contextFactory.CreateDbContext();
+            using SqlDbContext _context = new SqlDbContext();
 
-            return context.Questions.Select(q =>
+            return _context.Questions.Select(q =>
             new Core.Question()
             {
                 Id = q.Id,

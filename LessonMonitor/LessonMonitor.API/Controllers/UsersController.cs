@@ -1,11 +1,16 @@
 ﻿using LessonMonitor.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace LessonMonitor.API.Controllers
 {
+    /*С помощью этого атрибута можно исключать контроллер из загрузки
+     *тем самым понять почему не работает API по очереди отключаю 
+     *[ApiExplorerSettings(IgnoreApi = true)]
+     */
+
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -17,26 +22,31 @@ namespace LessonMonitor.API.Controllers
             _usersService = usersService;
         }
 
-        [HttpGet]
-        public User[] Get(string userName)
+        [HttpGet("Get")]
+        public User[] Get()
         {
-            var users = _usersService.Get();
+            var usersCore = _usersService.Get();
 
-            var userCore = users.SingleOrDefault(f => f.Name == userName);
+            if (usersCore == null || usersCore.Length == 0) throw new Exception("Array of questions isn't found.");
 
-            if (userCore == null) throw new Exception("Such a user isn't found.");
+            var users = new List<User>();
 
-            var user = new User
+            foreach (var user in usersCore)
             {
-                Name = userCore.Name,
-                Email = userCore.Email,
-                Nicknames = userCore.Nicknames 
-            };
+                var newUser = new User
+                {
+                    Name = user.Name,
+                    Email = user.Email,
+                    Nicknames = user.Nicknames
+                };
 
-            return new[] { user };
+                users.Add(newUser);
+            }
+
+            return users.ToArray();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(string Name, string Email, string Nicknames)
         {
             var user = new Core.User
@@ -53,8 +63,16 @@ namespace LessonMonitor.API.Controllers
             return Ok(new { Successful = "User is created" });
         }
 
+        [HttpPost("Update")]
+        public IActionResult Update(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName)) throw new ArgumentNullException();
 
-        [HttpGet("model")]
+            return Ok(new { Successful = "User is updated" });
+        }
+
+
+        [HttpGet("GetModelType")]
         public void GetModel([FromQuery]User user)
         {
             var model = user.GetType();

@@ -1,4 +1,4 @@
-﻿using LessonMonitor.API.Models;
+﻿using LessonMonitor.API;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace LessonMonitor.API.Controllers
     public class HomeworkController : ControllerBase
     {
         
-        [HttpPost]
-        public IActionResult GetHomeworks(Homework homework)
+        [HttpGet("Get")]
+        public IActionResult Get(Homework homework)
         {
             return Ok(new { Successful = 1 });
         }
 
-        [HttpGet("model")]
+        [HttpGet("GetType")]
         public string[] GetHomeworkTypeProperties()
         {
             var homeworksModel = typeof(Homework);

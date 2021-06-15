@@ -2,7 +2,9 @@
 {
     public interface IUsersService
     {
-        void Create(User user);
+        bool Create(User user);
         User[] Get();
+
+        bool Update(User user);
     }
 }

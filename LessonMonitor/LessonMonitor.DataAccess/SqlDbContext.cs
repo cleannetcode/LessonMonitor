@@ -16,5 +16,9 @@ namespace LessonMonitor.DataAccess
 
         }
 
+        public SqlDbContext()
+        {
+
+        }
     }
 }

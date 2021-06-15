@@ -15,7 +15,7 @@ namespace LessonMonitor.API.Controllers
             _gitHubService = gitHubService;
         }
 
-        [HttpGet]
+        [HttpGet("GetUserInfo")]
         public GitInfo GetReqInfo(string nickname)
         {
             if (string.IsNullOrEmpty(nickname))

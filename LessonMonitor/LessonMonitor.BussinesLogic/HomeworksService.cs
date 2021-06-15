@@ -1,11 +1,11 @@
 ﻿using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Services;
 using System;
 
 namespace LessonMonitor.BussinesLogic
 {
-    public class HomeworksService
+    public class HomeworksService : IHomeworksService
     {
         private readonly IHomeworksRepository _homeworksRepository;
 
@@ -16,35 +16,52 @@ namespace LessonMonitor.BussinesLogic
             _homeworksRepository = homeworksRepository;
         }
 
-        public bool Create(Homework homework)
+        public Core.Homework Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Create(Core.Homework homework)
         {
             // Валидация
-            if(homework is null)
-            {
-                throw new ArgumentNullException(nameof(homework));
-            }
+            if(homework is null) throw new ArgumentNullException(nameof(homework));
+            
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Id.ToString())
+                || string.IsNullOrWhiteSpace(homework.Grade.ToString()) 
+                || Guid.Empty == homework.Id;
 
-            var isInvalid = string.IsNullOrWhiteSpace(homework.Link) 
-                || string.IsNullOrWhiteSpace(homework.Title) 
-                || homework.MemberId <= 0;
-
-            if (isInvalid)
-            {
-                throw new HomeworkException(HOMEWORK_IS_INVALID);
-            }
-
+            if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
+            
             // сохранение в базе
             _homeworksRepository.Add(homework);
 
             return true;
         }
 
-        public bool Delete(int homeworkId)
+        public bool Delete(Guid homeworkId)
         {
             // Валидация
+            if(homeworkId == Guid.Empty) throw new HomeworkException(HOMEWORK_IS_INVALID);
 
             // сохранение в базе
             _homeworksRepository.Delete(homeworkId);
+
+            return true;
+        }
+
+        public bool Update(Core.Homework homework)
+        {
+            if (homework is null) throw new ArgumentNullException(nameof(homework));
+
+            // Валидация
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Id.ToString())
+               || string.IsNullOrWhiteSpace(homework.Grade.ToString())
+               || Guid.Empty == homework.Id;
+
+            if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
+
+            // сохранение в базе
+            _homeworksRepository.Update(homework);
 
             return true;
         }

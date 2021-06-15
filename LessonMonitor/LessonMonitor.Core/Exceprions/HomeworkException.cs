@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace LessonMonitor.Core.Exceprions
 {
@@ -7,10 +6,9 @@ namespace LessonMonitor.Core.Exceprions
     {
         public HomeworkException(string message) : base(message)
         {
-
         }
 
-        protected HomeworkException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public HomeworkException(string message, Exception innerException) : base(message, innerException)
         {
 
         }

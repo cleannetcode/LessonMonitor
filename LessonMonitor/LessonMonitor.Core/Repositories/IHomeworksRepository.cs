@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using System;
 
 namespace LessonMonitor.Core.Repositories
 {
@@ -6,7 +6,7 @@ namespace LessonMonitor.Core.Repositories
     {
         void Add(Homework homework);
         Homework Get();
-        void Delete(int homeworkId);
-        void Update(Homework homework);
+        bool Delete(Guid homeworkId);
+        bool Update(Homework homework);
     }
 }

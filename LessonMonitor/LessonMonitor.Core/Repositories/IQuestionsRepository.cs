@@ -2,7 +2,7 @@
 {
     public interface IQuestionsRepository
     {
-        void Create(Question question);
+        void Add(Question question);
         Question[] Get();
     }
 }

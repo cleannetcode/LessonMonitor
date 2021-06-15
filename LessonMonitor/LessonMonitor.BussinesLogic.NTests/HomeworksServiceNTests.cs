@@ -1,7 +1,7 @@
 using AutoFixture;
 using FluentAssertions;
 using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -13,6 +13,8 @@ namespace LessonMonitor.BussinesLogic.NTests
     {
         private Mock<IHomeworksRepository> _homeworkRepositoryMock;
         private HomeworksService _service;
+
+        static Guid?[] NullAndEmptyGuid = new Guid?[] { null, Guid.Empty };
 
         public HomeworksServiceNTests() {}
 
@@ -32,7 +34,8 @@ namespace LessonMonitor.BussinesLogic.NTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.MentorId)
+                .Without(x => x.Topic)
+                .Without(x => x.User)
                 .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
@@ -65,15 +68,15 @@ namespace LessonMonitor.BussinesLogic.NTests
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(-456)]
-        [TestCase(-45654)]
-        [TestCase(-1546454)]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int memberId)
+        [TestCaseSource("NullAndEmptyGuid")]
+        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(Guid guid)
         {
             // arrange
             var homework = new Homework();
-            homework.MemberId = memberId;
+
+            var fixture = new Fixture();
+
+            homework.Id = guid;
 
             // act
             bool result = false;
@@ -95,7 +98,7 @@ namespace LessonMonitor.BussinesLogic.NTests
             // arrange
             var fixture = new Fixture();
 
-            var homeworkId = fixture.Create<int>();
+            var homeworkId = fixture.Create<Guid>();
 
             // act
             var result = _service.Delete(homeworkId);
@@ -103,6 +106,70 @@ namespace LessonMonitor.BussinesLogic.NTests
             // assert
             result.Should().BeTrue();
             _homeworkRepositoryMock.Verify(x => x.Delete(homeworkId), Times.Once);
+        }
+
+        [Test]
+        public void Update_HomeworkIsValide_ShouldUpdateHomework()
+        {
+            // arrange - подготавливаем данные
+            var fixture = new Fixture();
+
+            var homework = fixture.Build<Homework>()
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Create();
+
+            // act - запускаем тестируемый метод
+            var result = _service.Update(homework);
+
+            // assert - проверяем/валидируем результаты теста
+            result.Should().BeTrue();
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Once);
+        }
+
+        [Test]
+        public void Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
+        {
+            // arrange - подготавливаем данные
+            var fixture = new Fixture();
+
+            var homework = fixture.Build<Homework>()
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Without(x => x.Id)
+                .Create();
+
+            // act
+            bool result = false;
+
+            var exceprtion = Assert.Throws<HomeworkException>(() => result = _service.Update(homework));
+
+            // assert
+            exceprtion.Should().NotBeNull()
+              .And
+              .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+
+            result.Should().BeFalse();
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Never);
+        }
+
+        [Test]
+        public void Update_HomeworkIsINull_ShouldThrowBusinessExceprion()
+        {
+            // arrange 
+            Homework homework = null;
+
+            // act 
+            bool result = false;
+
+            var exceprtion = Assert.Throws<ArgumentNullException>(() => result = _service.Update(homework));
+
+            // assert
+            exceprtion.Should().NotBeNull()
+                .And.Match<ArgumentNullException>(x => x.ParamName == "homework");
+
+            result.Should().BeFalse();
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Never);
         }
     }
 }

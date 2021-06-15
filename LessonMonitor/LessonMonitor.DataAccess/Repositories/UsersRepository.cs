@@ -1,5 +1,4 @@
 ﻿using LessonMonitor.Core.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -7,17 +6,14 @@ namespace LessonMonitor.DataAccess.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly IDbContextFactory<SqlDbContext> _contextFactory;
-        public UsersRepository()
-        {
-            
-        }
+        public UsersRepository() {}
 
         public Core.User[] Get()
         {
-            using var context = _contextFactory.CreateDbContext();
+            using SqlDbContext _context = new SqlDbContext();
 
-                return context.Users.Select(f =>
+
+            return _context.Users.Select(f =>
                     new Core.User()
                     {
                         Id = f.Id,
@@ -29,9 +25,10 @@ namespace LessonMonitor.DataAccess.Repositories
                     ).ToArray();
         }
 
-        public void Create(Core.User user)
+        public void Add(Core.User user)
         {
-            using var context = _contextFactory.CreateDbContext();
+            using SqlDbContext _context = new SqlDbContext();
+
 
             var newUser = new DataAccess.User
             {
@@ -42,9 +39,14 @@ namespace LessonMonitor.DataAccess.Repositories
                 CreatedDate = DateTime.Now
             };
 
-            context.Users.Add(newUser);
+            _context.Users.Add(newUser);
 
-            context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public bool Update(Core.User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

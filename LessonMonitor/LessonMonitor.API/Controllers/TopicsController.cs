@@ -14,7 +14,7 @@ namespace LessonMonitor.API.Controllers
             _topicService = topicsService;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(string theme)
         {
             if (string.IsNullOrEmpty(theme))

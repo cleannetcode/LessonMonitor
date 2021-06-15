@@ -2,7 +2,9 @@
 {
     public interface IUsersRepository
     {
-        void Create(User user);
+        void Add(User user);
         User[] Get();
+
+        bool Update(User user);
     }
 }

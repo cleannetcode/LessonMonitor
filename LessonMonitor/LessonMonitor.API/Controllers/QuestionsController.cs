@@ -18,7 +18,7 @@ namespace LessonMonitor.API.Controllers
             _questionsService = questionsService;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(string userName, string question)
         {
             if (string.IsNullOrEmpty(userName))
@@ -49,7 +49,7 @@ namespace LessonMonitor.API.Controllers
             return Ok(new { Successful = $"Question: '{question}' is created from {userName}" });
         }
 
-        [HttpGet]
+        [HttpGet("Get")]
         public Question[] Get()
         {
             var coreQuestions = _questionsService.Get();
@@ -62,6 +62,7 @@ namespace LessonMonitor.API.Controllers
             {
                 var newQuestion = new Question
                 {
+                    UserName = question.User.Name,
                     Description = question.Description,
                     CreateTime = question.CreateTime
                 };

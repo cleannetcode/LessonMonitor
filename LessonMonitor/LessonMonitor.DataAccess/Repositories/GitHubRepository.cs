@@ -5,6 +5,8 @@ namespace LessonMonitor.DataAccess.Repositories
 {
     public class GitHubRepository : IGitHubRepository
     {
+        public GitHubRepository() {}
+
         public Core.GitInfo GetInfo(Core.GitInfo gitInfo)
         {
             throw new NotImplementedException();

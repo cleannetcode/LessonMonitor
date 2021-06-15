@@ -1,7 +1,6 @@
 using LessonMonitor.BussinesLogic;
 using LessonMonitor.Core.Services;
 using LessonMonitor.Core.Repositories;
-using LessonMonitor.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,8 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Net;
-using Microsoft.EntityFrameworkCore;
 using LessonMonitor.DataAccess.Repositories;
+using LessonMonitor.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.API
 {
@@ -34,11 +34,11 @@ namespace LessonMonitor.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
 
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IUsersRepository, UsersRepository>();
-
             services.AddScoped<ITopicsService, TopicsService>();
             services.AddScoped<ITopicsRepository, TopicsRepository>();
+
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
 
             services.AddTransient<IQuestionsService, QuestionsService>();
             services.AddTransient<IQuestionsRepository, QuestionsRepository>();
@@ -46,6 +46,9 @@ namespace LessonMonitor.API
             services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
             services.AddSingleton<IGitHubService, GitHubService>();
             services.AddSingleton<IGitHubRepository, GitHubRepository>();
+
+            services.AddTransient<IHomeworksService, HomeworksService>();
+            services.AddTransient<IHomeworksRepository, HomeworkRepository>();
 
             services.AddDbContext<SqlDbContext>(
                options => options.UseSqlServer(Configuration.GetConnectionString("SqlContext"))
@@ -75,7 +78,7 @@ namespace LessonMonitor.API
 
             app.UseMiddleware<MyMiddlewareComponent>();
 
-            app.Use((httpContext, next) =>
+            app.Use( async (httpContext, next) =>
             {
                 HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create("http://www.contoso.com/");
 
@@ -83,7 +86,7 @@ namespace LessonMonitor.API
 
                 WebHeaderCollection myWebHeaderCollection = myHttpWebResponse.Headers;
 
-                using StreamWriter file = new("HeaderLines.txt");
+                await using StreamWriter file = new("HeaderLines.txt");
 
                 for (int i = 0; i < myWebHeaderCollection.Count; i++)
                 {
@@ -115,7 +118,7 @@ namespace LessonMonitor.API
 
                 var task = next();
 
-               return task;
+                await task;
             });
 
             app.UseAuthorizationMiddleware();

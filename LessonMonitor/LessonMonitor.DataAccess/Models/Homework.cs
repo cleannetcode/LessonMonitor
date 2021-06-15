@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.Core
+namespace LessonMonitor.DataAccess
 {
     public class Homework
     {

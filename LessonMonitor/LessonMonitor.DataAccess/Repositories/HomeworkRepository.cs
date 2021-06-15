@@ -1,28 +1,30 @@
-﻿using LessonMonitor.Core.Models;
-using LessonMonitor.Core.Repositories;
+﻿using LessonMonitor.Core.Repositories;
+using System;
 
 namespace LessonMonitor.DataAccess.Repositories
 {
     public class HomeworkRepository : IHomeworksRepository
     {
-        public void Add(Homework homework)
+        public HomeworkRepository() {}
+
+        public void Add(Core.Homework homework)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Delete(int homeworkId)
+        public bool Delete(Guid homeworkId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Homework Get()
+        public Core.Homework Get()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Update(Homework homework)
+        public bool Update(Core.Homework homework)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

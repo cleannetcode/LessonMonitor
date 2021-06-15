@@ -8,7 +8,7 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class ThreadController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("GetThreadInfo")]
         public string[] StartThread()
         {
             var user = new User();

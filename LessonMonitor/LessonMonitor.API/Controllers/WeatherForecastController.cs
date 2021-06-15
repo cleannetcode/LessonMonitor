@@ -24,7 +24,7 @@ namespace LessonMonitor.API.Controllers
 
         public ILogger<WeatherForecastController> Logger => _logger;
 
-        [HttpGet]
+        [HttpGet("Get")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -37,11 +37,11 @@ namespace LessonMonitor.API.Controllers
             .ToArray();
         }
 
-        [HttpGet("model")]
+        [HttpGet("GetModel")]
         public WeatherForecast WeatherForecast()
         {
-
             var weather = new WeatherForecast();
+
             weather.GetType();
 
             var watherForecastModel = typeof(WeatherForecast);

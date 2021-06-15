@@ -1,8 +1,7 @@
 using AutoFixture;
 using FluentAssertions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using System;
@@ -30,8 +29,9 @@ namespace LessonMonitor.BussinesLogic.XTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.MentorId)
-                .Create();
+                 .Without(x => x.Topic)
+                 .Without(x => x.User)
+                 .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
 
@@ -62,16 +62,15 @@ namespace LessonMonitor.BussinesLogic.XTests
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-456)]
-        [InlineData(-45654)]
-        [InlineData(-1546454)]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int memberId)
+        [Fact]
+        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
         {
             // arrange
             var homework = new Homework();
-            homework.MemberId = memberId;
+
+            var fixture = new Fixture();
+
+            homework.Id = Guid.Empty;
 
             // act
             bool result = false;
@@ -80,8 +79,8 @@ namespace LessonMonitor.BussinesLogic.XTests
 
             // assert
             exceprtion.Should().NotBeNull()
-                .And
-                .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+              .And
+              .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
 
             result.Should().BeFalse();
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
@@ -93,7 +92,7 @@ namespace LessonMonitor.BussinesLogic.XTests
             // arrange
             var fixture = new Fixture();
 
-            var homeworkId = fixture.Create<int>();
+            var homeworkId = fixture.Create<Guid>();
 
             // act
             var result = _service.Delete(homeworkId);

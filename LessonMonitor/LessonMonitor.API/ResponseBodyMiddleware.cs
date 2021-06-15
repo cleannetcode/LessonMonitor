@@ -19,26 +19,26 @@ namespace LessonMonitor.API
 
             try
             {
-                using (var memStream = new MemoryStream())
-                {
-                    context.Response.Body = memStream;
+                using var memStream = new MemoryStream();
 
-                    await _next(context);
+                context.Response.Body = memStream;
 
-                    memStream.Position = 0;
+                await _next(context);
 
-                    var responseBody = new StreamReader(memStream).ReadToEnd();
+                memStream.Position = 0;
 
-                    var actionDesc = context.GetEndpoint()
-                                  .Metadata
-                                  .GetMetadata<ControllerActionDescriptor>();
+                var responseBody = new StreamReader(memStream).ReadToEnd();
 
-                    _responseBodyRepository.SaveHttpContextLogs(responseBody, context, actionDesc);
+                var actionDesc = context.GetEndpoint()
+                              .Metadata
+                              .GetMetadata<ControllerActionDescriptor>();
 
-                    memStream.Position = 0;
+                _responseBodyRepository.SaveHttpContextLogs(responseBody, context, actionDesc);
 
-                    await memStream.CopyToAsync(originalBody);
-                }
+                memStream.Position = 0;
+
+                await memStream.CopyToAsync(originalBody);
+
             }
             finally
             {

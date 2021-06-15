@@ -2,7 +2,7 @@
 {
     public interface IQuestionsService
     {
-        void Create(Question question);
+        bool Create(Question question);
         Question[] Get();
     }
 }
