@@ -69,4 +69,22 @@
   <ItemGroup>
     <None Include="LessonDb.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="getLesson.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="getLessonTimecodes.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="getMember.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="getMemberName.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="getLessonDescr.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="getMemberQuestion.sql" />
+  </ItemGroup>
 </Project>

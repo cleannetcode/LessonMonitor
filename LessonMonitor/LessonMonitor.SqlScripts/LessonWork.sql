@@ -236,3 +236,131 @@ SELECT * FROM GetLesson(58)
 SELECT TOP(1000) *
 FROM [dbo].[GetVisitedLessons] as gvl
 WHERE gvl.Member = 'AAFA737D-7A85-42F6-937C-2155BC6DED5B -Member'
+
+
+-- HOMEWORK
+------------------------------# CREATED NONCLUSTERED INDEX
+CREATE NONCLUSTERED INDEX IX_Members_Name_Nickname
+	ON Members (Name, Nicknames);
+GO
+
+CREATE NONCLUSTERED INDEX IX_Lessons_Title
+	ON Lessons (Title);
+GO
+
+CREATE NONCLUSTERED INDEX IX_Lessons_Title_Descr
+	ON Lessons (Title, Description);
+GO
+
+CREATE NONCLUSTERED INDEX IX_Questions_MemberId_LessonId
+	On Questions (MemberId, LessonId)
+GO
+
+CREATE NONCLUSTERED INDEX IX_Questions_Description
+	On Questions (Description)
+GO
+
+------------------------------# CREATED View
+CREATE VIEW [dbo].[GetVisitedLessons]
+AS
+SELECT dbo.Lessons.Id, dbo.Lessons.Title, dbo.Members.Name AS Member, dbo.MembersLessons.CreatedDate AS VisitedDate
+FROM   dbo.Members INNER JOIN
+             dbo.MembersLessons ON dbo.Members.Id = dbo.MembersLessons.MemberId INNER JOIN
+             dbo.Lessons ON dbo.MembersLessons.LessonId = dbo.Lessons.Id
+GO
+-- =============================================
+CREATE VIEW [dbo].[MembersStatistic]
+AS
+SELECT m.Id, m.Name, m.Nicknames, l.Title, l.Description, q.Description AS Expr1, t.Timecode
+FROM   dbo.Members AS m LEFT OUTER JOIN
+             dbo.MembersLessons AS ml ON m.Id = ml.MemberId LEFT OUTER JOIN
+             dbo.Lessons AS l ON l.Id = ml.LessonId INNER JOIN
+             dbo.Timecodes AS t ON t.LessonId = ml.LessonId LEFT OUTER JOIN
+             dbo.Questions AS q ON q.MemberId = m.Id
+GO
+
+------------------------------# CREATED StoredProcedure
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+CREATE PROCEDURE [dbo].[createLesson]
+	-- Add the parameters for the stored procedure here
+	@Title nvarchar(200),
+	@Description nvarchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF NOT EXISTS (SELECT Id FROM Lessons
+	WHERE Title = @Title)
+	BEGIN
+		INSERT INTO Lessons
+		VALUES (@Title, @Description, GETDATE(), GETDATE())
+
+		PRINT SCOPE_IDENTITY()
+	END
+	ELSE
+	RETURN ERROR_MESSAGE()
+END
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+CREATE PROCEDURE [dbo].[createMember]
+	-- Add the parameters for the stored procedure here
+	@Name nvarchar(50),
+	@Nicknames nvarchar(100),
+	@Email nvarchar(200)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF NOT EXISTS (SELECT Id FROM Members
+	WHERE Name = @Name)
+	BEGIN
+		INSERT INTO Members
+		VALUES (@Name, @Nicknames, @Email, GETDATE())
+
+		PRINT SCOPE_IDENTITY()
+	END
+	ELSE
+	RETURN ERROR_MESSAGE()
+END
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+CREATE PROCEDURE [dbo].[createTimecode]
+	-- Add the parameters for the stored procedure here
+	@LessonId int,
+	@Description nvarchar(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF EXISTS (SELECT Id FROM Timecodes
+	WHERE LessonId = @LessonId)
+	BEGIN
+		INSERT INTO Timecodes
+		VALUES (@LessonId, @Description, CONVERT(TIME, GETDATE()))
+
+		PRINT SCOPE_IDENTITY()
+	END
+	ELSE
+	RETURN ERROR_MESSAGE()
+END
