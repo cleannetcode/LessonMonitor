@@ -1,4 +1,6 @@
 using LessonMonitor.Core;
+using LessonMonitor.Core.Repository;
+using LessonMonitor.Core.Service;
 
 namespace LessonMonitor.BusinessLogic
 {

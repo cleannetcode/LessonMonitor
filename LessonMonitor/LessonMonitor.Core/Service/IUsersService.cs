@@ -1,4 +1,4 @@
-namespace LessonMonitor.Core
+namespace LessonMonitor.Core.Service
 {
 	public interface IUsersService
 	{

@@ -3,6 +3,8 @@ using System;
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
+using LessonMonitor.Core.Service;
+using LessonMonitor.Core.Repository;
 
 namespace LessonMonitor.API.Controllers
 {
