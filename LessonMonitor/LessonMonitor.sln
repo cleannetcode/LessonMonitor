@@ -17,11 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Core", "Lesso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DITests", "DITests\DITests.csproj", "{91805C34-EBB1-4E62-9F64-2A22BECB59BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BusinessLogic.MsTests", "LessonMonitor.BusinessLogic.MsTests\LessonMonitor.BusinessLogic.MsTests.csproj", "{CA6E800A-1E5C-4074-883E-12CD2E5D2FAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.MsTests", "LessonMonitor.BusinessLogic.MsTests\LessonMonitor.BusinessLogic.MsTests.csproj", "{CA6E800A-1E5C-4074-883E-12CD2E5D2FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BusinessLogic.NTests", "LessonMonitor.BusinessLogic.NTests\LessonMonitor.BusinessLogic.NTests.csproj", "{11E6BB6F-F12B-4D2E-9E12-2C20993FC866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.NTests", "LessonMonitor.BusinessLogic.NTests\LessonMonitor.BusinessLogic.NTests.csproj", "{11E6BB6F-F12B-4D2E-9E12-2C20993FC866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BusinessLogic.XTests", "LessonMonitor.BusinessLogic.XTests\LessonMonitor.BusinessLogic.XTests.csproj", "{70B86D16-5144-4677-8730-E37FED6BDE65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.XTests", "LessonMonitor.BusinessLogic.XTests\LessonMonitor.BusinessLogic.XTests.csproj", "{70B86D16-5144-4677-8730-E37FED6BDE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{4B04A4B6-438D-4E90-9EA6-41A388EB061F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deadlock", "Deadlock\Deadlock.csproj", "{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,14 @@ Global
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B04A4B6-438D-4E90-9EA6-41A388EB061F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B04A4B6-438D-4E90-9EA6-41A388EB061F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B04A4B6-438D-4E90-9EA6-41A388EB061F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B04A4B6-438D-4E90-9EA6-41A388EB061F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
