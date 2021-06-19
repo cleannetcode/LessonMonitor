@@ -10,10 +10,12 @@ namespace LessonMonitor.BusinessLogic
     {
         public const string HOMEWORK_IS_INVALID = "Homework is invalid!";
         private readonly IHomeworksRepository homeworksRepository;
+
         public HomeworksService(IHomeworksRepository homeworksRepository)
         {
             this.homeworksRepository = homeworksRepository;
         }
+
         public bool Create(Homework homework)
         {
             if (homework is null)
@@ -34,7 +36,31 @@ namespace LessonMonitor.BusinessLogic
         }
         public bool Delete(int homeworksId)
         {
+            if(homeworksId <= 0)
+            {
+                throw new BusinessException(HOMEWORK_IS_INVALID);
+            }
+
             homeworksRepository.Delete(homeworksId);
+            return true;
+        }
+        public bool Update(Homework homework)
+        {
+            if (homework is null)
+            {
+                throw new ArgumentNullException(nameof(homework));
+            }
+            var isInvalid = String.IsNullOrWhiteSpace(homework.Link)
+                || String.IsNullOrWhiteSpace(homework.Title)
+                || homework.MemberId <= 0
+                || homework.MentorId <= 0;
+
+            if (isInvalid)
+            {
+                throw new BusinessException(HOMEWORK_IS_INVALID);
+            }
+
+            homeworksRepository.Update(homework);
             return true;
         }
     }

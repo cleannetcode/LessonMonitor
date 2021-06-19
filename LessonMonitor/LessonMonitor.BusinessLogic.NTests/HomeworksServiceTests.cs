@@ -23,8 +23,6 @@ namespace LessonMonitor.BusinessLogic.NTests
         [Test]
         public void Create_HomeworkIsValid_ShouldCreateNewHomework()
         {
-           // var fixture = new Fixture();
-
             var homework = new Homework
             {
                 Link = "link",
@@ -61,7 +59,7 @@ namespace LessonMonitor.BusinessLogic.NTests
         [TestCase(0)]
         [TestCase(-124)]
         [TestCase(-24122)]
-        public void Create_HomeworkIsInvalid_ShouldThrowBisinessException(int memberId)
+        public void Create_HomeworkIsInvalid_ShouldThrowBusinessException(int memberId)
         {
             //arrange
 
@@ -94,5 +92,81 @@ namespace LessonMonitor.BusinessLogic.NTests
             homeworksRepositoryMock.Verify(x => x.Delete(homeworkId), Times.Once);
             result.Should().BeTrue();
         }
+        
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-1999)]
+        public void Delete_MemberIdIsInvalid_ShouldReturnBusinessException(int memberId)
+        {
+            // arange
+            //var homework = new Homework();
+            //homework.MemberId = memberId;
+            bool result = false;
+
+            //act
+            var exception = Assert.Throws<BusinessException>(() => result = service.Delete(memberId));
+
+            //assert
+            exception.Should().NotBeNull()
+                .And
+                .Match<BusinessException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+
+            result.Should().BeFalse();
+            homeworksRepositoryMock.Verify(x => x.Delete(memberId), Times.Never);
+        }
+
+        [Test]
+        public void Update_HomeworkIsValid_ShouldUpdateHomework()
+        {
+            var fixture = new Fixture();
+            var homework = fixture.Build<Homework>()
+                .Create();
+
+            var result = service.Update(homework);
+
+            result.Should().BeTrue();
+            homeworksRepositoryMock.Verify(x => x.Update(homework), Times.Once);
+        }
+
+        [Test]
+        public void Update_HomeworkIsNull_ShouldThrowArgumentNullException()
+        {
+            //arange
+            var result = false;
+            Homework homework = null;
+
+            //act
+            var exception = Assert.Throws<ArgumentNullException>(() => result = service.Update(homework));
+
+            //assert
+            result.Should().BeFalse();
+            exception.Should().NotBeNull()
+                .And
+                .Match<ArgumentNullException>(x => x.ParamName == "homework");
+            homeworksRepositoryMock.Verify(x => x.Update(homework), Times.Never);
+        }
+        [Test]
+        public void Update_HomeworkInValid_ShouldReturnBusinessException()
+        {
+            //arange
+            var fixture = new Fixture();
+            var homework = fixture.Build<Homework>()
+                .With(x => x.MemberId, -10)
+                .Without(x => x.MentorId)
+                .Create();
+
+            //act
+            var result = false;
+            var exception = Assert.Throws<BusinessException>(() => result = service.Update(homework));
+            
+            //assert
+            exception.Should().NotBeNull()
+                .And
+                .Match<BusinessException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+
+            result.Should().BeFalse();
+            homeworksRepositoryMock.Verify(x => x.Update(homework), Times.Never);
+        }
+
     }
 }
