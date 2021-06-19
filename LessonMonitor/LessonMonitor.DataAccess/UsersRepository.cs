@@ -1,4 +1,5 @@
 using LessonMonitor.Core;
+using LessonMonitor.Core.Repository;
 using System;
 
 namespace LessonMonitor.DataAccess
