@@ -2,9 +2,10 @@ namespace LessonMonitor.Core
 {
 	public interface IHomeworksRepository
 	{
-		void Add(Homework homework);
-		Homework Get();
+		int Add(Homework newHomework);
 		void Update(Homework homework);
 		void Delete(int homeworkId);
+		Homework[] Get();
+		Homework Get(int homeworkId);
 	}
 }
