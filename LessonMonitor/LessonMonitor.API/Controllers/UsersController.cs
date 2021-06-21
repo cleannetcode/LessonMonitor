@@ -1,90 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.DataAccess;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController()
         {
-            this.userRepository = userRepository;
+            IUsersRepository userRepository = new UsersRepository();
+
+            _userService = new UserService(userRepository);
         }
 
         [HttpGet]
-        public User[] Get(string userName)
+        public Contracts.User[] Get(string userName)
         {
-            // sOlid
+            var user = _userService.Get();
 
-            // провалидировать входной параметр
-            // IValidator.Validate(userName);
+            var result = new Contracts.User();
 
-            // получить информацию
-            // var user = IUserRepository.Get(userName);
+            return new[] { result };
+        }
 
-            // преобразовать информацию в выходной параметр
-            // new UserModel { Name = user.Name };
-            // IMapper.Map();
-            // IUserFactory.Create();
-            // IUserBuilder.Build();
-
-            var random = new Random();
-            var users = new List<User>();
-
-            for (int i = 0; i < 10; i++)
+        [HttpPost]
+        public Contracts.User Create(Contracts.User newUser)
+        {
+            var user = new Core.Models.User()
             {
-                var user = new User();
+                Age = newUser.Age,
+                Name = newUser.Name
+            };
 
-                user.Name = userName + i;
-                user.Age = random.Next(20, 51);
+            _userService.Create(user);
 
-                users.Add(user);
-            }
-
-            return users.ToArray();
+            return newUser;
         }
 
         [HttpGet("model")]
-        public void GetModel([FromQuery] User user)
+        public void GetModel([FromQuery] Contracts.User user)
         {
             var model = user.GetType();
 
