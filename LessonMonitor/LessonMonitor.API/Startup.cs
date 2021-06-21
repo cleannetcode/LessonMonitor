@@ -45,8 +45,8 @@ namespace LessonMonitor.API
             services.AddSingleton<IGitHubService, GitHubService>();
             services.AddSingleton<IGitHubRepository, GitHubRepository>();
 
-            services.AddTransient<IHomeworksService, HomeworksService>();
-            services.AddTransient<IHomeworksRepository, HomeworksRepository>();
+            services.AddScoped<IHomeworksService, HomeworksService>();
+            services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 
         }
 
