@@ -21,7 +21,6 @@ namespace LessonMonitor.DataAccess.Repositories
                         Name = f.Name,
                         Nicknames = f.Nicknames,
                         Email = f.Email,
-                        CreatedDate = f.CreatedDate
                     }
                     ).ToArray();
         }

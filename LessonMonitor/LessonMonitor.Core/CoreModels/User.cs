@@ -11,8 +11,6 @@ namespace LessonMonitor.Core.CoreModels
         public string Nicknames { get; set; }
 
         public string Email { get; set; }
-        public DateTime CreatedDate { get; set; }
-
         public string ChangeEmail(string newEmail)
         {
             if (string.IsNullOrEmpty(newEmail)) throw new Exception("Age must be between 7 and 100");

@@ -54,9 +54,7 @@ namespace LessonMonitor.API.Controllers
             {
                 Name = Name,
                 Email = Email,
-                Nicknames = Nicknames,
-                CreatedDate = DateTime.Now
-
+                Nicknames = Nicknames
             };
 
             _usersService.Create(user);

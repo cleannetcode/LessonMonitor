@@ -68,7 +68,7 @@ namespace LessonMonitor.DataAccess.Repositories
 
 		public void Delete(int homeworkId)
 		{
-			if (homeworkId < 0)
+			if (homeworkId <= 0)
 				throw new ArgumentException(nameof(homeworkId));
 
 			using (var connection = new SqlConnection(_connectionString))
@@ -86,6 +86,47 @@ namespace LessonMonitor.DataAccess.Repositories
 
 				command.ExecuteNonQuery();
 			}
+		}
+		public Homework Get(int homeworkId)
+		{
+			using (var connection = new SqlConnection(_connectionString))
+			{
+				connection.Open();
+
+				var command = new SqlCommand(@"
+						SELECT 
+							Id,
+							TopicId,
+							Name,
+							Link, 
+							Grade 
+						FROM Homeworks
+						WHERE DeletedDate IS NULL AND Id = @Id",
+				connection);
+
+				command.Parameters.AddWithValue("@Id", homeworkId);
+
+				var reader = command.ExecuteReader();
+
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+						var homework = new Core.CoreModels.Homework
+						{
+							Id = reader.GetInt32(0),
+							TopicId = reader.GetInt32(1),
+							Name = reader.GetString(2),
+							Link = reader.GetString(3),
+							Grade = reader.GetInt32(4),
+						};
+
+						return homework;
+					}
+				}
+			}
+
+			return null;
 		}
 
 		public Homework[] Get()
@@ -128,47 +169,6 @@ namespace LessonMonitor.DataAccess.Repositories
 			return homeworks.ToArray();
 		}
 
-		public Homework Get(int homeworkId)
-		{
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
-
-				var command = new SqlCommand(@"
-						SELECT 
-							Id,
-							TopicId,
-							Name,
-							Link, 
-							Grade 
-						FROM Homeworks
-						WHERE DeletedDate IS NULL AND Id = @Id",
-				connection);
-
-				command.Parameters.AddWithValue("@Id", homeworkId);
-
-				var reader = command.ExecuteReader();
-
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						var homework = new Core.CoreModels.Homework
-						{
-							Id = reader.GetInt32(0),
-							TopicId = reader.GetInt32(1),
-							Name = reader.GetString(2),
-							Link = reader.GetString(3),
-							Grade = reader.GetInt32(4),
-						};
-
-						return homework;
-					}
-				}
-			}
-
-			return null;
-		}
 
 		public void Update(Homework homework)
 		{

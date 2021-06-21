@@ -2,11 +2,9 @@
 
 namespace LessonMonitor.DataAccess.Entities
 {
-    public class Question
+    public class Question : BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public string Description { get; set; }
-        public DateTime CreateTime { get; set; }
     }
 }

@@ -5,10 +5,10 @@ using NUnit.Framework;
 
 namespace LessonMonitor.DataAccess.NTests
 {
-    public class HomeworksRepositoryTests
+    public class HomeworksRepositoryNTests
     {
         private HomeworksRepository _repository;
-        public HomeworksRepositoryTests() { }
+        public HomeworksRepositoryNTests() { }
 
         [SetUp]
         public void SetUp()

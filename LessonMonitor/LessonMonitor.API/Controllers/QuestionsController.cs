@@ -41,7 +41,6 @@ namespace LessonMonitor.API.Controllers
             var questionModel = new Core.CoreModels.Question
             {
                 Description = question,
-                CreateTime = DateTime.Now,
                 User = userCore
             };
 
@@ -65,7 +64,6 @@ namespace LessonMonitor.API.Controllers
                 {
                     UserName = question.User.Name,
                     Description = question.Description,
-                    CreateTime = question.CreateTime
                 };
 
                 questions.Add(newQuestion);

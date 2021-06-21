@@ -32,8 +32,6 @@ namespace LessonMonitor.BussinesLogic
 
             if (question.User is null) throw new QuestionException(QUESTION_IS_INVALID, new ArgumentNullException(nameof(question)));
             
-            question.UserId = question.User.Id;
-
             _questionsRepository.Add(question);
 
             return true;
