@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Entites
 {
     public class Homework
     {
@@ -12,6 +12,5 @@ namespace LessonMonitor.DataAccess
 
         public DateTime CreateDate { get; set; }
         public Topic Topic { get; set; }
-        public User User { get; set; }
     }
 }

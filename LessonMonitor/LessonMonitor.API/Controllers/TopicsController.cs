@@ -24,7 +24,7 @@ namespace LessonMonitor.API.Controllers
 
             var topic = new Core.Topic
             {
-                Theme = "#" + theme
+                Theme = theme
             };
 
             _topicService.Create(topic);

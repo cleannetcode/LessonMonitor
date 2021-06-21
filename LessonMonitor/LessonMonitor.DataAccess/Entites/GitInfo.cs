@@ -1,4 +1,4 @@
-﻿namespace LessonMonitor.DataAccess
+﻿namespace LessonMonitor.DataAccess.Entites
 {
     public class GitInfo
     {

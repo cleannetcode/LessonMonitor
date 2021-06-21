@@ -30,7 +30,7 @@ namespace LessonMonitor.DataAccess.Repositories
             using SqlDbContext _context = new SqlDbContext();
 
 
-            var newUser = new DataAccess.User
+            var newUser = new Entites.User
             {
                 Id = user.Id,
                 Name = user.Name,

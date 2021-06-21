@@ -5,6 +5,7 @@ namespace LessonMonitor.DataAccess.Repositories
 {
     public class HomeworkRepository : IHomeworksRepository
     {
+        private string _connectionString;
         public HomeworkRepository() {}
 
         public void Add(Core.Homework homework)

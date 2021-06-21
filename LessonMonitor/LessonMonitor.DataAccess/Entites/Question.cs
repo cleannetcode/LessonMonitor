@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Entites
 {
     public class Question
     {

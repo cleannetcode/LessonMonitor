@@ -11,7 +11,7 @@ namespace LessonMonitor.DataAccess.Repositories
         {
             using SqlDbContext _context = new SqlDbContext();
 
-            var newQuestion = new DataAccess.Question
+            var newQuestion = new Entites.Question
             {
                 Id = question.Id,
                 UserId = question.User.Id,
