@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using System;
 
 namespace LessonMonitor.Core.Services

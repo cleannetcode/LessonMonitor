@@ -22,7 +22,7 @@ namespace LessonMonitor.API.Controllers
                 throw new ArgumentException($"'{nameof(theme)}' can't be null or empty.", nameof(theme));
             }
 
-            var topic = new Core.Models.Topic
+            var topic = new Core.CoreModels.Topic
             {
                 Theme = theme
             };

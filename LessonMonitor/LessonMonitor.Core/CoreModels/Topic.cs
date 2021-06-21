@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LessonMonitor.Core.Models
+﻿namespace LessonMonitor.Core.CoreModels
 {
     public class Topic
     {

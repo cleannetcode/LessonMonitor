@@ -38,7 +38,7 @@ namespace LessonMonitor.API.Controllers
                 throw new ArgumentException($"'{nameof(question)}' can't be null or empty.", nameof(question));
             }
 
-            var questionModel = new Core.Models.Question
+            var questionModel = new Core.CoreModels.Question
             {
                 Description = question,
                 CreateTime = DateTime.Now,

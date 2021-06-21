@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -16,7 +16,7 @@ namespace LessonMonitor.BussinesLogic
             _topicsRepository = topicsRepository;
         }
 
-        public void Create(Topic topic)
+        public void Create(Core.CoreModels.Topic topic)
         {
             if (topic is null) throw new ArgumentNullException(nameof(topic));
 

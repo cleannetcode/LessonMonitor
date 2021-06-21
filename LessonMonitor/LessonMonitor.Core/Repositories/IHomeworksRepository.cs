@@ -1,5 +1,4 @@
-﻿using LessonMonitor.Core.Models;
-using System;
+﻿using LessonMonitor.Core.CoreModels;
 
 namespace LessonMonitor.Core.Repositories
 {

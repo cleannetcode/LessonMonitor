@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -17,7 +17,7 @@ namespace LessonMonitor.BussinesLogic
             _questionsRepository = questionsRepository;
         }
 
-        public bool Create(Question question)
+        public bool Create(Core.CoreModels.Question question)
         {
             // Валидация
             //if (question is null) throw new ArgumentNullException(nameof(question));
@@ -39,7 +39,7 @@ namespace LessonMonitor.BussinesLogic
             return true;
         }
 
-        public Question[] Get()
+        public Core.CoreModels.Question[] Get()
         {
             var questions = _questionsRepository.Get();
 

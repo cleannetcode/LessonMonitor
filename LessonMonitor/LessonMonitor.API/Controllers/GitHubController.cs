@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LessonMonitor.Core.Services;
 using System;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core.CoreModels;
 
 namespace LessonMonitor.API.Controllers
 {

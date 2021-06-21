@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using Newtonsoft.Json;
@@ -31,7 +31,7 @@ namespace LessonMonitor.BussinesLogic
                 webRequest.UserAgent = "Anything";
                 webRequest.ServicePoint.Expect100Continue = false;
 
-                var newGitInfo = new GitInfo();
+                var newGitInfo = new Core.CoreModels.GitInfo();
 
                 try
                 {
@@ -41,7 +41,7 @@ namespace LessonMonitor.BussinesLogic
 
                         var dictionary = JsonConvert.DeserializeObject<GitInfo>(reader);
 
-                        newGitInfo = new Core.Models.GitInfo
+                        newGitInfo = new Core.CoreModels.GitInfo
                         {
                             Name = dictionary.Name,
                             Link = dictionary.Link,
@@ -55,7 +55,7 @@ namespace LessonMonitor.BussinesLogic
                 }
                 catch
                 {
-                    return new Core.Models.GitInfo
+                    return new Core.CoreModels.GitInfo
                     {
                         Name = null,
                         Nickname = "Not found",

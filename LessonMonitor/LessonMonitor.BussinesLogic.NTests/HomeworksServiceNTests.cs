@@ -5,7 +5,7 @@ using LessonMonitor.Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using System;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core.CoreModels;
 
 namespace LessonMonitor.BussinesLogic.NTests
 {

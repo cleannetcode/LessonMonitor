@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using System;
 
@@ -16,7 +16,7 @@ namespace LessonMonitor.DataAccess.Repositories
         public void SaveInfo(GitInfo gitInfo)
         {
             
-            var newGitInfo = new Entites.GitInfo
+            var newGitInfo = new Entities.GitInfo
             {
                 Name = gitInfo.Name,
                 Link = gitInfo.Link,

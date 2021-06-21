@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using System.Linq;
 
@@ -30,7 +30,7 @@ namespace LessonMonitor.DataAccess.Repositories
             using SqlDbContext _context = new SqlDbContext();
 
             return _context.Questions.Select(q =>
-            new Core.Models.Question()
+            new Core.CoreModels.Question()
             {
                 Id = q.Id,
                 UserId = q.UserId,

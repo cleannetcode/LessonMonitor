@@ -1,14 +1,14 @@
-using LessonMonitor.BussinesLogic;
-using LessonMonitor.Core.Services;
-using LessonMonitor.Core.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Net;
+using Microsoft.OpenApi.Models;
+using LessonMonitor.BussinesLogic;
+using LessonMonitor.Core.Services;
+using LessonMonitor.Core.Repositories;
 using LessonMonitor.DataAccess.Repositories;
 
 namespace LessonMonitor.API

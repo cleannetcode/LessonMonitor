@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -49,7 +49,7 @@ namespace LessonMonitor.BussinesLogic
             return true;
         }
 
-        public bool Update(Homework homework)
+        public bool Update(Core.CoreModels.Homework homework)
         {
             if (homework is null) throw new ArgumentNullException(nameof(homework));
 

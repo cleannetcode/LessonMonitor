@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -17,7 +17,7 @@ namespace LessonMonitor.BussinesLogic
             _usersRepository = usersRepository;
         }
 
-        public User[] Get()
+        public Core.CoreModels.User[] Get()
         {
             var users =_usersRepository.Get();
 
@@ -26,7 +26,7 @@ namespace LessonMonitor.BussinesLogic
             return users;
         }
 
-        public bool Create(User user)
+        public bool Create(Core.CoreModels.User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -41,7 +41,7 @@ namespace LessonMonitor.BussinesLogic
             return true;
         }
 
-        public bool Update(User user)
+        public bool Update(Core.CoreModels.User user)
         {
             if (user is null) throw new ArgumentNullException(nameof(user));
 

@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace LessonMonitor.DataAccess.Repositories
 {
-	public class HomeworksRepository : IHomeworksRepository
+    public class HomeworksRepository : IHomeworksRepository
 	{
 		private string _connectionString;
 		public HomeworksRepository(string connectionString)
@@ -113,7 +113,7 @@ namespace LessonMonitor.DataAccess.Repositories
 				{
 					while (reader.Read())
 					{
-						homeworks.Add(new Homework
+						homeworks.Add(new Core.CoreModels.Homework
 						{
 							Id = reader.GetInt32(0),
 							TopicId = reader.GetInt32(1),
@@ -153,7 +153,7 @@ namespace LessonMonitor.DataAccess.Repositories
 				{
 					while (reader.Read())
 					{
-						var homework = new Homework
+						var homework = new Core.CoreModels.Homework
 						{
 							Id = reader.GetInt32(0),
 							TopicId = reader.GetInt32(1),

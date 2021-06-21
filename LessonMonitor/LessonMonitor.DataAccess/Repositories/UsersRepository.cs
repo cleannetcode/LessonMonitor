@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Models;
+﻿using LessonMonitor.Core.CoreModels;
 using LessonMonitor.Core.Repositories;
 using System;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace LessonMonitor.DataAccess.Repositories
 
 
             return _context.Users.Select(f =>
-                    new Core.Models.User()
+                    new Core.CoreModels.User()
                     {
                         Id = f.Id,
                         Name = f.Name,

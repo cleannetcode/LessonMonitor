@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using LessonMonitor.Core.Repositories;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core.CoreModels;
 
 namespace LessonMonitor.BussinesLogic.MsTests
 {

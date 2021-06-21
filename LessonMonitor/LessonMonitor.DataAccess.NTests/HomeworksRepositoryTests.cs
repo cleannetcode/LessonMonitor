@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using LessonMonitor.Core.Models;
+using LessonMonitor.Core.CoreModels;
 using LessonMonitor.DataAccess.Repositories;
 using NUnit.Framework;
 

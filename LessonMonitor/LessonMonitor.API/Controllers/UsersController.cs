@@ -50,7 +50,7 @@ namespace LessonMonitor.API.Controllers
         [HttpPost("Create")]
         public IActionResult Create(string Name, string Email, string Nicknames)
         {
-            var user = new Core.Models.User
+            var user = new Core.CoreModels.User
             {
                 Name = Name,
                 Email = Email,
