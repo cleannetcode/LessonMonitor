@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BussinesLogic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BussinesLogic.XTests", "LessonMonitor.BussinesLogic.XTests\LessonMonitor.BussinesLogic.XTests.csproj", "{DD4D4DB0-5684-4268-8BE5-69E4A6D76CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.LWorkConnectionDB", "LessonMonitor.ConnectionDB\LessonMonitor.LWorkConnectionDB.csproj", "{08490E2F-657F-4258-B14C-72B56240DFB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.LWorkConnectionDB", "LessonMonitor.ConnectionDB\LessonMonitor.LWorkConnectionDB.csproj", "{08490E2F-657F-4258-B14C-72B56240DFB3}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "LessonMonitor.DataBase\LessonMonitor.DataBase.sqlproj", "{A678BF43-94C7-4249-A35B-2EE8E3CD26EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DataAccess.NTests", "LessonMonitor.DataAccess.NTests\LessonMonitor.DataAccess.NTests.csproj", "{97969038-8B80-4286-9E99-8062B373DFCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{A678BF43-94C7-4249-A35B-2EE8E3CD26EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A678BF43-94C7-4249-A35B-2EE8E3CD26EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A678BF43-94C7-4249-A35B-2EE8E3CD26EC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{97969038-8B80-4286-9E99-8062B373DFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97969038-8B80-4286-9E99-8062B373DFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97969038-8B80-4286-9E99-8062B373DFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97969038-8B80-4286-9E99-8062B373DFCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,12 +7,12 @@ namespace LessonMonitor.API.Models
     {
         [CustomRequired(typeof(Homework), Elang.En)]
         public string Name { get; set; }
+        public string Link { get; set; }
 
         [CustomRequired(typeof(Homework), Elang.Ru)]
         public int? Grade { get; set; }
 
         [CustomRequired(typeof(Homework), Elang.En)]
-        public DateTime CreateDate { get; set; }
         public Topic Topic { get; set; }
         public User User { get; set; }
     }

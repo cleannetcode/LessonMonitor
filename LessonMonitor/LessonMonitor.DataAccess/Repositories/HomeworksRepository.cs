@@ -6,13 +6,13 @@ using System.Data.SqlClient;
 
 namespace LessonMonitor.DataAccess.Repositories
 {
-    public class HomeworksRepository : IHomeworksRepository
-    {
-        private string _connectionString;
-        public HomeworksRepository(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+	public class HomeworksRepository : IHomeworksRepository
+	{
+		private string _connectionString;
+		public HomeworksRepository(string connectionString)
+		{
+			_connectionString = connectionString;
+		}
 
 		public int Add(Homework newHomework)
 		{
@@ -21,10 +21,10 @@ namespace LessonMonitor.DataAccess.Repositories
 
 			var newHomeworkEntity = new Entities.Homework
 			{
-				 
-				//Title = newHomework.Title,
-				//Description = newHomework.Description,
-				//Link = newHomework.Link
+				TopicId = newHomework.TopicId,
+				Name = newHomework.Name,
+				Link = newHomework.Link,
+				Grade = newHomework.Grade
 			};
 
 			using (var connection = new SqlConnection(_connectionString))
@@ -32,16 +32,17 @@ namespace LessonMonitor.DataAccess.Repositories
 				connection.Open();
 
 				var command = new SqlCommand(@"
-					INSERT INTO Homeworks (Title, [Description], Link, CreatedDate, UpdatedDate)
-					VALUES (@Title, @Description, @Link, @CreatedDate, @UpdatedDate );
+					INSERT INTO Homeworks (TopicId, Name, Link, Grade, CreatedDate, UpdatedDate)
+					VALUES (@TopicId, @Name, @Link, @Grade, @CreatedDate, @UpdatedDate);
 					SET @Id = scope_identity();",
 				connection);
 
-				//command.Parameters.AddWithValue("@Title", newHomeworkEntity.Title);
-				//command.Parameters.AddWithValue("@Description", newHomeworkEntity.Description);
-				//command.Parameters.AddWithValue("@Link", newHomeworkEntity.Link);
-				//command.Parameters.AddWithValue("@CreatedDate", newHomeworkEntity.CreatedDate);
-				//command.Parameters.AddWithValue("@UpdatedDate", newHomeworkEntity.UpdatedDate);
+				command.Parameters.AddWithValue("@TopicId", newHomeworkEntity.TopicId);
+				command.Parameters.AddWithValue("@Name", newHomeworkEntity.Name);
+				command.Parameters.AddWithValue("@Link", newHomeworkEntity.Link);
+				command.Parameters.AddWithValue("@Grade", newHomeworkEntity.Grade);
+				command.Parameters.AddWithValue("@CreatedDate", newHomeworkEntity.CreatedDate);
+				command.Parameters.AddWithValue("@UpdatedDate", newHomeworkEntity.UpdatedDate);
 
 				var resultParameter = new SqlParameter
 				{
@@ -49,6 +50,7 @@ namespace LessonMonitor.DataAccess.Repositories
 					SqlDbType = System.Data.SqlDbType.Int,
 					ParameterName = "@Id"
 				};
+
 				command.Parameters.Add(resultParameter);
 
 				command.ExecuteNonQuery();
@@ -97,9 +99,10 @@ namespace LessonMonitor.DataAccess.Repositories
 				var command = new SqlCommand(@"
 						SELECT 
 							Id,
-							Title,
-							[Description],
-							Link  
+							TopicId,
+							Name,
+							Link, 
+							Grade
 						FROM Homeworks
 						WHERE DeletedDate IS NULL",
 				connection);
@@ -112,10 +115,11 @@ namespace LessonMonitor.DataAccess.Repositories
 					{
 						homeworks.Add(new Homework
 						{
-							//Id = reader.GetInt32(0),
-							//Title = reader.GetString(1),
-							//Description = reader.GetString(2),
-							//Link = reader.GetString(3)
+							Id = reader.GetInt32(0),
+							TopicId = reader.GetInt32(1),
+							Name = reader.GetString(2),
+							Link = reader.GetString(3),
+							Grade = reader.GetInt32(4),
 						});
 					}
 				}
@@ -133,9 +137,10 @@ namespace LessonMonitor.DataAccess.Repositories
 				var command = new SqlCommand(@"
 						SELECT 
 							Id,
-							Title,
-							[Description],
-							Link  
+							TopicId,
+							Name,
+							Link, 
+							Grade 
 						FROM Homeworks
 						WHERE DeletedDate IS NULL AND Id = @Id",
 				connection);
@@ -150,10 +155,11 @@ namespace LessonMonitor.DataAccess.Repositories
 					{
 						var homework = new Homework
 						{
-							//Id = reader.GetInt32(0),
-							//Title = reader.GetString(1),
-							//Description = reader.GetString(2),
-							//Link = reader.GetString(3)
+							Id = reader.GetInt32(0),
+							TopicId = reader.GetInt32(1),
+							Name = reader.GetString(2),
+							Link = reader.GetString(3),
+							Grade = reader.GetInt32(4),
 						};
 
 						return homework;
@@ -171,10 +177,11 @@ namespace LessonMonitor.DataAccess.Repositories
 
 			var updatedHomeworkEntity = new Entities.Homework
 			{
-				//Id = homework.Id,
-				//Title = homework.Title,
-				//Description = homework.Description,
-				//Link = homework.Link
+				Id = homework.Id,
+				TopicId = homework.TopicId,
+				Name = homework.Name,
+				Link = homework.Link,
+				Grade = homework.Grade
 			};
 
 			using (var connection = new SqlConnection(_connectionString))
@@ -184,20 +191,22 @@ namespace LessonMonitor.DataAccess.Repositories
 				var command = new SqlCommand(@"
 					UPDATE Homeworks
 					SET 
-						Title = @Title, 
-						[Description] = @Description, 
+						TopicId = @TopicId,
+						Name = @Name, 
 						Link = @Link,
+						Grade = @Grade, 
 						UpdatedDate = @UpdatedDate
 					WHERE Id = @Id",
 				connection);
 
-				//command.Parameters.AddWithValue("@Id", updatedHomeworkEntity.Id);
-				//command.Parameters.AddWithValue("@Title", updatedHomeworkEntity.Title);
-				//command.Parameters.AddWithValue("@Description", updatedHomeworkEntity.Description);
-				//command.Parameters.AddWithValue("@Link", updatedHomeworkEntity.Link);
-				//command.Parameters.AddWithValue("@UpdatedDate", updatedHomeworkEntity.UpdatedDate);
+                command.Parameters.AddWithValue("@Id", updatedHomeworkEntity.Id);
+                command.Parameters.AddWithValue("@TopicId", updatedHomeworkEntity.TopicId);
+                command.Parameters.AddWithValue("@Name", updatedHomeworkEntity.Name);
+                command.Parameters.AddWithValue("@Link", updatedHomeworkEntity.Link);
+                command.Parameters.AddWithValue("@Grade", updatedHomeworkEntity.Grade);
+                command.Parameters.AddWithValue("@UpdatedDate", updatedHomeworkEntity.UpdatedDate);
 
-				command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 			}
 		}
 
