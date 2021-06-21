@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core;
+﻿using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using Newtonsoft.Json;
@@ -41,7 +41,7 @@ namespace LessonMonitor.BussinesLogic
 
                         var dictionary = JsonConvert.DeserializeObject<GitInfo>(reader);
 
-                        newGitInfo = new Core.GitInfo
+                        newGitInfo = new Core.Models.GitInfo
                         {
                             Name = dictionary.Name,
                             Link = dictionary.Link,
@@ -55,7 +55,7 @@ namespace LessonMonitor.BussinesLogic
                 }
                 catch
                 {
-                    return new Core.GitInfo
+                    return new Core.Models.GitInfo
                     {
                         Name = null,
                         Nickname = "Not found",

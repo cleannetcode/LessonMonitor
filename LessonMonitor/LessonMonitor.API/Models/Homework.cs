@@ -1,7 +1,7 @@
 ﻿using System;
 using static LessonMonitor.API.ErrorMessageRegistry;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.API.Models
 {
     public class Homework
     {

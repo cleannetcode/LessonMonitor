@@ -1,11 +1,11 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.BussinesLogic.MsTests
 {
@@ -63,15 +63,22 @@ namespace LessonMonitor.BussinesLogic.MsTests
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
         }
 
-        [TestMethod]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(-236)]
+        [DataRow(-53236)]
+        [DataRow(-742364366)]
+        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
         {
             // arrange
-            var homework = new Homework();
-
             var fixture = new Fixture();
 
-            homework.Id = Guid.Empty;
+            var homework = fixture.Build<Homework>()
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Create();
+
+            homework.Id = homeworkId;
 
             // act
             bool result = false;
@@ -93,7 +100,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // arrange
             var fixture = new Fixture();
 
-            var homeworkId = fixture.Create<Guid>();
+            var homeworkId = fixture.Create<int>();
 
             // act
             var result = _service.Delete(homeworkId);
@@ -122,8 +129,12 @@ namespace LessonMonitor.BussinesLogic.MsTests
             _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Once);
         }
 
-        [TestMethod]
-        public void Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(-236)]
+        [DataRow(-53236)]
+        [DataRow(-742364366)]
+        public void Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
         {
             // arrange - подготавливаем данные
             var fixture = new Fixture();
@@ -131,8 +142,9 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var homework = fixture.Build<Homework>()
                 .Without(x => x.Topic)
                 .Without(x => x.User)
-                .Without(x => x.Id)
                 .Create();
+
+            homework.Id = homeworkId;
 
             // act
             bool result = false;

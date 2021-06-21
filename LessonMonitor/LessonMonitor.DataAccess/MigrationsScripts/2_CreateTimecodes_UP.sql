@@ -1,9 +1,9 @@
 ﻿USE [LessonMonitorDb]
 
 IF (NOT EXISTS (SELECT * 
-                 FROM INFORMATION_SCHEMA.TABLES 
-                 WHERE TABLE_SCHEMA = 'dbo' 
-                 AND  TABLE_NAME = 'Timecodes'))
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_SCHEMA = 'dbo' 
+                AND  TABLE_NAME = 'Timecodes'))
 BEGIN
     CREATE TABLE [Timecodes] (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY (2,4),

@@ -1,4 +1,5 @@
-﻿using LessonMonitor.Core.Repositories;
+﻿using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
 
 namespace LessonMonitor.DataAccess.Repositories
 {
@@ -6,11 +7,11 @@ namespace LessonMonitor.DataAccess.Repositories
     {
         public TopicsRepository() {}
 
-        public void Create(Core.Topic topic)
+        public void Create(Topic topic)
         {
             using SqlDbContext _context = new SqlDbContext();
 
-            var newTopic = new DataAccess.Topic
+            var newTopic = new Entities.Topic
             {
                 Id = topic.Id,
                 Theme = topic.Theme

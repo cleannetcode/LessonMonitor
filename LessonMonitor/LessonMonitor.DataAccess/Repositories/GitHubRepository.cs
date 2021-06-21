@@ -1,4 +1,5 @@
-﻿using LessonMonitor.Core.Repositories;
+﻿using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
 using System;
 
 namespace LessonMonitor.DataAccess.Repositories
@@ -7,15 +8,15 @@ namespace LessonMonitor.DataAccess.Repositories
     {
         public GitHubRepository() {}
 
-        public Core.GitInfo GetInfo(Core.GitInfo gitInfo)
+        public GitInfo GetInfo(GitInfo gitInfo)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveInfo(Core.GitInfo gitInfo)
+        public void SaveInfo(GitInfo gitInfo)
         {
             
-            var newGitInfo = new DataAccess.GitInfo
+            var newGitInfo = new Entites.GitInfo
             {
                 Name = gitInfo.Name,
                 Link = gitInfo.Link,

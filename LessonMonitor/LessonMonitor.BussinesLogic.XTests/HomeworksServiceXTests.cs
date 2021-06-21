@@ -1,11 +1,11 @@
 using AutoFixture;
 using FluentAssertions;
 using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using System;
 using Xunit;
+using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.BussinesLogic.XTests
 {
@@ -29,9 +29,9 @@ namespace LessonMonitor.BussinesLogic.XTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                 .Without(x => x.Topic)
-                 .Without(x => x.User)
-                 .Create();
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
 
@@ -62,15 +62,22 @@ namespace LessonMonitor.BussinesLogic.XTests
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
         }
 
-        [Fact]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-236)]
+        [InlineData(-53236)]
+        [InlineData(-742364366)]
+        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
         {
             // arrange
-            var homework = new Homework();
-
             var fixture = new Fixture();
 
-            homework.Id = Guid.Empty;
+            var homework = fixture.Build<Homework>()
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Create();
+
+            homework.Id = homeworkId;
 
             // act
             bool result = false;
@@ -92,7 +99,7 @@ namespace LessonMonitor.BussinesLogic.XTests
             // arrange
             var fixture = new Fixture();
 
-            var homeworkId = fixture.Create<Guid>();
+            var homeworkId = fixture.Create<int>();
 
             // act
             var result = _service.Delete(homeworkId);

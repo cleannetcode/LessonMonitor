@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core;
-using LessonMonitor.Core.Exceprions;
+﻿using LessonMonitor.Core.Exceprions;
+using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -36,8 +36,6 @@ namespace LessonMonitor.BussinesLogic
 
             if (isInvalid) throw new UserException(USER_IS_INVALID);
 
-            user.Id = Guid.NewGuid();
-
             _usersRepository.Add(user);
 
             return true;
@@ -50,7 +48,7 @@ namespace LessonMonitor.BussinesLogic
             // Валидация
             var isInvalid = string.IsNullOrWhiteSpace(user.Name)
                || string.IsNullOrWhiteSpace(user.Nicknames)
-               || Guid.Empty == user.Id;
+               || user.Id < 0;
 
             if (isInvalid) throw new UserException(USER_IS_INVALID);
 

@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Exceprions;
+using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -13,8 +13,6 @@ namespace LessonMonitor.BussinesLogic.NTests
     {
         private Mock<IUsersRepository> _usersRepositoryMock;
         private UsersService _service;
-
-        static Guid?[] NullAndEmptyGuid = new Guid?[] { null, Guid.Empty };
 
         public UsersServiceNTests() { }
 
@@ -61,8 +59,11 @@ namespace LessonMonitor.BussinesLogic.NTests
             _usersRepositoryMock.Verify(x => x.Add(user), Times.Never);
         }
 
-        [Test]
-        public void Create_UserIsInvalide_ShouldThrowBusinessExceprion()
+        [TestCase(0)]
+        [TestCase(-236)]
+        [TestCase(-53236)]
+        [TestCase(-742364366)]
+        public void Create_UserIsInvalide_ShouldThrowBusinessExceprion(int userId)
         {
             // arrange
             var fixture = new Fixture();
@@ -71,6 +72,8 @@ namespace LessonMonitor.BussinesLogic.NTests
                 .Without(x => x.Name)
                 .Without(x => x.Nicknames)
                 .Create();
+
+            user.Id = userId;
 
             // act
             bool result = false;
@@ -103,8 +106,11 @@ namespace LessonMonitor.BussinesLogic.NTests
             _usersRepositoryMock.Verify(x => x.Update(user), Times.Once);
         }
 
-        [Test]
-        public void Update_UserIsInvalide_ShouldThrowBusinessExceprion()
+        [TestCase(0)]
+        [TestCase(-236)]
+        [TestCase(-53236)]
+        [TestCase(-742364366)]
+        public void Update_UserIsInvalide_ShouldThrowBusinessExceprion(int userId)
         {
             // arrange - подготавливаем данные
             var fixture = new Fixture();
@@ -113,6 +119,8 @@ namespace LessonMonitor.BussinesLogic.NTests
                 .Without(x => x.Name)
                 .Without(x => x.Nicknames)
                 .Create();
+
+            user.Id = userId;
 
             // act
             bool result = false;

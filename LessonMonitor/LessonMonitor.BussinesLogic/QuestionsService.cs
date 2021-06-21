@@ -1,5 +1,5 @@
-﻿using LessonMonitor.Core;
-using LessonMonitor.Core.Exceprions;
+﻿using LessonMonitor.Core.Exceprions;
+using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -26,13 +26,12 @@ namespace LessonMonitor.BussinesLogic
 
             var isInvalid = string.IsNullOrWhiteSpace(question.Id.ToString())
                || string.IsNullOrWhiteSpace(question.Description)
-               || Guid.Empty == question.Id;
+               || question.Id < 0;
 
             if (isInvalid) throw new QuestionException(QUESTION_IS_INVALID);
 
             if (question.User is null) throw new QuestionException(QUESTION_IS_INVALID, new ArgumentNullException(nameof(question)));
             
-            question.Id = Guid.NewGuid();
             question.UserId = question.User.Id;
 
             _questionsRepository.Add(question);

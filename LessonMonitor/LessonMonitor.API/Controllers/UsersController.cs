@@ -1,4 +1,5 @@
-﻿using LessonMonitor.Core.Services;
+﻿using LessonMonitor.API.Models;
+using LessonMonitor.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace LessonMonitor.API.Controllers
         [HttpPost("Create")]
         public IActionResult Create(string Name, string Email, string Nicknames)
         {
-            var user = new Core.User
+            var user = new Core.Models.User
             {
                 Name = Name,
                 Email = Email,

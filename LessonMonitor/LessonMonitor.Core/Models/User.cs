@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace LessonMonitor.Core
+namespace LessonMonitor.Core.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

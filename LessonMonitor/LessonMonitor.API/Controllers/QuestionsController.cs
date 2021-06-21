@@ -3,6 +3,7 @@ using LessonMonitor.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LessonMonitor.API.Models;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -37,7 +38,7 @@ namespace LessonMonitor.API.Controllers
                 throw new ArgumentException($"'{nameof(question)}' can't be null or empty.", nameof(question));
             }
 
-            var questionModel = new Core.Question
+            var questionModel = new Core.Models.Question
             {
                 Description = question,
                 CreateTime = DateTime.Now,

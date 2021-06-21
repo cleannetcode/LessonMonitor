@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Exceprions;
+using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -14,8 +14,6 @@ namespace LessonMonitor.BussinesLogic.NTests
     {
         private Mock<IQuestionsRepository> _questionsRepositoryMock;
         private QuestionsService _service;
-
-        static Guid?[] NullAndEmptyGuid = new Guid?[] { null, Guid.Empty };
 
         public QuestionsServiceNTests() { }
 
@@ -62,16 +60,20 @@ namespace LessonMonitor.BussinesLogic.NTests
             _questionsRepositoryMock.Verify(x => x.Add(question), Times.Never);
         }
 
-        [Test]
-        [TestCaseSource("NullAndEmptyGuid")]
-        public void Create_QuestionIsInvalide_ShouldThrowBusinessExceprion(Guid guid)
+        [TestCase(0)]
+        [TestCase(-236)]
+        [TestCase(-53236)]
+        [TestCase(-742364366)]
+        public void Create_QuestionIsInvalide_ShouldThrowBusinessExceprion(int questionId)
         {
             // arrange
-            Question question = new Question();
-
             var fixture = new Fixture();
 
-            question.Id = guid;
+            var question = fixture.Build<Question>()
+                .Without(x => x.User)
+                .Create();
+
+            question.Id = questionId;
 
             // act
             bool result = false;

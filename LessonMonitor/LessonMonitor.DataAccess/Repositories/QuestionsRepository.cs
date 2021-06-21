@@ -1,4 +1,5 @@
-﻿using LessonMonitor.Core.Repositories;
+﻿using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
 using System.Linq;
 
 namespace LessonMonitor.DataAccess.Repositories
@@ -7,11 +8,11 @@ namespace LessonMonitor.DataAccess.Repositories
     {
         public QuestionsRepository() {}
 
-        public void Add(Core.Question question)
+        public void Add(Question question)
         {
             using SqlDbContext _context = new SqlDbContext();
 
-            var newQuestion = new Entites.Question
+            var newQuestion = new Entities.Question
             {
                 Id = question.Id,
                 UserId = question.User.Id,
@@ -24,12 +25,12 @@ namespace LessonMonitor.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public Core.Question[] Get()
+        public Question[] Get()
         {
             using SqlDbContext _context = new SqlDbContext();
 
             return _context.Questions.Select(q =>
-            new Core.Question()
+            new Core.Models.Question()
             {
                 Id = q.Id,
                 UserId = q.UserId,

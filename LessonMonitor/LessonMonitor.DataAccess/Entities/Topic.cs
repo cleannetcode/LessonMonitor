@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace LessonMonitor.DataAccess
+namespace LessonMonitor.DataAccess.Entities
 {
     public class Topic
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Theme { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace LessonMonitor.API.Controllers
         [HttpGet("GetThreadInfo")]
         public string[] StartThread()
         {
-            var user = new User();
+            var user = new Models.User();
             //Task
             var thread1 = new Thread(user.Test);
             var thread2 = new Thread(new ThreadStart(user.Test));

@@ -1,4 +1,4 @@
-﻿using LessonMonitor.DataAccess.Entites;
+﻿using LessonMonitor.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.DataAccess

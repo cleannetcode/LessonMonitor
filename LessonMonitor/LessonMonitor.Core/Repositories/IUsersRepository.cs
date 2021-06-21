@@ -1,4 +1,6 @@
-﻿namespace LessonMonitor.Core.Repositories
+﻿using LessonMonitor.Core.Models;
+
+namespace LessonMonitor.Core.Repositories
 {
     public interface IUsersRepository
     {

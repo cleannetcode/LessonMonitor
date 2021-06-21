@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.Core.Exceprions;
+using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -16,19 +17,18 @@ namespace LessonMonitor.BussinesLogic
             _homeworksRepository = homeworksRepository;
         }
 
-        public Core.Homework Get()
+        public Homework Get()
         {
             throw new NotImplementedException();
         }
 
-        public bool Create(Core.Homework homework)
+        public bool Create(Homework homework)
         {
             // Валидация
-            if(homework is null) throw new ArgumentNullException(nameof(homework));
-            
-            var isInvalid = string.IsNullOrWhiteSpace(homework.Id.ToString())
-                || string.IsNullOrWhiteSpace(homework.Grade.ToString()) 
-                || Guid.Empty == homework.Id;
+            if (homework is null) throw new ArgumentNullException(nameof(homework));
+
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Name)
+                            || homework.Id <= 0;
 
             if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
             
@@ -38,10 +38,10 @@ namespace LessonMonitor.BussinesLogic
             return true;
         }
 
-        public bool Delete(Guid homeworkId)
+        public bool Delete(int homeworkId)
         {
             // Валидация
-            if(homeworkId == Guid.Empty) throw new HomeworkException(HOMEWORK_IS_INVALID);
+            if(homeworkId < 0) throw new HomeworkException(HOMEWORK_IS_INVALID);
 
             // сохранение в базе
             _homeworksRepository.Delete(homeworkId);
@@ -49,14 +49,13 @@ namespace LessonMonitor.BussinesLogic
             return true;
         }
 
-        public bool Update(Core.Homework homework)
+        public bool Update(Homework homework)
         {
             if (homework is null) throw new ArgumentNullException(nameof(homework));
 
             // Валидация
-            var isInvalid = string.IsNullOrWhiteSpace(homework.Id.ToString())
-               || string.IsNullOrWhiteSpace(homework.Grade.ToString())
-               || Guid.Empty == homework.Id;
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Name)
+                           || homework.Id <= 0;
 
             if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
 

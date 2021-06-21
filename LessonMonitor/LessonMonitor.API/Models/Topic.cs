@@ -1,4 +1,4 @@
-﻿namespace LessonMonitor.API
+﻿namespace LessonMonitor.API.Models
 {
     public class Topic
     {

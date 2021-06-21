@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LessonMonitor.Core.Models;
+using System;
 
 namespace LessonMonitor.Core.Services
 {
@@ -6,7 +7,7 @@ namespace LessonMonitor.Core.Services
     {
         bool Create(Homework homework);
         Homework Get();
-        bool Delete(Guid homeworkId);
+        bool Delete(int homeworkId);
         bool Update(Homework homework);
     }
 }

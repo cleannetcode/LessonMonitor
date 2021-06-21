@@ -10,8 +10,6 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Net;
 using LessonMonitor.DataAccess.Repositories;
-using LessonMonitor.DataAccess;
-using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.API
 {
@@ -48,11 +46,7 @@ namespace LessonMonitor.API
             services.AddSingleton<IGitHubRepository, GitHubRepository>();
 
             services.AddTransient<IHomeworksService, HomeworksService>();
-            services.AddTransient<IHomeworksRepository, HomeworkRepository>();
-
-            services.AddDbContext<SqlDbContext>(
-               options => options.UseSqlServer(Configuration.GetConnectionString("SqlContext"))
-               );
+            services.AddTransient<IHomeworksRepository, HomeworksRepository>();
 
         }
 

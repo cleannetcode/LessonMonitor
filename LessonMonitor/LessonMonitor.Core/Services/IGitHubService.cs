@@ -1,4 +1,6 @@
-﻿namespace LessonMonitor.Core.Services
+﻿using LessonMonitor.Core.Models;
+
+namespace LessonMonitor.Core.Services
 {
     public interface IGitHubService
     {

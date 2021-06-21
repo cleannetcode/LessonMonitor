@@ -1,11 +1,11 @@
 using AutoFixture;
 using FluentAssertions;
 using LessonMonitor.Core.Exceprions;
-using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Moq;
 using NUnit.Framework;
 using System;
+using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.BussinesLogic.NTests
 {
@@ -13,8 +13,6 @@ namespace LessonMonitor.BussinesLogic.NTests
     {
         private Mock<IHomeworksRepository> _homeworkRepositoryMock;
         private HomeworksService _service;
-
-        static Guid?[] NullAndEmptyGuid = new Guid?[] { null, Guid.Empty };
 
         public HomeworksServiceNTests() {}
 
@@ -67,16 +65,21 @@ namespace LessonMonitor.BussinesLogic.NTests
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
         }
 
-        [Test]
-        [TestCaseSource("NullAndEmptyGuid")]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(Guid guid)
+        [TestCase(0)]
+        [TestCase(-236)]
+        [TestCase(-53236)]
+        [TestCase(-742364366)]
+        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
         {
             // arrange
-            var homework = new Homework();
-
             var fixture = new Fixture();
 
-            homework.Id = guid;
+            var homework = fixture.Build<Homework>()
+                .Without(x => x.Topic)
+                .Without(x => x.User)
+                .Create();
+
+            homework.Id = homeworkId;
 
             // act
             bool result = false;
@@ -84,9 +87,9 @@ namespace LessonMonitor.BussinesLogic.NTests
             var exceprtion = Assert.Throws<HomeworkException>(() => result = _service.Create(homework));
 
             // assert
-             exceprtion.Should().NotBeNull()
-                .And
-                .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+            exceprtion.Should().NotBeNull()
+              .And
+              .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
 
             result.Should().BeFalse();
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
@@ -98,7 +101,7 @@ namespace LessonMonitor.BussinesLogic.NTests
             // arrange
             var fixture = new Fixture();
 
-            var homeworkId = fixture.Create<Guid>();
+            var homeworkId = fixture.Create<int>();
 
             // act
             var result = _service.Delete(homeworkId);
@@ -127,8 +130,11 @@ namespace LessonMonitor.BussinesLogic.NTests
             _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Once);
         }
 
-        [Test]
-        public void Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion()
+        [TestCase(0)]
+        [TestCase(-236)]
+        [TestCase(-53236)]
+        [TestCase(-742364366)]
+        public void Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
         {
             // arrange - подготавливаем данные
             var fixture = new Fixture();
@@ -136,8 +142,9 @@ namespace LessonMonitor.BussinesLogic.NTests
             var homework = fixture.Build<Homework>()
                 .Without(x => x.Topic)
                 .Without(x => x.User)
-                .Without(x => x.Id)
                 .Create();
+
+            homework.Id = homeworkId;
 
             // act
             bool result = false;

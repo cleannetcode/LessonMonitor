@@ -1,8 +1,10 @@
-﻿namespace LessonMonitor.Core.Repositories
+﻿using LessonMonitor.Core.Models;
+
+namespace LessonMonitor.Core.Repositories
 {
     public interface IGitHubRepository
     {
-        GitInfo GetInfo(Core.GitInfo gitInfo);
+        GitInfo GetInfo(GitInfo gitInfo);
         void SaveInfo(GitInfo gitInfo);
     }
 }

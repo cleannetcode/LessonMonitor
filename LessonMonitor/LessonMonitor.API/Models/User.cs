@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.API.Models
 {
     [Description("User class")]
     public class User
@@ -17,7 +17,7 @@ namespace LessonMonitor.API
         [Description("Test Method")]
         public void Test([Description("First parameter")] string value)
         {
-            
+
         }
 
         public void Test()
@@ -39,8 +39,8 @@ namespace LessonMonitor.API
 
         public RangeAttribute(int maxValue, int minValue)
         {
-            this.MaxValue = maxValue;
-            this.MinValue = minValue;
+            MaxValue = maxValue;
+            MinValue = minValue;
         }
     }
 
@@ -50,7 +50,7 @@ namespace LessonMonitor.API
 
         public DescriptionAttribute(string text)
         {
-            this.Text = text;
+            Text = text;
         }
     }
 

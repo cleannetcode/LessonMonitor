@@ -91,8 +91,7 @@ CREATE TABLE [dbo].[Homeworks](
 	[TopicId] [int] NULL,
 	[Name] [nvarchar](100) NOT NULL,
 	[Link] [nvarchar](max) NULL,
-	[Grade] [int] NULL,
-	[CreateDate] [datetime2](7) NULL,
+	[Grade] [int] NULL
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

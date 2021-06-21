@@ -1,9 +1,9 @@
-﻿namespace LessonMonitor.DataAccess.Entites
+﻿namespace Entites
 {
-    public class GitInfo
+    internal class GitInfo
     {
         public string Name { get; set; }
-        public string Nickname { get; set; }
         public string Link { get; set; }
+        public string Nickname { get; set; }
     }
 }

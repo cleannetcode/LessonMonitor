@@ -1,12 +1,14 @@
-﻿using System;
+﻿using LessonMonitor.Core.Models;
+using System;
 
 namespace LessonMonitor.Core.Repositories
 {
     public interface IHomeworksRepository
     {
-        void Add(Homework homework);
-        Homework Get();
-        bool Delete(Guid homeworkId);
-        bool Update(Homework homework);
+        int Add(Homework newHomework);
+        void Delete(int homeworkId);
+        Homework Get(int homeworkId);
+        Homework[] Get();
+        void Update(Homework homework);
     }
 }

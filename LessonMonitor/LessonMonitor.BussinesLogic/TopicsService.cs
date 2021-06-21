@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core;
+﻿using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -22,11 +22,9 @@ namespace LessonMonitor.BussinesLogic
 
             var isInvalid = string.IsNullOrWhiteSpace(topic.Id.ToString())
                 || string.IsNullOrWhiteSpace(topic.Theme)
-                || Guid.Empty == topic.Id;
+                || topic.Id < 0;
 
             if (isInvalid) throw new ArgumentException(TOPIC_IS_INVALID);
-
-            topic.Id = Guid.NewGuid();
 
             _topicsRepository.Create(topic);
         }
