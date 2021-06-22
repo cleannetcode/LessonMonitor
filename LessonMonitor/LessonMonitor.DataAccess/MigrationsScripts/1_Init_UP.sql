@@ -121,7 +121,7 @@ GO
 CREATE TABLE [dbo].[Questions](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
-	[Discription] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
 	[CreatedDate] [datetime2](7) NULL,
 PRIMARY KEY CLUSTERED 
 (

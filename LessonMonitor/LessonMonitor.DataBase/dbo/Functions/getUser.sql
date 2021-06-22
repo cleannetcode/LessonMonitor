@@ -18,7 +18,7 @@ RETURN
 	Name, 
 	Nicknames,
 	Email,
-	CreateDate
+	CreatedDate
 	FROM Users
 	WHERE Id = @Id
 )

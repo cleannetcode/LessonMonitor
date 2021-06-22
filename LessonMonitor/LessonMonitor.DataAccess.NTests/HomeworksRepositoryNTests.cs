@@ -15,8 +15,6 @@ namespace LessonMonitor.DataAccess.NTests
         {
             var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             _repository = new HomeworksRepository(connectionString);
-
-			_repository.CleanTable();
 		}
 
 		[Test]

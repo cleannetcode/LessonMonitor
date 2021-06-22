@@ -118,7 +118,7 @@ namespace LessonMonitor.DataAccess.Repositories
 							TopicId = reader.GetInt32(1),
 							Name = reader.GetString(2),
 							Link = reader.GetString(3),
-							Grade = reader.GetInt32(4),
+							Grade = reader.GetInt32(4)
 						};
 
 						return homework;
@@ -160,7 +160,7 @@ namespace LessonMonitor.DataAccess.Repositories
 							TopicId = reader.GetInt32(1),
 							Name = reader.GetString(2),
 							Link = reader.GetString(3),
-							Grade = reader.GetInt32(4),
+							Grade = reader.GetInt32(4)
 						});
 					}
 				}

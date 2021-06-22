@@ -15,8 +15,6 @@ namespace LessonMonitor.DataAccess.NTests
         {
             var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             _repository = new QuestionsRepository(connectionString);
-
-			_repository.CleanTable();
 		}
 
 		[Test]
@@ -25,7 +23,6 @@ namespace LessonMonitor.DataAccess.NTests
 			// arrange
 			var fixture = new Fixture();
 			var question = fixture.Build<Question>().Create();
-
 			question.User.Id = 11;
 
 			// act
@@ -38,17 +35,12 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void Update()
 		{
+			// arrange
 			var fixture = new Fixture();
-
 			var newQuestion = fixture.Build<Question>().Create();
-
 			newQuestion.User.Id = 11;
-
-
 			var questionId = _repository.Add(newQuestion);
-
 			var updatedQuestion = fixture.Build<Question>().Create();
-
 			updatedQuestion.User.Id = 11;
 
 			updatedQuestion.Id = questionId;

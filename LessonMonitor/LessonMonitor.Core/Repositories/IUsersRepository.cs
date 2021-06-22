@@ -4,9 +4,10 @@ namespace LessonMonitor.Core.Repositories
 {
     public interface IUsersRepository
     {
-        void Add(User user);
+        int Add(User newUser);
+        void Delete(int userId);
+        User Get(int userId);
         User[] Get();
-
-        bool Update(User user);
+        void Update(User user);
     }
 }
