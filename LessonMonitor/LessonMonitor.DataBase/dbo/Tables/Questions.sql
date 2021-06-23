@@ -9,5 +9,3 @@
     CONSTRAINT [FK_Questions_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
 
-
-

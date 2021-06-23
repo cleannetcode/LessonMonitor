@@ -7,5 +7,3 @@
     CONSTRAINT [FK_Timecodes_Lessons] FOREIGN KEY ([LessonId]) REFERENCES [dbo].[Lessons] ([Id])
 );
 
-
-

@@ -9,5 +9,3 @@
     CONSTRAINT [FK_Lessons_Topics] FOREIGN KEY ([TopicId]) REFERENCES [dbo].[Topics] ([Id])
 );
 
-
-

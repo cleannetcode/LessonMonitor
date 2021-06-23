@@ -11,7 +11,3 @@
     CONSTRAINT [FK_Homeworks_Topics] FOREIGN KEY ([TopicId]) REFERENCES [dbo].[Topics] ([Id])
 );
 
-
-
-
-
