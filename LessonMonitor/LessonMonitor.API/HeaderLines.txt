@@ -1,0 +1,76 @@
+no-store
+no-transform
+no-cache
+no-cache
+f202c797-4db9-4a40-91db-2962205f72ca
+Uv9Om06TVkGJ4a9D.0
+1.0.7823.38521
+{did:92e7dc58ca2143cfb2c818b047cc5cd1, rid: OneDeployContainer, sn: marketingsites-prod-odnortheurope, dt: 2018-05-03T20:14:23.4188992Z, bt: 2021-06-03T05:24:02.0000000Z}
+db6074a0501bdf41afdcd7687f49eb03
+CP="CAO CONi OTR OUR DEM ONL"
+IE=Edge;chrome=1
+nosniff
+SAMEORIGIN
+HEAD,GET,POST,PATCH,PUT,OPTIONS
+1; mode=block
+Tue, 15 Jun 2021 18:03:34 GMT
+chunked
+keep-alive
+Transfer-Encoding
+isFirstSession=1; path=/;SameSite=None; secure; HttpOnly
+MUID=281C7AE0E84C635811016AB7E9E762AF; domain=.microsoft.com; expires=Fri, 15-Jul-2022 18:03:34 GMT; path=/;SameSite=None; secure
+X-FD-FEATURES=ids=sfwaab%2catperf680t2%2c11027t4%2c11181t1%2c7406c%2c11585t24%2ctasmigration010%2ccartemberpl%2c11724t1%2cdisablenorefunds%2cdaconvertenabled%2cenablescarlettmetadata&imp=f202c797-4db9-4a40-91db-2962205f72ca; expires=Wed, 15-Jun-2022 18:03:34 GMT; path=/; secure; HttpOnly
+X-FD-Time=1; expires=Tue, 15-Jun-2021 18:08:34 GMT; path=/;SameSite=None; secure; HttpOnly
+akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None
+akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None
+tls1.2
+max-age=31536000
+RT
+text/html; charset=utf-8
+-1
+no-store, no-transform, no-cache
+no-cache
+f202c797-4db9-4a40-91db-2962205f72ca
+Uv9Om06TVkGJ4a9D.0
+1.0.7823.38521
+{did:92e7dc58ca2143cfb2c818b047cc5cd1, rid: OneDeployContainer, sn: marketingsites-prod-odnortheurope, dt: 2018-05-03T20:14:23.4188992Z, bt: 2021-06-03T05:24:02.0000000Z}
+db6074a0501bdf41afdcd7687f49eb03
+CP="CAO CONi OTR OUR DEM ONL"
+IE=Edge;chrome=1
+nosniff
+SAMEORIGIN
+HEAD,GET,POST,PATCH,PUT,OPTIONS
+1; mode=block
+Tue, 15 Jun 2021 18:03:34 GMT
+chunked
+keep-alive, Transfer-Encoding
+isFirstSession=1; path=/;SameSite=None; secure; HttpOnly, MUID=281C7AE0E84C635811016AB7E9E762AF; domain=.microsoft.com; expires=Fri, 15-Jul-2022 18:03:34 GMT; path=/;SameSite=None; secure, X-FD-FEATURES=ids=sfwaab%2catperf680t2%2c11027t4%2c11181t1%2c7406c%2c11585t24%2ctasmigration010%2ccartemberpl%2c11724t1%2cdisablenorefunds%2cdaconvertenabled%2cenablescarlettmetadata&imp=f202c797-4db9-4a40-91db-2962205f72ca; expires=Wed, 15-Jun-2022 18:03:34 GMT; path=/; secure; HttpOnly, X-FD-Time=1; expires=Tue, 15-Jun-2021 18:08:34 GMT; path=/;SameSite=None; secure; HttpOnly, akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None, akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None
+tls1.2
+max-age=31536000
+RT
+text/html; charset=utf-8
+-1
+Cache-Control: no-store, no-transform, no-cache
+Pragma: no-cache
+X-Activity-Id: f202c797-4db9-4a40-91db-2962205f72ca
+MS-CV: Uv9Om06TVkGJ4a9D.0
+X-AppVersion: 1.0.7823.38521
+X-Az: {did:92e7dc58ca2143cfb2c818b047cc5cd1, rid: OneDeployContainer, sn: marketingsites-prod-odnortheurope, dt: 2018-05-03T20:14:23.4188992Z, bt: 2021-06-03T05:24:02.0000000Z}
+ms-operation-id: db6074a0501bdf41afdcd7687f49eb03
+P3P: CP="CAO CONi OTR OUR DEM ONL"
+X-UA-Compatible: IE=Edge;chrome=1
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Access-Control-Allow-Methods: HEAD,GET,POST,PATCH,PUT,OPTIONS
+X-XSS-Protection: 1; mode=block
+Date: Tue, 15 Jun 2021 18:03:34 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive, Transfer-Encoding
+Set-Cookie: isFirstSession=1; path=/;SameSite=None; secure; HttpOnly, MUID=281C7AE0E84C635811016AB7E9E762AF; domain=.microsoft.com; expires=Fri, 15-Jul-2022 18:03:34 GMT; path=/;SameSite=None; secure, X-FD-FEATURES=ids=sfwaab%2catperf680t2%2c11027t4%2c11181t1%2c7406c%2c11585t24%2ctasmigration010%2ccartemberpl%2c11724t1%2cdisablenorefunds%2cdaconvertenabled%2cenablescarlettmetadata&imp=f202c797-4db9-4a40-91db-2962205f72ca; expires=Wed, 15-Jun-2022 18:03:34 GMT; path=/; secure; HttpOnly, X-FD-Time=1; expires=Tue, 15-Jun-2021 18:08:34 GMT; path=/;SameSite=None; secure; HttpOnly, akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None, akacd_OneRF=1631556214~rv=26~id=46e04d69a03cfacadda9103cd8a253c8; path=/; Expires=Mon, 13 Sep 2021 18:03:34 GMT; Secure; SameSite=None
+TLS_version: tls1.2
+Strict-Transport-Security: max-age=31536000
+X-RTag: RT
+Content-Type: text/html; charset=utf-8
+Expires: -1
+
+
