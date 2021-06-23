@@ -60,6 +60,7 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void Get()
 		{
+			// arrange\
 			var fixture = new Fixture();
 
 			for (int i = 0; i < 10; i++)
@@ -83,12 +84,10 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void GetWithQuestionId()
 		{
+			// arrange
 			var fixture = new Fixture();
-
 			var newQuestion = fixture.Build<Question>().Create();
-
 			newQuestion.User.Id = 11;
-
 			var questionId = _repository.Add(newQuestion);
 
 			// act
@@ -104,11 +103,8 @@ namespace LessonMonitor.DataAccess.NTests
 		{
 			var fixture = new Fixture();
 			var newQuestion = fixture.Build<Question>().Create();
-
 			newQuestion.User.Id = 11;
-
 			var questionId = _repository.Add(newQuestion);
-
 
 			// act
 			_repository.Delete(questionId);

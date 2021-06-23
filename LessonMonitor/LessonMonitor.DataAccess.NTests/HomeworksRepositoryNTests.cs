@@ -23,11 +23,7 @@ namespace LessonMonitor.DataAccess.NTests
 		{
 			// arrange
 			var fixture = new Fixture();
-			var homework = fixture.Build<Homework>()
-					.Without(x => x.Topic)
-					.Without(x => x.User)
-					.Create();
-
+			var homework = fixture.Build<Homework>().Create();
 			homework.TopicId = 1;
 
 			// act
@@ -40,24 +36,18 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void Update()
 		{
+			// arrange
 			var fixture = new Fixture();
-
-			var userExisHomework = 490;
-
-			var updatedhomework = fixture.Build<Homework>()
-									.Without(x => x.Topic)
-									.Without(x => x.User)
-									.Create();
-
+			var HomeworkExistUser = 490;
+			var updatedhomework = fixture.Build<Homework>().Create();
 			updatedhomework.TopicId = 1;
-
-			updatedhomework.Id = userExisHomework;
+			updatedhomework.Id = HomeworkExistUser;
 
 			// act
 			_repository.Update(updatedhomework);
 
 			// assert
-			var homework = _repository.Get(userExisHomework);
+			var homework = _repository.Get(HomeworkExistUser);
 			Assert.NotNull(homework);
 			Assert.AreEqual(updatedhomework.TopicId, homework.TopicId);
 			Assert.AreEqual(updatedhomework.Name, homework.Name);
@@ -68,6 +58,7 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void Get()
 		{
+			// arrange
 			var fixture = new Fixture();
 
 			for (int i = 0; i < 10; i++)
@@ -92,7 +83,7 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void GetWithHomeworkId()
 		{
-			var fixture = new Fixture();
+			// arrange
 			var userExisHomework = 490;
 
 			// act
@@ -109,9 +100,7 @@ namespace LessonMonitor.DataAccess.NTests
 		{
 			var fixture = new Fixture();
 			var newHomework = fixture.Build<Homework>().Create();
-
 			newHomework.TopicId = 1;
-
 			var homeworkId = _repository.Add(newHomework);
 
 			// act

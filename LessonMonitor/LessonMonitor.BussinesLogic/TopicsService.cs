@@ -26,7 +26,7 @@ namespace LessonMonitor.BussinesLogic
 
             if (isInvalid) throw new ArgumentException(TOPIC_IS_INVALID);
 
-            _topicsRepository.Create(topic);
+            _topicsRepository.Add(topic);
         }
     }
 }

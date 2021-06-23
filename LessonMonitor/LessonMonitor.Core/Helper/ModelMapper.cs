@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LessonMonitor.Core.Attributes;
+using System;
 using System.Data;
 using System.Linq;
 using System.Reflection;

@@ -77,6 +77,7 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void GetWithTopicId()
 		{
+			// arrange
 			var fixture = new Fixture();
 			var newTopic = fixture.Build<Topic>().Create();
 			var topicId = _repository.Add(newTopic);
@@ -91,6 +92,7 @@ namespace LessonMonitor.DataAccess.NTests
 		[Test]
 		public void Delete()
 		{
+			// arrange
 			var fixture = new Fixture();
 			var newTopic = fixture.Build<Topic>().Create();
 			var topicId = _repository.Add(newTopic);

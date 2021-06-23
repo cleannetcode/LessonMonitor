@@ -1,4 +1,4 @@
-﻿using LessonMonitor.Core.Helper;
+﻿using LessonMonitor.Core.Attributes;
 using System.Data;
 
 namespace LessonMonitor.Core.CoreModels
@@ -17,5 +17,4 @@ namespace LessonMonitor.Core.CoreModels
         [InnerJoin]
         public User User { get; set; }
     }
-
 }
