@@ -6,13 +6,8 @@
     <Name>LessonMonitor.DataBase</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-<<<<<<< HEAD
-    <ProjectGuid>{94c1f45a-6294-4f3d-842b-1b4c55b61696}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
-=======
     <ProjectGuid>{a678bf43-94c7-4249-a35b-2ee8e3cd26ec}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
->>>>>>> homework/aspnet/7
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -27,10 +22,6 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-<<<<<<< HEAD
-    <GenerateCreateScript>False</GenerateCreateScript>
-=======
->>>>>>> homework/aspnet/7
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -65,19 +56,6 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-<<<<<<< HEAD
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="Members.sql" />
-    <Build Include="Homeworks.sql" />
-    <Build Include="MemberStatistics.sql" />
-    <Build Include="Topics.sql" />
-    <Build Include="Questions.sql" />
-    <Build Include="Achievements.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="LessonMonitor.DataBase.refactorlog" />
-=======
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Views\" />
@@ -101,6 +79,5 @@
     <Build Include="dbo\Stored Procedures\createTimecode.sql" />
     <Build Include="dbo\Functions\getUser.sql" />
     <Build Include="dbo\Stored Procedures\createLesson.sql" />
->>>>>>> homework/aspnet/7
   </ItemGroup>
 </Project>
