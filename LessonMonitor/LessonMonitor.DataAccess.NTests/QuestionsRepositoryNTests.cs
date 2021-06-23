@@ -2,6 +2,7 @@
 using LessonMonitor.Core.CoreModels;
 using LessonMonitor.DataAccess.Repositories;
 using NUnit.Framework;
+using System.Linq;
 
 namespace LessonMonitor.DataAccess.NTests
 {
@@ -75,6 +76,7 @@ namespace LessonMonitor.DataAccess.NTests
 
 			// assert
 			Assert.NotNull(questions);
+			Assert.NotNull(questions.FirstOrDefault().User);
 			Assert.IsNotEmpty(questions);
 		}
 
@@ -94,6 +96,7 @@ namespace LessonMonitor.DataAccess.NTests
 
 			// assert
 			Assert.NotNull(question);
+			Assert.NotNull(question.User);
 		}
 
 		[Test]

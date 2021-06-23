@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LessonMonitor.Core.Helper;
 
 namespace LessonMonitor.Core.CoreModels
 {
@@ -6,6 +6,8 @@ namespace LessonMonitor.Core.CoreModels
     {
         public int Id { get; set; }
         public string Description { get; set; }
+
+        [InnerJoin]
         public User User { get; set; }
     }
 }

@@ -2,9 +2,8 @@
 
 namespace LessonMonitor.DataAccess.Entities
 {
-    public class Topic
+    public class Topic : BaseEntity
     {
-        public int Id { get; set; }
         public string Theme { get; set; }
     }
 }

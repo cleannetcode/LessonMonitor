@@ -1,6 +1,7 @@
-﻿using LessonMonitor.Core.CoreModels;
+﻿using System;
+using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Helper;
 using LessonMonitor.Core.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -95,13 +96,22 @@ namespace LessonMonitor.DataAccess.Repositories
 
 				var command = new SqlCommand(@"
 						SELECT 
-							Id,
-							TopicId,
-							Name,
-							Link, 
-							Grade 
-						FROM Homeworks
-						WHERE DeletedDate IS NULL AND Id = @Id",
+						h.Id,
+						h.TopicId,
+						h.Name,
+						h.Link, 
+						h.Grade,
+						t.Id as ""Topic.Id"",
+						t.Theme as ""Topic.Theme"",
+						u.Id as ""User.Id"",
+						u.Name as ""User.Name"",
+						u.Nicknames as ""User.Nicknames"",
+						u.Email as ""User.Email""
+						FROM Homeworks h
+						INNER JOIN UsersHomeworks uh on h.Id = uh.HomeworkId
+						INNER JOIN Users u on uh.UserId = u.Id
+						INNER JOIN Topics t on h.TopicId = t.Id
+						WHERE h.DeletedDate IS NULL AND h.Id = @Id",
 				connection);
 
 				command.Parameters.AddWithValue("@Id", homeworkId);
@@ -112,16 +122,7 @@ namespace LessonMonitor.DataAccess.Repositories
 				{
 					while (reader.Read())
 					{
-						var homework = new Core.CoreModels.Homework
-						{
-							Id = reader.GetInt32(0),
-							TopicId = reader.GetInt32(1),
-							Name = reader.GetString(2),
-							Link = reader.GetString(3),
-							Grade = reader.GetInt32(4)
-						};
-
-						return homework;
+						return ModelMapper.CreateOf<Homework>(reader);
 					}
 				}
 			}
@@ -139,13 +140,22 @@ namespace LessonMonitor.DataAccess.Repositories
 
 				var command = new SqlCommand(@"
 						SELECT 
-							Id,
-							TopicId,
-							Name,
-							Link, 
-							Grade
-						FROM Homeworks
-						WHERE DeletedDate IS NULL",
+						h.Id,
+						h.TopicId,
+						h.Name,
+						h.Link, 
+						h.Grade,
+						t.Id as ""Topic.Id"",
+						t.Theme as ""Topic.Theme"",
+						u.Id as ""User.Id"",
+						u.Name as ""User.Name"",
+						u.Nicknames as ""User.Nicknames"",
+						u.Email as ""User.Email""
+						FROM Homeworks h
+						INNER JOIN UsersHomeworks uh on h.Id = uh.HomeworkId
+						INNER JOIN Users u on uh.UserId = u.Id
+						INNER JOIN Topics t on h.TopicId = t.Id
+						WHERE h.DeletedDate IS NULL",
 				connection);
 
 				var reader = command.ExecuteReader();
@@ -154,14 +164,7 @@ namespace LessonMonitor.DataAccess.Repositories
 				{
 					while (reader.Read())
 					{
-						homeworks.Add(new Core.CoreModels.Homework
-						{
-							Id = reader.GetInt32(0),
-							TopicId = reader.GetInt32(1),
-							Name = reader.GetString(2),
-							Link = reader.GetString(3),
-							Grade = reader.GetInt32(4)
-						});
+						homeworks.Add(ModelMapper.CreateOf<Homework>(reader));
 					}
 				}
 			}
@@ -217,7 +220,8 @@ namespace LessonMonitor.DataAccess.Repositories
 				connection.Open();
 
 				var command = new SqlCommand(@"
-					DELETE FROM Homeworks",
+					DELETE FROM Homeworks
+					WHERE Id NOT IN (SELECT TOP 10 Id FROM Homeworks)",
 				connection);
 
 				command.ExecuteNonQuery();

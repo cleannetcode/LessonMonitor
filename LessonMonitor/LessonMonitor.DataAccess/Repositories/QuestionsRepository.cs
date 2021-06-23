@@ -1,6 +1,7 @@
-﻿using LessonMonitor.Core.CoreModels;
+﻿using System;
+using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Helper;
 using LessonMonitor.Core.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -95,10 +96,10 @@ namespace LessonMonitor.DataAccess.Repositories
                         SELECT 
                         q.Id,
                         q.Description,
-                        u.Id,
-                        u.Name,
-                        u.Nicknames,
-                        u.Email
+                        u.Id as ""User.Id"",
+                        u.Name as ""User.Name"",
+                        u.Nicknames as ""User.Nicknames"",
+                        u.Email as ""User.Email""
                         FROM Questions q
                         INNER JOIN Users u on q.UserId = u.Id
                         WHERE q.DeletedDate IS NULL AND q.Id = @Id",
@@ -112,20 +113,7 @@ namespace LessonMonitor.DataAccess.Repositories
                 {
                     while (reader.Read())
                     {
-                        var question = new Core.CoreModels.Question
-                        {
-                            Id = reader.GetInt32(0),
-                            Description = reader.GetString(1),
-                            User = new User
-                            { 
-                                Id = reader.GetInt32(2),
-                                Name = reader.GetString(3),
-                                Nicknames = reader.GetString(4),
-                                Email = reader.GetString(5)
-                            }
-                        };
-
-                        return question;
+                        return ModelMapper.CreateOf<Question>(reader);
                     }
                 }
             }
@@ -145,10 +133,10 @@ namespace LessonMonitor.DataAccess.Repositories
                         SELECT 
                         q.Id,
                         q.Description,
-                        u.Id,
-                        u.Name,
-                        u.Nicknames,
-                        u.Email
+                        u.Id as ""User.Id"",
+                        u.Name as ""User.Name"",
+                        u.Nicknames as ""User.Nicknames"",
+                        u.Email as ""User.Email""
                         FROM Questions q
                         INNER JOIN Users u on q.UserId = u.Id
                         WHERE q.DeletedDate IS NULL",
@@ -160,18 +148,7 @@ namespace LessonMonitor.DataAccess.Repositories
                 {
                     while (reader.Read())
                     {
-                        questions.Add(new Core.CoreModels.Question
-                        {
-                            Id = reader.GetInt32(0),
-                            Description = reader.GetString(1),
-                            User = new User
-                            {
-                                Id = reader.GetInt32(2),
-                                Name = reader.GetString(3),
-                                Nicknames = reader.GetString(4),
-                                Email = reader.GetString(5)
-                            }
-                        });
+                        questions.Add(ModelMapper.CreateOf<Question>(reader));
                     }
                 }
             }
@@ -220,7 +197,8 @@ namespace LessonMonitor.DataAccess.Repositories
                 connection.Open();
 
                 var command = new SqlCommand(@"
-                    DELETE FROM Questions",
+                    DELETE FROM Questions
+                    WHERE Id NOT IN (SELECT TOP 8 Id FROM Questions)",
                 connection);
 
                 command.ExecuteNonQuery();

@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.Core.CoreModels;
+using LessonMonitor.Core.Helper;
 using LessonMonitor.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -111,15 +112,7 @@ namespace LessonMonitor.DataAccess.Repositories
                 {
                     while (reader.Read())
                     {
-                        var user = new Core.CoreModels.User
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Nicknames = reader.GetString(2),
-                            Email = reader.GetString(3)
-                        };
-
-                        return user;
+                        return ModelMapper.CreateOf<User>(reader);
                     }
                 }
             }
@@ -151,13 +144,7 @@ namespace LessonMonitor.DataAccess.Repositories
                 {
                     while (reader.Read())
                     {
-                        users.Add(new Core.CoreModels.User
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Nicknames = reader.GetString(2),
-                            Email = reader.GetString(3)
-                        });
+                        users.Add(ModelMapper.CreateOf<User>(reader));
                     }
                 }
             }
