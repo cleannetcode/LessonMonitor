@@ -9,11 +9,8 @@ namespace LessonMonitor.BusinessLogic
 	{
 		public const string HOMEWORK_IS_INVALID = "Homework is invalid!";
 
-		private readonly IHomeworksRepository _homeworksRepository;
-
-		public HomeworksService(IHomeworksRepository homeworksRepository)
+		public HomeworksService()
 		{
-			_homeworksRepository = homeworksRepository;
 		}
 
 		public bool Create(Homework homework)
@@ -34,14 +31,14 @@ namespace LessonMonitor.BusinessLogic
 			}
 
 			// сохранение в базе
-			_homeworksRepository.Add(homework);
+			//_homeworksRepository.Add(homework);
 
 			return true;
 		}
 
 		public bool Delete(int homeworkId)
 		{
-			_homeworksRepository.Delete(homeworkId);
+			//_homeworksRepository.Delete(homeworkId);
 
 			return true;
 		}

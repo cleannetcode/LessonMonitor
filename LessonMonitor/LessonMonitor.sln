@@ -27,9 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp2\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deadlock", "Deadlock\Deadlock.csproj", "{FB6B7F1C-D861-4A3C-8CDF-8F604DB3CFD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoNET", "AdoNET\AdoNET.csproj", "{89B99A1C-9ECE-46D2-9626-B62928A1EEBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdoNET", "AdoNET\AdoNET.csproj", "{89B99A1C-9ECE-46D2-9626-B62928A1EEBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DataAccess.Tests", "LessonMonitor.DataAccess.Tests\LessonMonitor.DataAccess.Tests.csproj", "{481FDC60-4972-43C8-A1B4-02FD296BD4C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.Tests", "LessonMonitor.DataAccess.Tests\LessonMonitor.DataAccess.Tests.csproj", "{481FDC60-4972-43C8-A1B4-02FD296BD4C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkWithTasks", "WorkWithTasks\WorkWithTasks.csproj", "{A071D132-99C5-43E7-A716-3A3C47108AEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPLAndConcurrentCollections", "TPLAndConcurrentCollections\TPLAndConcurrentCollections.csproj", "{F141DD5E-F432-4EC1-9407-9DB2E1933419}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +99,14 @@ Global
 		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A071D132-99C5-43E7-A716-3A3C47108AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A071D132-99C5-43E7-A716-3A3C47108AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A071D132-99C5-43E7-A716-3A3C47108AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A071D132-99C5-43E7-A716-3A3C47108AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

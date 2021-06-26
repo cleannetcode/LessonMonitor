@@ -7,5 +7,6 @@ namespace LessonMonitor.Core
 		public string Description { get; set; }
 		public string Link { get; set; }
 		public Objective[] Objectives { get; set; }
+		public int MemberId { get; set; }
 	}
 }

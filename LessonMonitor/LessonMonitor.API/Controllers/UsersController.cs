@@ -4,6 +4,8 @@ using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
 using LessonMonitor.Core.Services;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -11,11 +13,29 @@ namespace LessonMonitor.API.Controllers
 	[Route("[controller]")]
 	public class HomeworksController : ControllerBase
 	{
-		private readonly IHomeworksService _homeworksService;
+		//private readonly IHomeworksService _homeworksService;
 
-		public HomeworksController(IHomeworksService homeworksService)
+		public HomeworksController()
 		{
-			_homeworksService = homeworksService;
+			//_homeworksService = homeworksService;
+		}
+
+		[HttpGet]
+		public ActionResult Index()
+		{
+			var service = new SomeService();
+			service.DoSomeJobAsync().Wait();
+
+			return Ok("tests");
+		}
+
+	}
+	public class SomeService
+	{
+		public async Task DoSomeJobAsync()
+		{
+			await Task.Delay(200);
+			Thread.Sleep(100);
 		}
 	}
 
