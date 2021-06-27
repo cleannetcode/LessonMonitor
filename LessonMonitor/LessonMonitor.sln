@@ -34,6 +34,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkWithTasks", "WorkWithTasks\WorkWithTasks.csproj", "{A071D132-99C5-43E7-A716-3A3C47108AEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPLAndConcurrentCollections", "TPLAndConcurrentCollections\TPLAndConcurrentCollections.csproj", "{F141DD5E-F432-4EC1-9407-9DB2E1933419}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore", "EFCore\EFCore.csproj", "{4D7E62FD-5DA7-4045-BF14-590FFD64299D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +108,10 @@ Global
 		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F141DD5E-F432-4EC1-9407-9DB2E1933419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D7E62FD-5DA7-4045-BF14-590FFD64299D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D7E62FD-5DA7-4045-BF14-590FFD64299D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D7E62FD-5DA7-4045-BF14-590FFD64299D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D7E62FD-5DA7-4045-BF14-590FFD64299D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
