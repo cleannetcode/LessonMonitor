@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EFCore.Configurations
 {
-	public class ProductConfigurations : IEntityTypeConfiguration<Product>
+	public class ProductConfiguration : IEntityTypeConfiguration<Product>
 	{
 		public void Configure(EntityTypeBuilder<Product> builder)
 		{

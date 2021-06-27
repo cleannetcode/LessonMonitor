@@ -15,8 +15,8 @@ namespace EFCore
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new ProductConfigurations());
-			modelBuilder.ApplyConfiguration(new CategoryConfigurations());
+			modelBuilder.ApplyConfiguration(new ProductConfiguration());
+			modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 		}

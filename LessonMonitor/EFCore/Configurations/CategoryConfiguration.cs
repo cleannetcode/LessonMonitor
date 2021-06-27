@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EFCore.Configurations
 {
-	public class CategoryConfigurations : IEntityTypeConfiguration<Category>
+	public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 	{
 		public void Configure(EntityTypeBuilder<Category> builder)
 		{
