@@ -90,6 +90,8 @@ namespace LessonMonitor.DataAccess.Repositories
 		}
 		public Homework Get(int homeworkId)
 		{
+			var homework = new Homework();
+
 			using (var connection = new SqlConnection(_connectionString))
 			{
 				connection.Open();
@@ -122,12 +124,12 @@ namespace LessonMonitor.DataAccess.Repositories
 				{
 					while (reader.Read())
 					{
-						return ModelMapper.CreateOf<Homework>(reader);
+						homework = ModelMapper.CreateOf<Homework>(reader);
 					}
 				}
 			}
 
-			return null;
+			return homework;
 		}
 
 		public Homework[] Get()

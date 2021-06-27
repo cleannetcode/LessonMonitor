@@ -25,7 +25,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.NTests", "LessonMonitor.DataAccess.NTests\LessonMonitor.DataAccess.NTests.csproj", "{97969038-8B80-4286-9E99-8062B373DFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadExamples", "ThreadExamples\ThreadExamples.csproj", "{F605ABBA-50BF-4C66-8E92-D2A0B133CA53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadExamples", "ThreadExamples\ThreadExamples.csproj", "{F605ABBA-50BF-4C66-8E92-D2A0B133CA53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksExamples", "TasksExamples\TasksExamples.csproj", "{6AE3E20A-F2CA-447E-8DC6-B723FEEE1AE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{F605ABBA-50BF-4C66-8E92-D2A0B133CA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F605ABBA-50BF-4C66-8E92-D2A0B133CA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F605ABBA-50BF-4C66-8E92-D2A0B133CA53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE3E20A-F2CA-447E-8DC6-B723FEEE1AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE3E20A-F2CA-447E-8DC6-B723FEEE1AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE3E20A-F2CA-447E-8DC6-B723FEEE1AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE3E20A-F2CA-447E-8DC6-B723FEEE1AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
