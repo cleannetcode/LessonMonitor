@@ -8,7 +8,9 @@ namespace TasksExamples
         {
             //TasksLessonWork.RunDemo();
 
-            TPLAndConcurrentCollections.RunDemo();
+            //TPLAndConcurrentCollections.RunDemo();
+
+            TaskPractice.RunDemo();
         }
     }
 }

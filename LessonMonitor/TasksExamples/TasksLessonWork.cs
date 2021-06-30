@@ -11,7 +11,7 @@ namespace TasksExamples
         private static List<int> _numbers = new List<int>();
         public static void RunDemo()
         {
-            TasksAwait3();
+            TasksAwait();
             Console.ReadKey();
 
         }
@@ -307,7 +307,7 @@ namespace TasksExamples
                 for (int i = 0; i < 100000; i++)
                 {
                     Thread.Sleep(1000);
-                    //_numbers.Add(i);
+                    _numbers.Add(i);
                 }
 
                 if (token.IsCancellationRequested)

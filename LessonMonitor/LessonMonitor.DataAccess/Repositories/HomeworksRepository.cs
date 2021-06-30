@@ -8,95 +8,95 @@ using System.Data.SqlClient;
 namespace LessonMonitor.DataAccess.Repositories
 {
     public class HomeworksRepository : IHomeworksRepository
-	{
-		private string _connectionString;
-		public HomeworksRepository(string connectionString)
-		{
-			_connectionString = connectionString;
-		}
+    {
+        private string _connectionString;
+        public HomeworksRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
-		public int Add(Homework newHomework)
-		{
-			if (newHomework is null)
-				throw new ArgumentNullException(nameof(newHomework));
+        public int Add(Homework newHomework)
+        {
+            if (newHomework is null)
+                throw new ArgumentNullException(nameof(newHomework));
 
-			var newHomeworkEntity = new Entities.Homework
-			{
-				TopicId = newHomework.TopicId,
-				Name = newHomework.Name,
-				Link = newHomework.Link,
-				Grade = newHomework.Grade
-			};
+            var newHomeworkEntity = new Entities.Homework
+            {
+                TopicId = newHomework.TopicId,
+                Name = newHomework.Name,
+                Link = newHomework.Link,
+                Grade = newHomework.Grade
+            };
 
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 					INSERT INTO Homeworks (TopicId, Name, Link, Grade, CreatedDate, UpdatedDate)
 					VALUES (@TopicId, @Name, @Link, @Grade, @CreatedDate, @UpdatedDate);
 					SET @Id = scope_identity();",
-				connection);
+                connection);
 
-				command.Parameters.AddWithValue("@TopicId", newHomeworkEntity.TopicId);
-				command.Parameters.AddWithValue("@Name", newHomeworkEntity.Name);
-				command.Parameters.AddWithValue("@Link", newHomeworkEntity.Link);
-				command.Parameters.AddWithValue("@Grade", newHomeworkEntity.Grade);
-				command.Parameters.AddWithValue("@CreatedDate", newHomeworkEntity.CreatedDate);
-				command.Parameters.AddWithValue("@UpdatedDate", newHomeworkEntity.UpdatedDate);
+                command.Parameters.AddWithValue("@TopicId", newHomeworkEntity.TopicId);
+                command.Parameters.AddWithValue("@Name", newHomeworkEntity.Name);
+                command.Parameters.AddWithValue("@Link", newHomeworkEntity.Link);
+                command.Parameters.AddWithValue("@Grade", newHomeworkEntity.Grade);
+                command.Parameters.AddWithValue("@CreatedDate", newHomeworkEntity.CreatedDate);
+                command.Parameters.AddWithValue("@UpdatedDate", newHomeworkEntity.UpdatedDate);
 
-				var resultParameter = new SqlParameter
-				{
-					Direction = System.Data.ParameterDirection.Output,
-					SqlDbType = System.Data.SqlDbType.Int,
-					ParameterName = "@Id"
-				};
+                var resultParameter = new SqlParameter
+                {
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                    ParameterName = "@Id"
+                };
 
-				command.Parameters.Add(resultParameter);
+                command.Parameters.Add(resultParameter);
 
-				command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
-				if (command.Parameters["@Id"].Value is int homeworkId)
-				{
-					return homeworkId;
-				}
-				else
-				{
-					throw new InvalidOperationException($"value id cannot be converted: {command.Parameters["@Id"].Value}");
-				}
-			}
-		}
+                if (command.Parameters["@Id"].Value is int homeworkId)
+                {
+                    return homeworkId;
+                }
+                else
+                {
+                    throw new InvalidOperationException($"value id cannot be converted: {command.Parameters["@Id"].Value}");
+                }
+            }
+        }
 
-		public void Delete(int homeworkId)
-		{
-			if (homeworkId <= 0)
-				throw new ArgumentException(nameof(homeworkId));
+        public void Delete(int homeworkId)
+        {
+            if (homeworkId <= 0)
+                throw new ArgumentException(nameof(homeworkId));
 
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 					UPDATE Homeworks
 					SET DeletedDate = @DeletedDate
 					WHERE Id = @Id",
-				connection);
+                connection);
 
-				command.Parameters.AddWithValue("@Id", homeworkId);
-				command.Parameters.AddWithValue("@DeletedDate", DateTime.Now);
+                command.Parameters.AddWithValue("@Id", homeworkId);
+                command.Parameters.AddWithValue("@DeletedDate", DateTime.Now);
 
-				command.ExecuteNonQuery();
-			}
-		}
-		public Homework Get(int homeworkId)
-		{
-			var homework = new Homework();
+                command.ExecuteNonQuery();
+            }
+        }
+        public Homework Get(int homeworkId)
+        {
+            var homework = new Homework();
 
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 						SELECT 
 						h.Id,
 						h.TopicId,
@@ -114,33 +114,33 @@ namespace LessonMonitor.DataAccess.Repositories
 						INNER JOIN Users u on uh.UserId = u.Id
 						INNER JOIN Topics t on h.TopicId = t.Id
 						WHERE h.DeletedDate IS NULL AND h.Id = @Id",
-				connection);
+                connection);
 
-				command.Parameters.AddWithValue("@Id", homeworkId);
+                command.Parameters.AddWithValue("@Id", homeworkId);
 
-				var reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
 
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						homework = ModelMapper.CreateOf<Homework>(reader);
-					}
-				}
-			}
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        homework = ModelMapper.CreateOf<Homework>(reader);
+                    }
+                }
+            }
 
-			return homework;
-		}
+            return null;
+        }
 
-		public Homework[] Get()
-		{
-			var homeworks = new List<Homework>();
+        public Homework[] Get()
+        {
+            var homeworks = new List<Homework>();
 
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 						SELECT 
 						h.Id,
 						h.TopicId,
@@ -158,42 +158,42 @@ namespace LessonMonitor.DataAccess.Repositories
 						INNER JOIN Users u on uh.UserId = u.Id
 						INNER JOIN Topics t on h.TopicId = t.Id
 						WHERE h.DeletedDate IS NULL",
-				connection);
+                connection);
 
-				var reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
 
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						homeworks.Add(ModelMapper.CreateOf<Homework>(reader));
-					}
-				}
-			}
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        homeworks.Add(ModelMapper.CreateOf<Homework>(reader));
+                    }
+                }
+            }
 
-			return homeworks.ToArray();
-		}
+            return homeworks.ToArray();
+        }
 
 
-		public void Update(Homework homework)
-		{
-			if (homework is null)
-				throw new ArgumentNullException(nameof(homework));
+        public void Update(Homework homework)
+        {
+            if (homework is null)
+                throw new ArgumentNullException(nameof(homework));
 
-			var updatedHomeworkEntity = new Entities.Homework
-			{
-				Id = homework.Id,
-				TopicId = homework.TopicId,
-				Name = homework.Name,
-				Link = homework.Link,
-				Grade = homework.Grade
-			};
+            var updatedHomeworkEntity = new Entities.Homework
+            {
+                Id = homework.Id,
+                TopicId = homework.TopicId,
+                Name = homework.Name,
+                Link = homework.Link,
+                Grade = homework.Grade
+            };
 
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 					UPDATE Homeworks
 					SET 
 						TopicId = @TopicId,
@@ -202,7 +202,7 @@ namespace LessonMonitor.DataAccess.Repositories
 						Grade = @Grade, 
 						UpdatedDate = @UpdatedDate
 					WHERE Id = @Id",
-				connection);
+                connection);
 
                 command.Parameters.AddWithValue("@Id", updatedHomeworkEntity.Id);
                 command.Parameters.AddWithValue("@TopicId", updatedHomeworkEntity.TopicId);
@@ -212,22 +212,22 @@ namespace LessonMonitor.DataAccess.Repositories
                 command.Parameters.AddWithValue("@UpdatedDate", updatedHomeworkEntity.UpdatedDate);
 
                 command.ExecuteNonQuery();
-			}
-		}
+            }
+        }
 
-		public void CleanTable()
-		{
-			using (var connection = new SqlConnection(_connectionString))
-			{
-				connection.Open();
+        public void CleanTable()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
-				var command = new SqlCommand(@"
+                var command = new SqlCommand(@"
 					DELETE FROM Homeworks
 					WHERE Id NOT IN (SELECT TOP 10 Id FROM Homeworks)",
-				connection);
+                connection);
 
-				command.ExecuteNonQuery();
-			}
-		}
-	}
+                command.ExecuteNonQuery();
+            }
+        }
+    }
 }

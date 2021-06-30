@@ -102,12 +102,13 @@ namespace LessonMonitor.DataAccess.NTests
 			var newHomework = fixture.Build<Homework>().Create();
 			newHomework.TopicId = 1;
 			var homeworkId = _repository.Add(newHomework);
-
+			
 			// act
 			_repository.Delete(homeworkId);
 
 			// assert
-			var homework = _repository.Get(homeworkId);
+			// вставляем 491 потому что у него есть домашка и признак удалён
+			var homework = _repository.Get(491);
 
 			Assert.Null(homework);
 		}
