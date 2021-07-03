@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using LessonMonitor.Core.CoreModels;
+using FluentAssertions;
 using LessonMonitor.DataAccess.Repositories;
 using NUnit.Framework;
 using System.Linq;
@@ -14,8 +14,7 @@ namespace LessonMonitor.DataAccess.NTests
         [SetUp]
         public void SetUp()
         {
-            var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            _repository = new HomeworksRepository(connectionString);
+			_repository = new HomeworksRepository();
 		}
 
 		[Test]
@@ -23,100 +22,178 @@ namespace LessonMonitor.DataAccess.NTests
 		{
 			// arrange
 			var fixture = new Fixture();
-			var homework = fixture.Build<Homework>().Create();
+			var homework = fixture.Build<Core.CoreModels.Homework>().Create();
 			homework.TopicId = 1;
 
 			// act
-			var homeworkId = _repository.Add(homework);
+			var homeworkId = _repository.Add(homework).Result;
 
 			// assert
 			Assert.True(homeworkId > 0);
 		}
 
-		[Test]
-		public void Update()
-		{
-			// arrange
-			var fixture = new Fixture();
-			var HomeworkExistUser = 490;
-			var updatedhomework = fixture.Build<Homework>().Create();
-			updatedhomework.TopicId = 1;
-			updatedhomework.Id = HomeworkExistUser;
+        [Test]
+        public void Add_UserHomework_ShouldCreateUserHomework()
+        {
+            // arrange
+            var fixture = new Fixture();
+            var homework = fixture.Build<Core.CoreModels.Homework>().Create();
+            homework.TopicId = 1;
 
-			// act
-			_repository.Update(updatedhomework);
+            // act
+            var homeworkId = _repository.Add(homework).Result;
+            var result = _repository.AddHomeworkComplited(homeworkId, 11).Result;
 
-			// assert
-			var homework = _repository.Get(HomeworkExistUser);
-			Assert.NotNull(homework);
-			Assert.AreEqual(updatedhomework.TopicId, homework.TopicId);
-			Assert.AreEqual(updatedhomework.Name, homework.Name);
-			Assert.AreEqual(updatedhomework.Link, homework.Link);
-			Assert.AreEqual(updatedhomework.Grade, homework.Grade);
-		}
+            // assert
+            Assert.True(result);
+        }
 
-		[Test]
-		public void Get()
-		{
-			// arrange
-			var fixture = new Fixture();
+        [Test]
+        [TestCase(0, 23)]
+        [TestCase(-213, 1244)]
+        [TestCase(-213324, 12334)]
+        [TestCase(45, 0)]
+        [TestCase(112, -156)]
+        [TestCase(455, -124545)]
+        public void Add_InvalidUserHomework_ShouldCreateUserHomework(int homeworkId, int userId)
+        {
+            // arrange
+            var fixture = new Fixture();
+            var homework = fixture.Build<Core.CoreModels.Homework>().Create();
+            homework.TopicId = 1;
 
-			for (int i = 0; i < 10; i++)
-			{
-				var newHomework = fixture.Build<Homework>().Create();
+            // act
+            var result = _repository.AddHomeworkComplited(homeworkId, userId).Result;
 
-				newHomework.TopicId = 1;
+            // assert
+            Assert.False(result);
+            result.Should().BeFalse();
+        }
 
-				_repository.Add(newHomework);
-			}
+        [Test]
+        public void Update()
+        {
+            // arrange
+            var fixture = new Fixture();
+            var updatedhomework = fixture.Build<Core.CoreModels.Homework>().Create();
+            updatedhomework.TopicId = 1;
+            updatedhomework.Id = 400;
 
-			// act
-			var homeworks = _repository.Get();
+            // act
+            _repository.Update(updatedhomework);
 
-			// assert
-			Assert.NotNull(homeworks);
-			Assert.NotNull(homeworks.FirstOrDefault().User);
-			Assert.NotNull(homeworks.FirstOrDefault().Topic);
-			Assert.IsNotEmpty(homeworks);
-		}
+            // assert
+            var homework = _repository.Get(updatedhomework.Id).Result;
 
-		[Test]
-		public void GetWithHomeworkId()
-		{
-			// arrange
-			var userExisHomework = 490;
+            Assert.NotNull(homework);
+            Assert.AreEqual(updatedhomework.TopicId, homework.TopicId);
+            Assert.AreEqual(updatedhomework.Name, homework.Name);
+            Assert.AreEqual(updatedhomework.Link, homework.Link);
+            Assert.AreEqual(updatedhomework.Grade, homework.Grade);
+        }
 
-			// act
-			var homework = _repository.Get(userExisHomework);
+        [Test]
+        public void Get()
+        {
+            // arrange
+            var fixture = new Fixture();
 
-			// assert
-			Assert.NotNull(homework);
-			Assert.NotNull(homework.User);
-			Assert.NotNull(homework.Topic);
-		}
+            for (int i = 0; i < 10; i++)
+            {
+                var newHomework = fixture.Build<Core.CoreModels.Homework>().Create();
 
-		[Test]
-		public void Delete()
-		{
-			var fixture = new Fixture();
-			var newHomework = fixture.Build<Homework>().Create();
-			newHomework.TopicId = 1;
-			var homeworkId = _repository.Add(newHomework);
-			
-			// act
-			_repository.Delete(homeworkId);
+                newHomework.TopicId = 1;
 
-			// assert
-			// вставляем 491 потому что у него есть домашка и признак удалён
-			var homework = _repository.Get(491);
+               var newHomeworkId = _repository.Add(newHomework);
+            }
 
-			Assert.Null(homework);
-		}
+            // act
+            var homeworks = _repository.Get().Result;
 
-		[TearDown]
-		public void DeleteTestData()
-		{
-			_repository.CleanTable();
-		}
-	}
+            // assert
+            Assert.NotNull(homeworks);
+            Assert.IsNotEmpty(homeworks);
+        }
+
+        [Test]
+        public void GetWithHomeworkId()
+        {
+            // arrange
+            var fixture = new Fixture();
+            var newHomework = fixture.Build<Core.CoreModels.Homework>().Create();
+            newHomework.TopicId = 1;
+
+            var newHomeworkId = _repository.Add(newHomework).Result;
+            // act
+            var homework = _repository.Get(newHomeworkId).Result;
+
+            // assert
+            Assert.NotNull(homework);
+        }
+
+        [Test]
+        public void GetFullHomeworkArray_ShuldReturnHomeworkWithUserWithTopic()
+        {
+            // arrange
+            var fixture = new Fixture();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var newHomework = fixture.Build<Core.CoreModels.Homework>().Create();
+
+                newHomework.TopicId = 1;
+
+                var nehomeworkId = _repository.Add(newHomework).Result;
+            }
+
+            // act
+            var homeworks = _repository.GetComplited().Result;
+
+            // assert
+            Assert.NotNull(homeworks);
+            Assert.NotNull(homeworks.FirstOrDefault().User);
+            Assert.NotNull(homeworks.FirstOrDefault().Topic);
+            Assert.IsNotEmpty(homeworks);
+        }
+
+        [Test]
+        public void GetFullHomeworkWithId_ShuldReturnHomeworkWithUserWithTopic()
+        {
+            // arrange
+            var fixture = new Fixture();
+            var newHomework = fixture.Build<Core.CoreModels.Homework>().Create();
+            newHomework.TopicId = 1;
+
+            // act
+            var newHomeworkId = _repository.Add(newHomework).Result;
+            var result = _repository.AddHomeworkComplited(newHomeworkId, 11).Result;
+            var homework = _repository.GetComplited(newHomeworkId).Result;
+
+            // assert
+            Assert.NotZero(newHomeworkId);
+            Assert.True(result);
+            Assert.NotNull(homework);
+            Assert.NotNull(homework.User);
+            Assert.NotNull(homework.Topic);
+        }
+
+
+
+        [Test]
+        public void Delete()
+        {
+            var fixture = new Fixture();
+            var newHomework = fixture.Build<Core.CoreModels.Homework>().Create();
+            newHomework.TopicId = 1;
+
+            // act
+            var homeworkId = _repository.Add(newHomework).Result;
+            _repository.Delete(homeworkId);
+
+            // assert
+            var homework = _repository.Get(homeworkId).Result;
+
+            Assert.Null(homework);
+        }
+    }
 }

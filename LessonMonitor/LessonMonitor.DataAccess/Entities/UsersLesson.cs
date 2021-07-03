@@ -5,10 +5,12 @@ using System.Collections.Generic;
 
 namespace LessonMonitor.DataAccess.Entities
 {
-    public partial class Question : BaseEntity
+    public partial class UsersLesson
     {
         public int UserId { get; set; }
-        public string Description { get; set; }
+        public int LessonId { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public virtual Lesson Lesson { get; set; }
         public virtual User User { get; set; }
     }
 }

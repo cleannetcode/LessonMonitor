@@ -10,6 +10,8 @@ using LessonMonitor.BussinesLogic;
 using LessonMonitor.Core.Services;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.DataAccess.Repositories;
+using LessonMonitor.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.API
 {
@@ -30,6 +32,11 @@ namespace LessonMonitor.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
+            });
+
+            services.AddDbContext<LessonMonitorDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("SqlContext"));
             });
 
             services.AddScoped<ITopicsService, TopicsService>();

@@ -14,9 +14,9 @@ namespace LessonMonitor.DataAccess.NTests
         [SetUp]
         public void SetUp()
         {
-            var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+			var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;";
 
-            _repository = new UsersRepository(connectionString);
+			_repository = new UsersRepository(connectionString);
 		}
 
 		[Test]
