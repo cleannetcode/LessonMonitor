@@ -74,7 +74,7 @@ namespace LessonMonitor.DataAccess.Repositories
             }
         }
 
-        public async void Delete(int homeworkId)
+        public async Task<bool> Delete(int homeworkId)
         {
             if (homeworkId <= 0)
                 throw new ArgumentException(nameof(homeworkId));
@@ -90,10 +90,12 @@ namespace LessonMonitor.DataAccess.Repositories
                     context.Homeworks.Update(homeworkExist);
 
                     await context.SaveChangesAsync();
+
+                    return true;
                 }
                 else
                 {
-                    throw new ArgumentNullException(nameof(homeworkExist));
+                    return false;
                 }
             }
         }
@@ -290,7 +292,7 @@ namespace LessonMonitor.DataAccess.Repositories
             }
         }
 
-        public async void Update(Core.CoreModels.Homework homework)
+        public async Task<bool> Update(Core.CoreModels.Homework homework)
         {
             if (homework is null)
                 throw new ArgumentNullException(nameof(homework));
@@ -309,6 +311,8 @@ namespace LessonMonitor.DataAccess.Repositories
                 context.Homeworks.Update(updatedHomeworkEntity);
 
                 await context.SaveChangesAsync();
+
+                return true;
             }
         }
     }

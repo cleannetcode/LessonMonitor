@@ -71,7 +71,7 @@ namespace LessonMonitor.DataAccess.NTests
         }
 
         [Test]
-        public void Update()
+        public async void Update()
         {
             // arrange
             var fixture = new Fixture();
@@ -80,11 +80,12 @@ namespace LessonMonitor.DataAccess.NTests
             updatedhomework.Id = 400;
 
             // act
-            _repository.Update(updatedhomework);
+            var result = await _repository.Update(updatedhomework);
 
             // assert
             var homework = _repository.Get(updatedhomework.Id).Result;
 
+            Assert.IsTrue(result);
             Assert.NotNull(homework);
             Assert.AreEqual(updatedhomework.TopicId, homework.TopicId);
             Assert.AreEqual(updatedhomework.Name, homework.Name);
@@ -188,11 +189,13 @@ namespace LessonMonitor.DataAccess.NTests
 
             // act
             var homeworkId = _repository.Add(newHomework).Result;
-            _repository.Delete(homeworkId);
+
+            var result = _repository.Delete(homeworkId).Result;
 
             // assert
             var homework = _repository.Get(homeworkId).Result;
 
+            Assert.IsTrue(result);
             Assert.Null(homework);
         }
     }
