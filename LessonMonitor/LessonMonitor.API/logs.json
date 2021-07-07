@@ -2544,3 +2544,10 @@
     "link": "https://github.com/craCH"
   }
 },
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Homework created: id 21"
+  }
+},

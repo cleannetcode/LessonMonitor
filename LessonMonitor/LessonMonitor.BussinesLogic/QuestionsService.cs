@@ -39,7 +39,7 @@ namespace LessonMonitor.BussinesLogic
 
         public Core.CoreModels.Question[] Get()
         {
-            var questions = _questionsRepository.Get();
+            var questions = _questionsRepository.Get().Result;
 
             if (questions is null || questions.Length == 0) throw new QuestionException($"Model {nameof(questions)} is null",
                     new ArgumentNullException(nameof(questions)));

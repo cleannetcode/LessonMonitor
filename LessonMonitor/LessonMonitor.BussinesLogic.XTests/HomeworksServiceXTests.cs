@@ -6,6 +6,7 @@ using Moq;
 using System;
 using Xunit;
 using LessonMonitor.Core.CoreModels;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.BussinesLogic.XTests
 {
@@ -14,99 +15,164 @@ namespace LessonMonitor.BussinesLogic.XTests
         private Mock<IHomeworksRepository> _homeworkRepositoryMock;
         private HomeworksService _service;
 
-        public HomeworksServiceXTests()
+        public HomeworksServiceXTests() 
         {
             _homeworkRepositoryMock = new Mock<IHomeworksRepository>();
             _service = new HomeworksService(_homeworkRepositoryMock.Object);
         }
 
-        // unit testing name patterns (find name methods for test in google)
-        // MethodName_Conditions_Result
         [Fact]
-        public void Create_HomeworkIsValide_ShouldCreateNewHomework()
+        public async Task Create_HomeworkIsValide_ShouldCreateNewHomework()
         {
-            // arrange - подготавливаем данные
+            // arrange
             var fixture = new Fixture();
+            var expectedHomeworkId = fixture.Create<int>();
+            var homework = fixture.Build<Homework>().Create();
 
-            var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
-                .Create();
+            _homeworkRepositoryMock.Setup(x => x.Add(homework))
+                .ReturnsAsync(expectedHomeworkId);
 
-            //var homeworks = fixture.CreateMany<Homework>(5);
+            // act
+            var result = await _service.Create(homework);
 
-            // act - запускаем тестируемый метод
-            var result = _service.Create(homework);
-
-            // assert - проверяем/валидируем результаты теста
-            result.Should().BeTrue();
+            // assert
+            result.Should().Be(expectedHomeworkId);
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Once);
         }
 
         [Fact]
-        public void Create_HomeworkIsNull_ShouldThrowArgumentNullException()
+        public async Task Create_HomeworkIsNull_ShouldThrowArgumentNullException()
         {
             // arrange 
             Homework homework = null;
 
             // act 
-            bool result = false;
-
-            var exceprtion = Assert.Throws<ArgumentNullException>(() => result = _service.Create(homework));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _service.Create(homework));
 
             // assert
-            exceprtion.Should().NotBeNull()
-                .And.Match<ArgumentNullException>(x => x.ParamName == "homework");
-
-            result.Should().BeFalse();
-            _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
+            _homeworkRepositoryMock.Verify(x => x.Add(It.IsAny<Homework>()), Times.Never);
         }
 
         [Theory]
-        [InlineData(0)]
-        [InlineData(-236)]
-        [InlineData(-53236)]
-        [InlineData(-742364366)]
-        public void Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(int homeworkId)
+        [InlineData(null, "Test")]
+        [InlineData(null, "")]
+        [InlineData(null, " ")]
+        [InlineData("Test", null)]
+        [InlineData("", null)]
+        [InlineData(" ", null)]
+        [InlineData("Test", " ")]
+        [InlineData("Test", "")]
+        [InlineData(" ", "Test")]
+        [InlineData("", "Test")]
+        public async Task Create_HomeworkIsInvalide_ShouldThrowBusinessExceprion(string title, string description)
         {
             // arrange
             var fixture = new Fixture();
-
             var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
                 .Create();
-
-            homework.Id = homeworkId;
+            homework.Title = title;
+            homework.Description = description;
 
             // act
-            bool result = false;
-
-            var exceprtion = Assert.Throws<HomeworkException>(() => result = _service.Create(homework));
+            var exceprtion = await Assert.ThrowsAsync<HomeworkException>(() => _service.Create(homework));
 
             // assert
             exceprtion.Should().NotBeNull()
               .And
               .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
 
-            result.Should().BeFalse();
-            _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Never);
+            _homeworkRepositoryMock.Verify(x => x.Add(It.IsAny<Homework>()), Times.Never);
         }
 
         [Fact]
-        public void Delete_ShouldDeleteHomework()
+        public async Task Delete_ShouldDeleteHomework()
         {
             // arrange
             var fixture = new Fixture();
-
             var homeworkId = fixture.Create<int>();
 
             // act
-            var result = _service.Delete(homeworkId);
+            var result = await _service.Delete(homeworkId);
 
             // assert
             result.Should().BeTrue();
             _homeworkRepositoryMock.Verify(x => x.Delete(homeworkId), Times.Once);
+        }
+
+        [Fact]
+        public async Task Delete_HomeworkIdisDefault_ShouldHomeworkArgumentException()
+        {
+            // arrange
+            // act
+            await Assert.ThrowsAsync<HomeworkException>(() => _service.Delete(default));
+
+            // assert
+            _homeworkRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task Update_HomeworkIsValide_ShouldUpdateHomework()
+        {
+            // arrange
+            var fixture = new Fixture();
+            var homework = fixture.Build<Homework>()
+                .Create();
+
+            // act
+            var homeworkId = await _service.Update(homework);
+
+            // assert 
+            homeworkId.Should().BeGreaterThan(default);
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Once);
+        }
+
+
+        [Theory]
+        [InlineData(null, "Test")]
+        [InlineData(null, "")]
+        [InlineData(null, " ")]
+        [InlineData("Test", null)]
+        [InlineData("", null)]
+        [InlineData(" ", null)]
+        [InlineData("Test", " ")]
+        [InlineData("Test", "")]
+        [InlineData(" ", "Test")]
+        [InlineData("", "Test")]
+        public async Task Update_HomeworkIsInvalide_ShouldThrowBusinessExceprion(string title, string description)
+        {
+            // arrange - подготавливаем данные
+            var fixture = new Fixture();
+
+            var homework = fixture.Build<Homework>()
+                .Create();
+            homework.Title = title;
+            homework.Description = description;
+
+            // act
+            var exceprtion = await Assert.ThrowsAsync<HomeworkException>(() =>_service.Update(homework));
+
+            // assert
+            exceprtion.Should().NotBeNull()
+              .And
+              .Match<HomeworkException>(x => x.Message == HomeworksService.HOMEWORK_IS_INVALID);
+
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Never);
+        }
+
+        [Fact]
+        public async Task Update_HomeworkIsINull_ShouldThrowBusinessExceprion()
+        {
+            // arrange 
+            Homework homework = null;
+
+            // act 
+            var exceprtion = await Assert.ThrowsAsync<ArgumentNullException>(() => _service.Update(homework));
+
+            // assert
+            exceprtion.Should().NotBeNull()
+                .And.Match<ArgumentNullException>(x => x.ParamName == "homework");
+
+            _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Never);
         }
     }
 }

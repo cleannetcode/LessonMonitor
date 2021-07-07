@@ -30,17 +30,17 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
+                //.Without(x => x.Topic)
+                //.Without(x => x.User)
                 .Create();
 
             //var homeworks = fixture.CreateMany<Homework>(5);
 
             // act - запускаем тестируемый метод
-            var result = _service.Create(homework);
+            var result = _service.Create(homework).Result;
 
             // assert - проверяем/валидируем результаты теста
-            result.Should().BeTrue();
+            result.Should().BePositive();
             _homeworkRepositoryMock.Verify(x => x.Add(homework), Times.Once);
         }
 
@@ -53,7 +53,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // act 
             bool result = false;
 
-            var exceprtion = Assert.ThrowsException<ArgumentNullException>(() => result = _service.Create(homework));
+            var exceprtion = Assert.ThrowsException<ArgumentNullException>(() => result = _service.Create(homework).Result > 0);
 
             // assert
             exceprtion.Should().NotBeNull()
@@ -74,8 +74,8 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
+                //.Without(x => x.Topic)
+                //.Without(x => x.User)
                 .Create();
 
             homework.Id = homeworkId;
@@ -83,7 +83,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // act
             bool result = false;
 
-            var exceprtion = Assert.ThrowsException<HomeworkException>(() => result = _service.Create(homework));
+            var exceprtion = Assert.ThrowsException<HomeworkException>(() => result = _service.Create(homework).Result > 0);
 
             // assert
             exceprtion.Should().NotBeNull()
@@ -103,7 +103,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var homeworkId = fixture.Create<int>();
 
             // act
-            var result = _service.Delete(homeworkId);
+            var result = _service.Delete(homeworkId).Result;
 
             // assert
             result.Should().BeTrue();
@@ -117,15 +117,15 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
+                //.Without(x => x.Topic)
+                //.Without(x => x.User)
                 .Create();
 
             // act - запускаем тестируемый метод
-            var result = _service.Update(homework);
+            var result = _service.Update(homework).Result;
 
             // assert - проверяем/валидируем результаты теста
-            result.Should().BeTrue();
+            result.Should().BePositive();
             _homeworkRepositoryMock.Verify(x => x.Update(homework), Times.Once);
         }
 
@@ -140,8 +140,8 @@ namespace LessonMonitor.BussinesLogic.MsTests
             var fixture = new Fixture();
 
             var homework = fixture.Build<Homework>()
-                .Without(x => x.Topic)
-                .Without(x => x.User)
+                //.Without(x => x.Topic)
+                //.Without(x => x.User)
                 .Create();
 
             homework.Id = homeworkId;
@@ -149,7 +149,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // act
             bool result = false;
 
-            var exceprtion = Assert.ThrowsException<HomeworkException>(() => result = _service.Update(homework));
+            var exceprtion = Assert.ThrowsException<HomeworkException>(() => result = _service.Update(homework).Result > 0);
 
             // assert
             exceprtion.Should().NotBeNull()
@@ -169,7 +169,7 @@ namespace LessonMonitor.BussinesLogic.MsTests
             // act 
             bool result = false;
 
-            var exceprtion = Assert.ThrowsException<ArgumentNullException>(() => result = _service.Update(homework));
+            var exceprtion = Assert.ThrowsException<ArgumentNullException>(() => result = _service.Update(homework).Result > 0);
 
             // assert
             exceprtion.Should().NotBeNull()

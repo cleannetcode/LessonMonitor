@@ -1,6 +1,5 @@
 ﻿using AutoFixture;
 using LessonMonitor.Core.CoreModels;
-using LessonMonitor.DataAccess.Repositories;
 using NUnit.Framework;
 using System.Linq;
 
@@ -8,118 +7,113 @@ namespace LessonMonitor.DataAccess.NTests
 {
     public class QuestionsRepositoryNTests
 	{
-        private QuestionsRepository _repository;
-        public QuestionsRepositoryNTests() { }
+  //      private QuestionsRepository _repository;
+  //      public QuestionsRepositoryNTests() { }
 
-        [SetUp]
-        public void SetUp()
-        {
-			var connectionString = @"Data Source=ASHTON\ASHTON;Initial Catalog=LessonMonitorTestDb;Integrated Security=True;";
+  //      [SetUp]
+  //      public void SetUp()
+  //      {
+		//	_repository = new QuestionsRepository();
+		//}
 
-			_repository = new QuestionsRepository(connectionString);
-		}
+		//[Test]
+		//public void Add_ValidQuestion_ShouldCreateNewQuestion()
+		//{
+		//	// arrange
+		//	var fixture = new Fixture();
+		//	var question = fixture.Build<Core.CoreModels.Question>().Create();
+		//	question.User.Id = 11;
 
-		[Test]
-		public void Add_ValidQuestion_ShouldCreateNewQuestion()
-		{
-			// arrange
-			var fixture = new Fixture();
-			var question = fixture.Build<Question>().Create();
-			question.User.Id = 11;
+		//	// act
+		//	var questionId = _repository.Add(question).Result;
 
-			// act
-			var questionId = _repository.Add(question);
+		//	// assert
+		//	Assert.True(questionId > 0);
+		//}
 
-			// assert
-			Assert.True(questionId > 0);
-		}
+		//[Test]
+		//public void Update()
+		//{
+		//	// arrange
+		//	var fixture = new Fixture();
+		//	var newQuestion = fixture.Build<Core.CoreModels.Question>().Create();
+		//	newQuestion.User.Id = 11;
 
-		[Test]
-		public void Update()
-		{
-			// arrange
-			var fixture = new Fixture();
-			var newQuestion = fixture.Build<Question>().Create();
-			newQuestion.User.Id = 11;
-			var questionId = _repository.Add(newQuestion);
-			var updatedQuestion = fixture.Build<Question>().Create();
-			updatedQuestion.User.Id = 11;
+		//	var questionId = _repository.Add(newQuestion).Result;
 
-			updatedQuestion.Id = questionId;
+		//	var updatedQuestion = fixture.Build<Question>().Create();
+		//	updatedQuestion.User.Id = 11;
 
-			// act
-			_repository.Update(updatedQuestion);
+		//	updatedQuestion.Id = questionId;
 
-			// assert
-			var question = _repository.Get(questionId);
+		//	// act
+		//	var result = _repository.Update(updatedQuestion).Result;
 
-			Assert.NotNull(question);
-			Assert.AreEqual(updatedQuestion.Id, question.Id);
-			Assert.AreEqual(updatedQuestion.Description, question.Description);
-		}
+		//	// assert
+		//	var question = _repository.Get(questionId).Result;
 
-		[Test]
-		public void Get()
-		{
-			// arrange\
-			var fixture = new Fixture();
+		//	Assert.IsTrue(result);
+		//	Assert.NotNull(question);
+		//	Assert.AreEqual(updatedQuestion.Id, question.Id);
+		//	Assert.AreEqual(updatedQuestion.Description, question.Description);
+		//}
 
-			for (int i = 0; i < 10; i++)
-			{
-				var question = fixture.Build<Question>().Create();
+		//[Test]
+		//public void Get()
+		//{
+		//	// arrange\
+		//	var fixture = new Fixture();
 
-				question.User.Id = 11;
+		//	for (int i = 0; i < 10; i++)
+		//	{
+		//		var question = fixture.Build<Question>().Create();
 
-				_repository.Add(question);
-			}
+		//		question.User.Id = 11;
 
-			// act
-			var questions = _repository.Get();
+		//		var questinId = _repository.Add(question).Result;
+		//	}
 
-			// assert
-			Assert.NotNull(questions);
-			Assert.NotNull(questions.FirstOrDefault().User);
-			Assert.IsNotEmpty(questions);
-		}
+		//	// act
+		//	var questions = _repository.Get().Result;
 
-		[Test]
-		public void GetWithQuestionId()
-		{
-			// arrange
-			var fixture = new Fixture();
-			var newQuestion = fixture.Build<Question>().Create();
-			newQuestion.User.Id = 11;
-			var questionId = _repository.Add(newQuestion);
+		//	// assert
+		//	Assert.NotNull(questions);
+		//	Assert.IsNotEmpty(questions);
+		//}
 
-			// act
-			var question = _repository.Get(questionId);
+		//[Test]
+		//public void GetFullQuestionWithId_ShuldReturnQuestionWithUser()
+		//{
+		//	// arrange
+		//	var fixture = new Fixture();
+		//	var newQuestion = fixture.Build<Question>().Create();
+		//	newQuestion.User.Id = 11;
 
-			// assert
-			Assert.NotNull(question);
-			Assert.NotNull(question.User);
-		}
+		//	// act
+		//	var questionId = _repository.Add(newQuestion).Result;
+		//	var question = _repository.GetFullEntities(questionId).Result;
 
-		[Test]
-		public void Delete()
-		{
-			var fixture = new Fixture();
-			var newQuestion = fixture.Build<Question>().Create();
-			newQuestion.User.Id = 11;
-			var questionId = _repository.Add(newQuestion);
+		//	// assert
+		//	Assert.NotNull(question);
+		//	Assert.NotNull(question.User);
+		//}
 
-			// act
-			_repository.Delete(questionId);
+		//[Test]
+		//public void Delete()
+		//{
+		//	var fixture = new Fixture();
+		//	var newQuestion = fixture.Build<Question>().Create();
+		//	newQuestion.User.Id = 11;
 
-			// assert
-			var question = _repository.Get(questionId);
 
-			Assert.Null(question);
-		}
+		//	// act
+		//	var questionId = _repository.Add(newQuestion).Result;
+		//	var result = _repository.Delete(questionId).Result;
+		//	var question = _repository.Get(questionId).Result;
 
-		[TearDown]
-		public void DeleteTestData()
-		{
-			_repository.CleanTable();
-		}
+		//	// assert
+		//	Assert.IsTrue(result);
+		//	Assert.Null(question);
+		//}
 	}
 }

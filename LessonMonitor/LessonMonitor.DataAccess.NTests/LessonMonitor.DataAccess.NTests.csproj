@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
+    <ProjectReference Include="..\LessonMonitor.DataAccess.MSSQL\LessonMonitor.DataAccess.MSSQL.csproj" />
   </ItemGroup>
 
 </Project>

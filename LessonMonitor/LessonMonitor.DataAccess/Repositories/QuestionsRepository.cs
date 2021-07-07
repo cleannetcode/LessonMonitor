@@ -1,208 +1,244 @@
-﻿using System;
-using LessonMonitor.Core.CoreModels;
-using LessonMonitor.Core.Helper;
-using LessonMonitor.Core.Repositories;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿//using System;
+//using LessonMonitor.Core.CoreModels;
+//using LessonMonitor.Core.Repositories;
+//using System.Collections.Generic;
+//using System.Threading.Tasks;
+//using Microsoft.EntityFrameworkCore;
+//using System.Linq;
 
-namespace LessonMonitor.DataAccess.Repositories
-{
-    public class QuestionsRepository : IQuestionsRepository
-    {
-        private string _connectionString;
+//namespace LessonMonitor.DataAccess.Repositories
+//{
+//    public class QuestionsRepository : IQuestionsRepository
+//    {
+//        public QuestionsRepository()
+//        {
 
-        public QuestionsRepository(string connectionString) 
-        {
-            _connectionString = connectionString;
-        }
+//        }
 
-        public int Add(Question newQuestion)
-        {
-            if (newQuestion is null)
-                throw new ArgumentNullException(nameof(newQuestion));
+//        public async Task<int> Add(Core.CoreModels.Question newQuestion)
+//        {
+//            if (newQuestion is null)
+//                throw new ArgumentNullException(nameof(newQuestion));
 
-            var newQuestionEntity = new Entities.Question
-            {
-                UserId = newQuestion.User.Id,
-                Description = newQuestion.Description
-            };
+//            var newQuestionEntity = new Entities.Question
+//            {
+//                UserId = newQuestion.User.Id,
+//                Description = newQuestion.Description
+//            };
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var result = await context.AddAsync(newQuestionEntity);
 
-                var command = new SqlCommand(@"
-                    INSERT INTO Questions (UserId, Description, CreatedDate, UpdatedDate)
-                    VALUES (@UserId, @Description, @CreatedDate, @UpdatedDate);
-                    SET @Id = scope_identity();",
-                connection);
+//                if (result.State == EntityState.Added)
+//                {
+//                    await context.SaveChangesAsync();
 
-                command.Parameters.AddWithValue("@UserId", newQuestionEntity.UserId);
-                command.Parameters.AddWithValue("@Description", newQuestionEntity.Description);
-                command.Parameters.AddWithValue("@CreatedDate", newQuestionEntity.CreatedDate);
-                command.Parameters.AddWithValue("@UpdatedDate", newQuestionEntity.UpdatedDate);
+//                    return newQuestionEntity.Id;
+//                }
+//                else
+//                {
+//                    throw new Exception("Model not added.");
+//                }
+//            }
+//        }
 
-                var resultParameter = new SqlParameter
-                {
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int,
-                    ParameterName = "@Id"
-                };
+//        public async Task<bool> Delete(int questionId)
+//        {
+//            if (questionId <= 0)
+//                throw new ArgumentException(nameof(questionId));
 
-                command.Parameters.Add(resultParameter);
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var questionExist = await context.Questions.SingleOrDefaultAsync(f => f.Id == questionId && f.DeletedDate == null);
 
-                command.ExecuteNonQuery();
+//                if (questionExist != null)
+//                {
+//                    questionExist.DeletedDate = DateTime.Now;
 
-                if (command.Parameters["@Id"].Value is int questionId)
-                {
-                    return questionId;
-                }
-                else
-                {
-                    throw new InvalidOperationException($"value id cannot be converted: {command.Parameters["@Id"].Value}");
-                }
-            }
-        }
+//                    context.Questions.Update(questionExist);
 
-        public void Delete(int questionId)
-        {
-            if (questionId <= 0)
-                throw new ArgumentException(nameof(questionId));
+//                    await context.SaveChangesAsync();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+//                    return true;
+//                }
+//                else
+//                {
+//                    return false;
+//                }
+//            }
+//        }
 
-                var command = new SqlCommand(@"
-                    UPDATE Questions
-                    SET DeletedDate = @DeletedDate
-                    WHERE Id = @Id",
-                connection);
+//        public async Task<Core.CoreModels.Question> Get(int questionId)
+//        {
+//            if (questionId <= 0)
+//                throw new ArgumentException(nameof(questionId));
 
-                command.Parameters.AddWithValue("@Id", questionId);
-                command.Parameters.AddWithValue("@DeletedDate", DateTime.Now);
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var questionExist = await context.Questions.SingleOrDefaultAsync(f => f.Id == questionId && f.DeletedDate == null);
 
-                command.ExecuteNonQuery();
-            }
-        }
+//                if (questionExist != null)
+//                {
+//                    return new Core.CoreModels.Question
+//                    {
+//                        UserId = questionExist.UserId,
+//                        Description = questionExist.Description
+//                    };
+//                }
+//                else
+//                {
+//                    return null;
+//                }
+//            }
+//        }
 
-        public Question Get(int questionId)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+//        public async Task<Core.CoreModels.Question[]> Get()
+//        {
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var questions = await context.Questions.Where(f => f.DeletedDate == null).ToArrayAsync();
 
-                var command = new SqlCommand(@"
-                        SELECT 
-                        q.Id,
-                        q.Description,
-                        u.Id as ""User.Id"",
-                        u.Name as ""User.Name"",
-                        u.Nicknames as ""User.Nicknames"",
-                        u.Email as ""User.Email""
-                        FROM Questions q
-                        INNER JOIN Users u on q.UserId = u.Id
-                        WHERE q.DeletedDate IS NULL AND q.Id = @Id",
-                connection);
+//                var coreQuestions = new List<Core.CoreModels.Question>();
 
-                command.Parameters.AddWithValue("@Id", questionId);
+//                if (questions.Length != 0 || questions is null)
+//                {
+//                    foreach (var question in questions)
+//                    {
+//                        var coreQuestion = new Core.CoreModels.Question
+//                        {
+//                            UserId = question.UserId,
+//                            Description = question.Description
+//                        };
 
-                var reader = command.ExecuteReader();
+//                        coreQuestions.Add(coreQuestion);
+//                    };
 
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        return ModelMapper.CreateOf<Question>(reader);
-                    }
-                }
-            }
+//                    if (coreQuestions.Count > 0)
+//                    {
+//                        return coreQuestions.ToArray();
+//                    }
+//                    else
+//                    {
+//                        throw new ArgumentNullException(nameof(coreQuestions));
+//                    }
+//                }
+//                else
+//                {
+//                    return null;
+//                }
+//            }
+//        }
 
-            return null;
-        }
+//        public async Task<Core.CoreModels.Question> GetFullEntities(int questionId)
+//        {
+//            if (questionId <= 0)
+//                throw new ArgumentException(nameof(questionId));
 
-        public Question[] Get()
-        {
-            var questions = new List<Question>();
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var questions = await context.Questions
+//                    .AsNoTracking()
+//                    .Where(f => f.DeletedDate == null)
+//                    .Join(
+//                    context.Users,
+//                    question => question.UserId,
+//                    user => user.Id,
+//                    (question, user) => new Core.CoreModels.Question
+//                    {
+//                        Id = question.Id,
+//                        UserId = question.UserId,
+//                        Description = question.Description,
+//                        User = new User
+//                        {
+//                            Id = user.Id,
+//                            Name = user.Name,
+//                            Nicknames = user.Nicknames,
+//                            Email = user.Email
+//                        }
+//                    }
+//                    )
+//                    .ToArrayAsync();
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+//                if (questions.Length != 0 || questions is null)
+//                {
+//                    var question = questions.SingleOrDefault(f => f.Id == questionId);
 
-                var command = new SqlCommand(@"
-                        SELECT 
-                        q.Id,
-                        q.Description,
-                        u.Id as ""User.Id"",
-                        u.Name as ""User.Name"",
-                        u.Nicknames as ""User.Nicknames"",
-                        u.Email as ""User.Email""
-                        FROM Questions q
-                        INNER JOIN Users u on q.UserId = u.Id
-                        WHERE q.DeletedDate IS NULL",
-                connection);
+//                    if (question != null)
+//                    {
+//                        return question;
+//                    }
+//                    else
+//                    {
+//                        throw new ArgumentNullException(nameof(question));
+//                    }
+//                }
+//                else
+//                {
+//                    return null;
+//                }
+//            }
+//        }
 
-                var reader = command.ExecuteReader();
+//        public async Task<Core.CoreModels.Question[]> GetFullEntities()
+//        {
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var questions = await context.Questions
+//                    .AsNoTracking()
+//                    .Where(f => f.DeletedDate == null)
+//                    .Join(
+//                    context.Users,
+//                    question => question.UserId,
+//                    user => user.Id,
+//                    (question, user) => new Core.CoreModels.Question
+//                    {
+//                        Id = question.Id,
+//                        UserId = question.UserId,
+//                        Description = question.Description,
+//                        User = new User
+//                        {
+//                            Id = user.Id,
+//                            Name = user.Name,
+//                            Nicknames = user.Nicknames,
+//                            Email = user.Email
+//                        }
+//                    }
+//                    )
+//                    .ToArrayAsync();
 
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        questions.Add(ModelMapper.CreateOf<Question>(reader));
-                    }
-                }
-            }
+//                if (questions.Length != 0 || questions is null)
+//                {
+//                    return questions;
+//                }
+//                else
+//                {
+//                    return null;
+//                }
+//            }
+//        }
 
-            return questions.ToArray();
-        }
+//        public async Task<bool> Update(Core.CoreModels.Question question)
+//        {
+//            if (question is null)
+//                throw new ArgumentNullException(nameof(question));
 
-        public void Update(Question question)
-        {
-            if (question is null)
-                throw new ArgumentNullException(nameof(question));
+//            await using (var context = new LessonMonitorDbContext())
+//            {
+//                var updatedQuestionEntity = new Entities.Question
+//                {
+//                    Id = question.Id,
+//                    UserId = question.UserId,
+//                    Description = question.Description,
+//                    UpdatedDate = DateTime.Now
+//                };
 
-            var updatedQuestionEntity = new Entities.Question
-            {
-                Id = question.Id,
-                UserId = question.User.Id,
-                Description  = question.Description
-            };
+//                context.Questions.Update(updatedQuestionEntity);
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+//                await context.SaveChangesAsync();
 
-                var command = new SqlCommand(@"
-                    UPDATE Questions
-                    SET 
-                        UserId = @UserId,
-                        Description = @Description, 
-                        UpdatedDate = @UpdatedDate
-                    WHERE Id = @Id",
-                connection);
-
-                command.Parameters.AddWithValue("@Id", updatedQuestionEntity.Id);
-                command.Parameters.AddWithValue("@UserId", updatedQuestionEntity.UserId);
-                command.Parameters.AddWithValue("@Description", updatedQuestionEntity.Description);
-                command.Parameters.AddWithValue("@UpdatedDate", updatedQuestionEntity.UpdatedDate);
-
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void CleanTable()
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                var command = new SqlCommand(@"
-                    DELETE FROM Questions
-                    WHERE Id NOT IN (SELECT TOP 8 Id FROM Questions)",
-                connection);
-
-                command.ExecuteNonQuery();
-            }
-        }
-    }
-}
+//                return true;
+//            }
+//        }
+//    }
+//}

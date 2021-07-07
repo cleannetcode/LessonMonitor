@@ -9,8 +9,9 @@ using Microsoft.OpenApi.Models;
 using LessonMonitor.BussinesLogic;
 using LessonMonitor.Core.Services;
 using LessonMonitor.Core.Repositories;
-using LessonMonitor.DataAccess.Repositories;
-using LessonMonitor.DataAccess;
+using LessonMonitor.DataAccess.MSSQL;
+using LessonMonitor.API.CustomErrors;
+using LessonMonitor.API.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.API
@@ -29,32 +30,29 @@ namespace LessonMonitor.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // services.AddTransient<IUsersService, UsersService>();
+            //services.AddTransient<IUsersRepository, UsersRepository>();
+
+            // services.AddTransient<IQuestionsService, QuestionsService>();
+            //services.AddTransient<IQuestionsRepository, QuestionsRepository>();
+
+            // services.AddSingleton<IGitHubService, GitHubService>();
+            //services.AddSingleton<IGitHubRepository, GitHubRepository>();
+
+            services.AddScoped<IHomeworksService, HomeworksService>();
+            services.AddScoped<IHomeworksRepository, HomeworksRepository>();
+            services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
+
+            services.AddDbContext<LMonitorDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("LessonMonitorDbMain"));
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
             });
-
-            services.AddDbContext<LessonMonitorDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("SqlContext"));
-            });
-
-            services.AddScoped<ITopicsService, TopicsService>();
-            services.AddScoped<ITopicsRepository, TopicsRepository>();
-
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IUsersRepository, UsersRepository>();
-
-            services.AddTransient<IQuestionsService, QuestionsService>();
-            services.AddTransient<IQuestionsRepository, QuestionsRepository>();
-
-            services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
-            services.AddSingleton<IGitHubService, GitHubService>();
-            services.AddSingleton<IGitHubRepository, GitHubRepository>();
-
-            services.AddScoped<IHomeworksService, HomeworksService>();
-            services.AddScoped<IHomeworksRepository, HomeworksRepository>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,8 +66,6 @@ namespace LessonMonitor.API
             }
 
             ErrorMessageRegistry.ReBuild();
-
-            DIViewer.RunDemo();
 
             app.UseHttpsRedirection();
 
@@ -87,7 +83,7 @@ namespace LessonMonitor.API
 
                 WebHeaderCollection myWebHeaderCollection = myHttpWebResponse.Headers;
 
-                await using StreamWriter file = new("HeaderLines.txt");
+                await using StreamWriter file = new StreamWriter("HeaderLines.txt", true);
 
                 for (int i = 0; i < myWebHeaderCollection.Count; i++)
                 {

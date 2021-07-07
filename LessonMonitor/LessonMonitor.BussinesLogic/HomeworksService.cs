@@ -3,6 +3,7 @@ using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.BussinesLogic
 {
@@ -17,52 +18,85 @@ namespace LessonMonitor.BussinesLogic
             _homeworksRepository = homeworksRepository;
         }
 
-        public Homework Get()
+        public async Task<int> Create(Homework homework)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Create(Homework homework)
-        {
-            // Валидация
             if (homework is null) throw new ArgumentNullException(nameof(homework));
 
-            var isInvalid = string.IsNullOrWhiteSpace(homework.Name)
-                            || homework.Id <= 0;
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Title)
+                            || string.IsNullOrWhiteSpace(homework.Description)
+                            || homework.Link == null;
 
             if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
             
-            // сохранение в базе
-            _homeworksRepository.Add(homework);
+            var homeworkId = await _homeworksRepository.Add(homework);
 
-            return true;
+            if(homeworkId != default)
+            {
+                return homeworkId;
+            }
+            else
+            {
+                return default;
+            }
         }
 
-        public bool Delete(int homeworkId)
+        public async Task<bool> Delete(int homeworkId)
         {
-            // Валидация
-            if(homeworkId < 0) throw new HomeworkException(HOMEWORK_IS_INVALID);
+            if(homeworkId == default) throw new HomeworkException(HOMEWORK_IS_INVALID);
 
-            // сохранение в базе
-            _homeworksRepository.Delete(homeworkId);
-
-            return true;
+            return await _homeworksRepository.Delete(homeworkId);
         }
 
-        public bool Update(Core.CoreModels.Homework homework)
+        public async Task<int> Update(Core.CoreModels.Homework homework)
         {
             if (homework is null) throw new ArgumentNullException(nameof(homework));
 
-            // Валидация
-            var isInvalid = string.IsNullOrWhiteSpace(homework.Name)
-                           || homework.Id <= 0;
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Title)
+                           || string.IsNullOrWhiteSpace(homework.Description)
+                           || homework.Link == null;
 
             if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
 
-            // сохранение в базе
-            _homeworksRepository.Update(homework);
+            var homeworkId = await _homeworksRepository.Update(homework);
 
-            return true;
+            if (homeworkId != default)
+            {
+                return homeworkId;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(homeworkId));
+            }
+        }
+
+        public async Task<Homework> Get(int homeworkId)
+        {
+            if (homeworkId == default) throw new HomeworkException(HOMEWORK_IS_INVALID);
+
+            var homework = await _homeworksRepository.Get(homeworkId);
+
+            if (homework is not null)
+            {
+                return homework;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(homeworkId));
+            }
+        }
+
+        public async Task<Homework[]> Get()
+        {
+            var homeworks = await _homeworksRepository.Get();
+
+            if(homeworks.Length != 0 || homeworks is null)
+            {
+                return homeworks;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

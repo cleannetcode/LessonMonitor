@@ -1,13 +1,15 @@
 ﻿using LessonMonitor.Core.CoreModels;
 using System;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.Core.Services
 {
     public interface IHomeworksService
     {
-        bool Create(Homework homework);
-        Homework Get();
-        bool Delete(int homeworkId);
-        bool Update(Homework homework);
+        Task<int> Create(Homework homework);
+        Task<Homework> Get(int homeworkId);
+        Task<Homework[]> Get();
+        Task<bool> Delete(int homeworkId);
+        Task<int> Update(Homework homework);
     }
 }

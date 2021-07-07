@@ -1,8 +1,9 @@
-﻿using LessonMonitor.API.Models;
+﻿using LessonMonitor.API.Contracts;
+using LessonMonitor.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -10,58 +11,120 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class HomeworkController : ControllerBase
     {
-        
-        [HttpGet("Get")]
-        public IActionResult Get(Homework homework)
+        private readonly IHomeworksService _homeworksService;
+
+        public HomeworkController(IHomeworksService homeworksService)
         {
-            return Ok(new { Successful = 1 });
+            _homeworksService = homeworksService;
         }
 
-        [HttpGet("GetType")]
-        public string[] GetHomeworkTypeProperties()
+        [HttpPost]
+        public async Task<ActionResult> Create(NewHomework request)
         {
-            var homeworksModel = typeof(Homework);
-
-            List<string> metaDataArray = new List<string>();
-
-            metaDataArray.Add(homeworksModel.Namespace.ToString());
-
-            foreach (var prop in homeworksModel.GetProperties())
+            var homework = new Core.CoreModels.Homework
             {
-                metaDataArray.Add(prop.ToString());
+                Title = request.Title,
+                Description = request.Description,
+                Link = request.Link
+            };
 
-                foreach(var custAttr in prop.GetCustomAttributes())
+            var homeworkId = await _homeworksService.Create(homework);
+
+            if (homeworkId != default)
+            {
+                return Ok(new { Successful = $"Homework created: id {homeworkId}" });
+            }
+            else
+            {
+                return NotFound(new { Error = "Homework is not created" });
+            }
+        }
+
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int homeworkId)
+        {
+            var result = await _homeworksService.Delete(homeworkId);
+
+            if (result)
+            {
+                return Ok(new { Successful = "Homework is deleted" });
+            }
+            else
+            {
+                return NotFound(new { Error = "Homework has already been deleted or not an invalid id" });
+            }
+        }
+
+        [HttpGet("GetByHomeworkId")]
+        public async Task<Homework> Get(int homeworkId)
+        {
+            var homework = await _homeworksService.Get(homeworkId);
+
+            if (homework is not null)
+            {
+                return new Homework
                 {
-                    metaDataArray.Add(custAttr.ToString());
+                    Id = homework.Id,
+                    Title = homework.Title,
+                    Description = homework.Description,
+                    Link = homework.Link
+                };
+            }
+            else
+            {
+                throw new ArgumentNullException("No homework has been created");
+            }
+        }
+
+        [HttpGet("GetArray")]
+        public async Task<Homework[]> Get()
+        {
+            var homeworkModels = new List<Homework>();
+
+            var homeworks = await _homeworksService.Get();
+
+            if (homeworks.Length != 0 || homeworks is null)
+            {
+                foreach (var homework in homeworks)
+                {
+                    homeworkModels.Add(new Homework 
+                    {
+                        Id = homework.Id,
+                        Title = homework.Title,
+                        Description = homework.Description,
+                        Link = homework.Link
+                    });
                 }
+                return homeworkModels.ToArray();
             }
-
-            foreach (var mInfo in homeworksModel.GetMembers())
+            else
             {
-                metaDataArray.Add(mInfo.ToString());
+                throw new ArgumentNullException("No homework has been created");
             }
+        }
 
-            metaDataArray.Add(homeworksModel.ToString());
+        [HttpPost("UpdateHomework")]
+        public async Task<ActionResult> Update(Homework request)
+        {
+            var homework = new Core.CoreModels.Homework
+            { 
+                Id = request.Id,
+                Title = request.Title,
+                Description = request.Description,
+                Link = request.Link
+            };
 
-            metaDataArray.Add(homeworksModel.Assembly.GetName().ToString());
+            var homeworkId = await _homeworksService.Update(homework);
 
-            var assemblyInfo = typeof(HomeworkController).Assembly;
-
-            metaDataArray.Add(assemblyInfo.FullName);
-
-            foreach (var an in assemblyInfo.GetReferencedAssemblies())
+            if (homeworkId != default)
             {
-                metaDataArray.Add(an.CodeBase);
-                metaDataArray.Add(an.ToString());
+                return Ok(new { Successful = $"Homework updated: id {homeworkId}" });
             }
-
-            foreach (var curDomain in AppDomain.CurrentDomain.GetAssemblies())
+            else
             {
-                metaDataArray.Add(curDomain.ToString());
-
+                return NotFound(new { Error = "Homework is not updated" });
             }
-
-            return metaDataArray.ToArray();
         }
     }
 }
