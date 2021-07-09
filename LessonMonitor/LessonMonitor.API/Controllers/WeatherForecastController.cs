@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.API.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-    [ApiController]
+	[ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {

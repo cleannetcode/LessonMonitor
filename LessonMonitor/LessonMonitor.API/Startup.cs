@@ -1,7 +1,13 @@
+using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.Core.Services;
+using LessonMonitor.DataAccess.MSSQL;
+using LessonMonitor.DataAccess.MSSQL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +33,13 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
+			services.AddScoped<IHomeworksService, HomeworksService>();
+
+			services.AddDbContext<LessonMonitorDbContext>(builder =>
+			{
+				builder.UseSqlServer(Configuration.GetConnectionString("LessonMonitorDb"));
+			});
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

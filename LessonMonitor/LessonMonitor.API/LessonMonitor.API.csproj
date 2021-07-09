@@ -7,12 +7,21 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj" />
     <ProjectReference Include="..\LessonMonitor.Core\LessonMonitor.Core.csproj" />
+    <ProjectReference Include="..\LessonMonitor.DataAccess.MSSQL\LessonMonitor.DataAccess.MSSQL.csproj" />
     <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
   </ItemGroup>
 

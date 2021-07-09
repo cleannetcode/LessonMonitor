@@ -3,41 +3,9 @@ using System;
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
-using LessonMonitor.Core.Services;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace LessonMonitor.API.Controllers
 {
-	[ApiController]
-	[Route("[controller]")]
-	public class HomeworksController : ControllerBase
-	{
-		//private readonly IHomeworksService _homeworksService;
-
-		public HomeworksController()
-		{
-			//_homeworksService = homeworksService;
-		}
-
-		[HttpGet]
-		public ActionResult Index()
-		{
-			var service = new SomeService();
-			service.DoSomeJobAsync().Wait();
-
-			return Ok("tests");
-		}
-
-	}
-	public class SomeService
-	{
-		public async Task DoSomeJobAsync()
-		{
-			await Task.Delay(200);
-			Thread.Sleep(100);
-		}
-	}
 
 	[ApiController]
 	[Route("[controller]")]
@@ -52,17 +20,17 @@ namespace LessonMonitor.API.Controllers
 		}
 
 		[HttpGet]
-		public User[] Get(string userName)
+		public Contracts.User[] Get(string userName)
 		{
 			var user = _userService.Get();
 
-			var result = new User();
+			var result = new Contracts.User();
 
 			return new[] { result };
 		}
 
 		[HttpPost]
-		public User Create(User newUser)
+		public Contracts.User Create(Contracts.User newUser)
 		{
 			var user = new Core.User
 			{
@@ -76,7 +44,7 @@ namespace LessonMonitor.API.Controllers
 		}
 
 		[HttpGet("model")]
-		public void GetModel([FromQuery] User user)
+		public void GetModel([FromQuery] Contracts.User user)
 		{
 			var model = user.GetType();
 

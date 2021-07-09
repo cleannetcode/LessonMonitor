@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace LessonMonitor.Core.Services
 {
 	public interface IHomeworksService
 	{
-		bool Create(Homework homework);
-		bool Delete(int homeworkId);
+		Task<int> Create(Homework homework);
+		Task<bool> Delete(int homeworkId);
 	}
 }

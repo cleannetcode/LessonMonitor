@@ -1,11 +1,13 @@
+using System.Threading.Tasks;
+
 namespace LessonMonitor.Core
 {
 	public interface IHomeworksRepository
 	{
-		int Add(Homework newHomework);
-		void Update(Homework homework);
-		void Delete(int homeworkId);
-		Homework[] Get();
-		Homework Get(int homeworkId);
+		Task<int> Add(Homework newHomework);
+		Task Update(Homework homework);
+		Task Delete(int homeworkId);
+		Task<Homework[]> Get();
+		Task<Homework> Get(int homeworkId);
 	}
 }

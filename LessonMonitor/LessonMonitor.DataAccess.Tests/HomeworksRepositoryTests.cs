@@ -1,6 +1,7 @@
 using AutoFixture;
 using LessonMonitor.Core;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace LessonMonitor.DataAccess.Tests
@@ -16,35 +17,35 @@ namespace LessonMonitor.DataAccess.Tests
 		}
 
 		[Fact]
-        public void Add_ValidHomework_ShouldCreateNewHomework()
+        public async Task Add_ValidHomework_ShouldCreateNewHomework()
         {
 			// arrange
 			var fixture = new Fixture();
 			var homework = fixture.Create<Homework>();
 
 			// act
-			var homeworkId = _repository.Add(homework);
+			var homeworkId = await _repository.Add(homework);
 
 			// assert
 			Assert.True(homeworkId > 0);
 		}
 
 		[Fact]
-		public void Update()
+		public async Task Update()
 		{
 			var fixture = new Fixture();
 			var newhomework = fixture.Create<Homework>();
 
-			var homeworkId = _repository.Add(newhomework);
+			var homeworkId = await _repository.Add(newhomework);
 
 			var updatedhomework = fixture.Create<Homework>();
 			updatedhomework.Id = homeworkId;
 
 			// act
-			_repository.Update(updatedhomework);
+			await _repository.Update(updatedhomework);
 
 			// assert
-			var homework = _repository.Get(homeworkId);
+			var homework = await _repository.Get(homeworkId);
 			Assert.NotNull(homework);
 			Assert.Equal(updatedhomework.Title, homework.Title);
 			Assert.Equal(updatedhomework.Description, homework.Description);
@@ -52,18 +53,18 @@ namespace LessonMonitor.DataAccess.Tests
 		}
 
 		[Fact]
-		public void Get()
+		public async Task Get()
 		{
 			var fixture = new Fixture();
 
 			for (int i = 0; i < 10; i++)
 			{
 				var newhomework = fixture.Create<Homework>();
-				_repository.Add(newhomework);
+				await _repository.Add(newhomework);
 			}
 
 			// act
-			var homeworks = _repository.Get();
+			var homeworks = await _repository.Get();
 
 			// assert
 			Assert.NotNull(homeworks);
@@ -71,32 +72,32 @@ namespace LessonMonitor.DataAccess.Tests
 		}
 
 		[Fact]
-		public void GetWithHomeworkId()
+		public async Task GetWithHomeworkId()
 		{
 			var fixture = new Fixture();
 			var newhomework = fixture.Create<Homework>();
-			var homeworkId = _repository.Add(newhomework);
+			var homeworkId = await _repository.Add(newhomework);
 
 			// act
-			var homework = _repository.Get(homeworkId);
+			var homework = await _repository.Get(homeworkId);
 
 			// assert
 			Assert.NotNull(homework);
 		}
 
 		[Fact]
-		public void Delete()
+		public async Task Delete()
 		{
 			var fixture = new Fixture();
 			var newhomework = fixture.Create<Homework>();
 
-			var homeworkId = _repository.Add(newhomework);
+			var homeworkId = await _repository.Add(newhomework);
 
 			// act
-			_repository.Delete(homeworkId);
+			await _repository.Delete(homeworkId);
 
 			// assert
-			var homework = _repository.Get(homeworkId);
+			var homework = await _repository.Get(homeworkId);
 			Assert.Null(homework);
 		}
 
