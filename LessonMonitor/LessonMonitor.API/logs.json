@@ -2551,3 +2551,452 @@
     "successful": "Homework created: id 21"
   }
 },
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-27e12a236b6b5e4faa9164da5047a793-6b0a32fd63da8645-00",
+    "errors": {
+      "Description": [
+        "Description contain special character or whitespace"
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 3"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 4"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 5"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 6"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Delete",
+  "Response": {
+    "successful": "Question is deleted"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Delete",
+  "Response": {
+    "error": "Question has already been deleted or not an invalid id"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 7"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Get",
+  "Response": {
+    "id": 7,
+    "memberId": 1,
+    "description": "How to return action result?"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 2,
+      "memberId": 1,
+      "description": "Как работать с scaffold базой?"
+    },
+    {
+      "id": 3,
+      "memberId": 1,
+      "description": "Как дела?"
+    },
+    {
+      "id": 4,
+      "memberId": 1,
+      "description": "Как дела?"
+    },
+    {
+      "id": 5,
+      "memberId": 1,
+      "description": "Йа?"
+    },
+    {
+      "id": 7,
+      "memberId": 1,
+      "description": "How to return action result?"
+    }
+  ]
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 2"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Delete",
+  "Response": {
+    "successful": "Member is deleted"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Delete",
+  "Response": {
+    "error": "Member has already been deleted or not an invalid id"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Delete",
+  "Response": {
+    "error": "Member has already been deleted or not an invalid id"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-c6dee3bff9fb7e4997c6934515abaca9-f4077866b5c16140-00",
+    "errors": {
+      "Name": [
+        "Name contain special character or whitespace"
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 3"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 4"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 5"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Get",
+  "Response": {
+    "id": 5,
+    "name": "Petya",
+    "gitHubAccountId": null
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 1,
+      "name": "Evgenii",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 3,
+      "name": "Vasya",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 4,
+      "name": "Anton",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 5,
+      "name": "Petya",
+      "gitHubAccountId": null
+    }
+  ]
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Update",
+  "Response": {
+    "successful": "Member updated: id 3"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Update",
+  "Response": {
+    "successful": "Member updated: id 3"
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Homework created: id 22"
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 22,
+      "title": "ASPNET",
+      "description": "RegularExpressionAttribute",
+      "link": "https://www.google.com/search?q=asp.net+data+anno",
+      "memberId": 0,
+      "mentorId": 0
+    }
+  ]
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-cf93013f2ebbe247b9516f7b9d14f711-d82ae4324455d446-00",
+    "errors": {
+      "Link": [
+        "Entry should not contain url."
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 22,
+      "title": "ASPNET",
+      "description": "RegularExpressionAttribute",
+      "link": "https://www.google.com/search?q=asp.net+data+anno",
+      "memberId": 0,
+      "mentorId": 0
+    }
+  ]
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 6"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Get",
+  "Response": {
+    "id": 6,
+    "name": "ROman",
+    "gitHubAccountId": null
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 1,
+      "name": "Evgenii",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 3,
+      "name": "Feona",
+      "gitHubAccountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    },
+    {
+      "id": 4,
+      "name": "Anton",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 5,
+      "name": "Petya",
+      "gitHubAccountId": null
+    },
+    {
+      "id": 6,
+      "name": "ROman",
+      "gitHubAccountId": null
+    }
+  ]
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Question created: id 8"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Get",
+  "Response": {
+    "id": 8,
+    "memberId": 6,
+    "description": "Middleware?"
+  }
+},
+{
+  "ControllerName": "Questions",
+  "ActionName": "Get",
+  "Response": [
+    {
+      "id": 2,
+      "memberId": 1,
+      "description": "Как работать с scaffold базой?"
+    },
+    {
+      "id": 3,
+      "memberId": 1,
+      "description": "Как дела?"
+    },
+    {
+      "id": 4,
+      "memberId": 1,
+      "description": "Как дела?"
+    },
+    {
+      "id": 5,
+      "memberId": 1,
+      "description": "Йа?"
+    },
+    {
+      "id": 7,
+      "memberId": 1,
+      "description": "How to return action result?"
+    },
+    {
+      "id": 8,
+      "memberId": 6,
+      "description": "Middleware?"
+    }
+  ]
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-2dfd0bc07f370c40a5fd0e899a7d7ae0-a0568f04afe7c74b-00",
+    "errors": {
+      "Link": [
+        "Entry should not contain url."
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Member created: id 7"
+  }
+},
+{
+  "ControllerName": "Members",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-78e5bc13871b8546b9b19a083198d2a9-673fecedb7036343-00",
+    "errors": {
+      "Name": [
+        "Name isn't be empty"
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-c04f69aa2b744a419ca6ea4ef17e581d-fc664075b6230f42-00",
+    "errors": {
+      "Link": [
+        "Entry should not contain url."
+      ],
+      "Title": [
+        "Title isn't be empty"
+      ]
+    }
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Homework created: id 60"
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Homework created: id 61"
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Create",
+  "Response": {
+    "successful": "Homework created: id 62"
+  }
+},
+{
+  "ControllerName": "Homework",
+  "ActionName": "Update",
+  "Response": {
+    "successful": "Homework updated: id 62"
+  }
+},

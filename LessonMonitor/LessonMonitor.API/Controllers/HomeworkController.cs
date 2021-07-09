@@ -25,7 +25,8 @@ namespace LessonMonitor.API.Controllers
             {
                 Title = request.Title,
                 Description = request.Description,
-                Link = request.Link
+                Link = request.Link,
+                LessonId = request.LessonId
             };
 
             var homeworkId = await _homeworksService.Create(homework);
@@ -39,7 +40,6 @@ namespace LessonMonitor.API.Controllers
                 return NotFound(new { Error = "Homework is not created" });
             }
         }
-
 
         [HttpDelete]
         public async Task<ActionResult> Delete(int homeworkId)
@@ -56,7 +56,7 @@ namespace LessonMonitor.API.Controllers
             }
         }
 
-        [HttpGet("GetByHomeworkId")]
+        [HttpGet("GetHomeworkById")]
         public async Task<Homework> Get(int homeworkId)
         {
             var homework = await _homeworksService.Get(homeworkId);
@@ -68,7 +68,8 @@ namespace LessonMonitor.API.Controllers
                     Id = homework.Id,
                     Title = homework.Title,
                     Description = homework.Description,
-                    Link = homework.Link
+                    Link = homework.Link,
+                    LessonId = homework.LessonId
                 };
             }
             else
@@ -77,7 +78,7 @@ namespace LessonMonitor.API.Controllers
             }
         }
 
-        [HttpGet("GetArray")]
+        [HttpGet("GetAllHomeworks")]
         public async Task<Homework[]> Get()
         {
             var homeworkModels = new List<Homework>();
@@ -112,7 +113,8 @@ namespace LessonMonitor.API.Controllers
                 Id = request.Id,
                 Title = request.Title,
                 Description = request.Description,
-                Link = request.Link
+                Link = request.Link,
+                LessonId = request.LessonId
             };
 
             var homeworkId = await _homeworksService.Update(homework);

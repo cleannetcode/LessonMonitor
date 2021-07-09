@@ -20,22 +20,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateTable(
-                name: "GitHubAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nickname = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Link = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    MemberId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GitHubAccounts", x => x.Id);
-                    table.UniqueConstraint("AK_GitHubAccounts_MemberId", x => x.MemberId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Lessons",
                 columns: table => new
                 {
@@ -66,7 +50,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     GitHubAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    GitHubAccountMemberId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -74,36 +57,51 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Members_GitHubAccounts_GitHubAccountMemberId",
-                        column: x => x.GitHubAccountMemberId,
-                        principalTable: "GitHubAccounts",
-                        principalColumn: "MemberId");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "GitHubAccounts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nickname = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Link = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    MemberId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GitHubAccounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GitHubAccounts_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GitHubAccounts_MemberId",
+                table: "GitHubAccounts",
+                column: "MemberId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_HomeworkId",
                 table: "Lessons",
                 column: "HomeworkId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Members_GitHubAccountMemberId",
-                table: "Members",
-                column: "GitHubAccountMemberId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "GitHubAccounts");
+
+            migrationBuilder.DropTable(
                 name: "Lessons");
 
             migrationBuilder.DropTable(
                 name: "Members");
-
-            migrationBuilder.DropTable(
-                name: "GitHubAccounts");
 
             migrationBuilder.DropUniqueConstraint(
                 name: "AK_Homeworks_LessonId",

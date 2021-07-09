@@ -1,10 +1,13 @@
 ﻿using LessonMonitor.Core.CoreModels;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.Core.Services
 {
     public interface IQuestionsService
     {
-        bool Create(Question question);
-        Question[] Get();
+        Task<int> Create(Question question);
+        Task<Question> Get(int questionId);
+        Task<Question[]> Get();
+        Task<bool> Delete(int questionId);
     }
 }

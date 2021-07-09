@@ -3,6 +3,7 @@ using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.BussinesLogic
 {
@@ -17,34 +18,53 @@ namespace LessonMonitor.BussinesLogic
             _questionsRepository = questionsRepository;
         }
 
-        public bool Create(Core.CoreModels.Question question)
+        public async Task<int> Create(Question question)
         {
-            // Валидация
-            //if (question is null) throw new ArgumentNullException(nameof(question));
+            if (question is null) throw new ArgumentNullException(nameof(question));
 
-            if (question is null) throw new QuestionException(QUESTION_IS_INVALID, new ArgumentNullException(nameof(question)));
-
-            var isInvalid = string.IsNullOrWhiteSpace(question.Id.ToString())
+            var isInvalid = string.IsNullOrWhiteSpace(question.MemberId.ToString())
                || string.IsNullOrWhiteSpace(question.Description)
-               || question.Id < 0;
+               || question.MemberId == default;
 
             if (isInvalid) throw new QuestionException(QUESTION_IS_INVALID);
 
-            if (question.User is null) throw new QuestionException(QUESTION_IS_INVALID, new ArgumentNullException(nameof(question)));
-            
-            _questionsRepository.Add(question);
+            var questionId = await _questionsRepository.Add(question);
 
-            return true;
+            return questionId;
         }
 
-        public Core.CoreModels.Question[] Get()
+        public async Task<Question> Get(int questionId)
         {
-            var questions = _questionsRepository.Get().Result;
+            if (questionId == default || questionId <= 0) 
+                    throw new QuestionException(QUESTION_IS_INVALID);
 
-            if (questions is null || questions.Length == 0) throw new QuestionException($"Model {nameof(questions)} is null",
-                    new ArgumentNullException(nameof(questions)));
+            var question = await _questionsRepository.Get(questionId);
+
+            if (question is not null)
+            {
+                return question;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(questionId));
+            }
+        }
+
+        public async Task<Question[]> Get()
+        {
+            var questions = await _questionsRepository.Get();
+
+            if (questions is null || questions.Length == 0) throw new QuestionException($"Model {nameof(questions)} is null", new ArgumentNullException(nameof(questions)));
 
             return questions;
+        }
+
+        public async Task<bool> Delete(int questionId)
+        {
+            if (questionId == default || questionId <= 0)
+                throw new QuestionException(QUESTION_IS_INVALID);
+
+            return await _questionsRepository.Delete(questionId);
         }
     }
 }

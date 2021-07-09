@@ -2,8 +2,8 @@
 using LessonMonitor.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using LessonMonitor.API.Models;
+using LessonMonitor.API.Contracts;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -12,64 +12,91 @@ namespace LessonMonitor.API.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly IQuestionsService _questionsService;
-        private readonly IUsersService _usersService;
-        public QuestionsController(IUsersService usersService, IQuestionsService questionsService)
+        public QuestionsController(IQuestionsService questionsService)
         {
-            _usersService = usersService;
             _questionsService = questionsService;
         }
 
-        [HttpPost("Create")]
-        public IActionResult Create(string userName, string question)
+        [HttpPost]
+        public async Task<ActionResult> Create(NewQuestion request)
         {
-            if (string.IsNullOrEmpty(userName))
+            var question = new Core.CoreModels.Question
             {
-                throw new ArgumentException($"'{nameof(userName)}' can't be null or empty.", nameof(userName));
-            }
-
-            var users = _usersService.Get();
-
-            var userCore = users.SingleOrDefault(f => f.Name == userName);
-
-            if (userCore == null) throw new Exception("Such a user isn't found.");
-
-            if (string.IsNullOrEmpty(question))
-            {
-                throw new ArgumentException($"'{nameof(question)}' can't be null or empty.", nameof(question));
-            }
-
-            var questionModel = new Core.CoreModels.Question
-            {
-                Description = question,
-                User = userCore
+                MemberId = request.MemberId,
+                Description = request.Description
             };
 
-            _questionsService.Create(questionModel);
+            var questionId = await _questionsService.Create(question);
 
-            return Ok(new { Successful = $"Question: '{question}' is created from {userName}" });
+            if (questionId != default)
+            {
+                return Ok(new { Successful = $"Question created: id {questionId}" });
+            }
+            else
+            {
+                return NotFound(new { Error = "Question is not created" });
+            }
         }
 
-        [HttpGet("Get")]
-        public Question[] Get()
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int questionId)
         {
-            var coreQuestions = _questionsService.Get();
+            var result = await _questionsService.Delete(questionId);
 
-            if (coreQuestions == null || coreQuestions.Length == 0) throw new Exception("Array of questions isn't found.");
-
-            var questions = new List<Question>();
-
-            foreach (var question in coreQuestions)
+            if (result)
             {
-                var newQuestion = new Question
-                {
-                    UserName = question.User.Name,
-                    Description = question.Description,
-                };
-
-                questions.Add(newQuestion);
+                return Ok(new { Successful = "Question is deleted" });
             }
+            else
+            {
+                return NotFound(new { Error = "Question has already been deleted or not an invalid id" });
+            }
+        }
 
-            return questions.ToArray();
+        [HttpGet("GetQuestionById")]
+        public async Task<Question> Get(int questionId)
+        {
+            var question = await _questionsService.Get(questionId);
+
+            if (question is not null)
+            {
+                return new Question
+                {
+                    Id = question.Id,
+                    MemberId = question.MemberId,
+                    Description = question.Description
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [HttpGet("GetAllQuestions")]
+        public async Task<Question[]> Get()
+        {
+            var questionModels = new List<Question>();
+
+            var questions = await _questionsService.Get();
+
+            if (questions.Length != 0 || questions is null)
+            {
+                foreach (var question in questions)
+                {
+                    questionModels.Add(new Question
+                    {
+                        Id = question.Id,
+                        MemberId = question.MemberId,
+                        Description = question.Description
+                    });
+                }
+                return questionModels.ToArray();
+            }
+            else
+            {
+                throw new ArgumentNullException("No one question has been created!");
+            }
         }
     }
 }

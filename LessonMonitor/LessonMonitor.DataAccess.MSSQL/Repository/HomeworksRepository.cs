@@ -24,7 +24,8 @@ namespace LessonMonitor.DataAccess.MSSQL
             {
                 Title = newHomework.Title,
                 Description = newHomework.Description,
-                Link = newHomework.Link
+                Link = newHomework.Link,
+                LessonId = newHomework.LessonId
             };
 
             var result = await _context.AddAsync(newHomeworkEntity);
@@ -78,7 +79,8 @@ namespace LessonMonitor.DataAccess.MSSQL
                     Id = homeworkExist.Id,
                     Title = homeworkExist.Title,
                     Description = homeworkExist.Description,
-                    Link = homeworkExist.Link
+                    Link = homeworkExist.Link,
+                    LessonId = homeworkExist.LessonId
                 };
             }
             else
@@ -89,7 +91,6 @@ namespace LessonMonitor.DataAccess.MSSQL
 
         public async Task<Core.CoreModels.Homework[]> Get()
         {
-
             var homeworks = await _context.Homeworks.Where(f => f.DeletedDate == null).ToArrayAsync();
 
             var coreHomeworks = new List<Core.CoreModels.Homework>();
@@ -98,15 +99,14 @@ namespace LessonMonitor.DataAccess.MSSQL
             {
                 foreach (var homework in homeworks)
                 {
-                    var coreHomework = new Core.CoreModels.Homework
+                    coreHomeworks.Add(new Core.CoreModels.Homework
                     {
                         Id = homework.Id,
                         Title = homework.Title,
                         Description = homework.Description,
-                        Link = homework.Link
-                    };
-
-                    coreHomeworks.Add(coreHomework);
+                        Link = homework.Link,
+                        LessonId = homework.LessonId
+                    });
                 };
 
                 if (coreHomeworks.Count > 0)
@@ -128,20 +128,20 @@ namespace LessonMonitor.DataAccess.MSSQL
             if (homework is null)
                 throw new ArgumentNullException(nameof(homework));
 
-            var updatedHomeworkEntity = new Entities.Homework
-            {
-                Id = homework.Id,
-                Title = homework.Title,
-                Description = homework.Description,
-                Link = homework.Link,
-                UpdatedDate = DateTime.Now
-            };
+            var homeworkEntity = _context.Homeworks.Where(f => f.Id == homework.Id).FirstOrDefault();
 
-            _context.Homeworks.Update(updatedHomeworkEntity);
+            _context.Entry(homeworkEntity).State = EntityState.Modified;
+
+            homeworkEntity.Id = homework.Id;
+            homeworkEntity.Title = homework.Title;
+            homeworkEntity.Description = homework.Description;
+            homeworkEntity.Link = homework.Link;
+            homeworkEntity.LessonId = homework.LessonId;
+            homeworkEntity.UpdatedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
-            return updatedHomeworkEntity.Id;
+            return homeworkEntity.Id;
         }
 
         //public async Task<Core.CoreModels.Homework> GetFullEntities(int homeworkId)

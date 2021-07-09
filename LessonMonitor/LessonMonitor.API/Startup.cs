@@ -31,17 +31,18 @@ namespace LessonMonitor.API
         {
             services.AddControllers();
 
-            // services.AddTransient<IUsersService, UsersService>();
-            //services.AddTransient<IUsersRepository, UsersRepository>();
-
-            // services.AddTransient<IQuestionsService, QuestionsService>();
-            //services.AddTransient<IQuestionsRepository, QuestionsRepository>();
-
             // services.AddSingleton<IGitHubService, GitHubService>();
             //services.AddSingleton<IGitHubRepository, GitHubRepository>();
 
             services.AddScoped<IHomeworksService, HomeworksService>();
             services.AddScoped<IHomeworksRepository, HomeworksRepository>();
+
+            services.AddTransient<IMembersService, MembersService>();
+            services.AddTransient<IMembersRepository, MembersRepository>();
+            
+            services.AddTransient<IQuestionsService, QuestionsService>();
+            services.AddTransient<IQuestionsRepository, QuestionsRepository>();
+
             services.AddSingleton<IResponseBodyRepository, ResponseBodyRepository>();
 
             services.AddDbContext<LMonitorDbContext>(options =>

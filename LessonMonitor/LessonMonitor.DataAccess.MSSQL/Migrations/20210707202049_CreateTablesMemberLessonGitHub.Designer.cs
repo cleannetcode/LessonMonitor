@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonMonitor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(LMonitorDbContext))]
-    [Migration("20210707200456_CreateTablesMemberLessonGitHub")]
+    [Migration("20210707202049_CreateTablesMemberLessonGitHub")]
     partial class CreateTablesMemberLessonGitHub
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MemberId")
+                        .IsUnique();
 
                     b.ToTable("GitHubAccounts");
                 });
@@ -134,9 +137,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                     b.Property<Guid?>("GitHubAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GitHubAccountMemberId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -146,10 +146,18 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GitHubAccountMemberId")
-                        .IsUnique();
-
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.GitHubAccount", b =>
+                {
+                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Member", "Member")
+                        .WithOne("GitHubAccount")
+                        .HasForeignKey("LessonMonitor.DataAccess.MSSQL.Entities.GitHubAccount", "MemberId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", b =>
@@ -164,26 +172,14 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                     b.Navigation("Homework");
                 });
 
-            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Member", b =>
-                {
-                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.GitHubAccount", "GitHubAccount")
-                        .WithOne("Member")
-                        .HasForeignKey("LessonMonitor.DataAccess.MSSQL.Entities.Member", "GitHubAccountMemberId")
-                        .HasPrincipalKey("LessonMonitor.DataAccess.MSSQL.Entities.GitHubAccount", "MemberId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("GitHubAccount");
-                });
-
-            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.GitHubAccount", b =>
-                {
-                    b.Navigation("Member");
-                });
-
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
                 {
                     b.Navigation("Lesson");
+                });
+
+            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Member", b =>
+                {
+                    b.Navigation("GitHubAccount");
                 });
 #pragma warning restore 612, 618
         }

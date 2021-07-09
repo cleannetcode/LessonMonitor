@@ -13,10 +13,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
             builder.Property(x => x.Title).HasMaxLength(500);
             builder.Property(x => x.Description).HasMaxLength(2000);
 
-            builder.HasOne(x => x.Homework)
+            builder.HasMany(x => x.Homeworks)
                 .WithOne(x => x.Lesson)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasForeignKey<Lesson>(x => x.HomeworkId)
                 .IsRequired();
         }
     }

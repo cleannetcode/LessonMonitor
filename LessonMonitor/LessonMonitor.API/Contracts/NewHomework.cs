@@ -17,6 +17,8 @@ namespace LessonMonitor.API.Contracts
         [DataType(DataType.Text)]
         public string Description { get; set; }
 
+        public int LessonId { get; set; }
+
         [Required(ErrorMessage = "Link isn't be empty")]
         [RegularExpression(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$", ErrorMessage = "Entry should not contain url.")]
         [DataType(DataType.Text)]

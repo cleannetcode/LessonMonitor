@@ -18,7 +18,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey<Member>(x => x.GitHubAccountId)
                 .IsRequired(false);
-
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LessonMonitor.DataAccess.MSSQL.Entities
 {
@@ -7,5 +8,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
         public string Name { get; set; }
         public Guid? GitHubAccountId { get; set; }
         public GitHubAccount GitHubAccount { get; set; }
+        public ICollection<Question> Questions { get; set; }
     }
 }

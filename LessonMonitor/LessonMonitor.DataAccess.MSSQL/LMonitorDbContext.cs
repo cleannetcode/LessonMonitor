@@ -16,6 +16,7 @@ namespace LessonMonitor.DataAccess.MSSQL
         }
 
         public DbSet<Member> Members { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<Homework> Homeworks { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<GitHubAccount> GitHubAccounts { get; set; }
@@ -24,12 +25,12 @@ namespace LessonMonitor.DataAccess.MSSQL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MemberConfigurations());
+            modelBuilder.ApplyConfiguration(new QuestionConfigurations());
             modelBuilder.ApplyConfiguration(new HomeworkConfigurations());
             modelBuilder.ApplyConfiguration(new LessonConfigurations());
             modelBuilder.ApplyConfiguration(new GitHubAccountConfigurations());
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

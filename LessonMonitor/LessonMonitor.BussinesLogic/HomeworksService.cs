@@ -42,12 +42,13 @@ namespace LessonMonitor.BussinesLogic
 
         public async Task<bool> Delete(int homeworkId)
         {
-            if(homeworkId == default) throw new HomeworkException(HOMEWORK_IS_INVALID);
+            if(homeworkId == default || homeworkId <= 0)
+                    throw new HomeworkException(HOMEWORK_IS_INVALID);
 
             return await _homeworksRepository.Delete(homeworkId);
         }
 
-        public async Task<int> Update(Core.CoreModels.Homework homework)
+        public async Task<int> Update(Homework homework)
         {
             if (homework is null) throw new ArgumentNullException(nameof(homework));
 
@@ -71,7 +72,8 @@ namespace LessonMonitor.BussinesLogic
 
         public async Task<Homework> Get(int homeworkId)
         {
-            if (homeworkId == default) throw new HomeworkException(HOMEWORK_IS_INVALID);
+            if (homeworkId == default || homeworkId <= 0)
+                    throw new HomeworkException(HOMEWORK_IS_INVALID);
 
             var homework = await _homeworksRepository.Get(homeworkId);
 
