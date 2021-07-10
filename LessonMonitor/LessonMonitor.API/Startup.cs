@@ -1,5 +1,6 @@
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using LessonMonitor.DataAccess.MSSQL;
 using LessonMonitor.DataAccess.MSSQL.Repositories;
@@ -36,7 +37,10 @@ namespace LessonMonitor.API
 			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 			services.AddScoped<IHomeworksService, HomeworksService>();
 
-			services.AddDbContext<LessonMonitorDbContext>(builder =>
+            services.AddScoped<IMembersRepository, MembersRepository>();
+            services.AddScoped<IMembersService, MembersService>();
+
+            services.AddDbContext<LessonMonitorDbContext>(builder =>
 			{
 				builder.UseSqlServer(Configuration.GetConnectionString("LessonMonitorDb"));
 			});
