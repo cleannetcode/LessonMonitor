@@ -11,12 +11,11 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 			builder.HasKey(x => x.Id);
 
 			builder.Property(x => x.Name).HasMaxLength(200);
+			builder.Property(x => x.YouTubeAccountId).HasMaxLength(200);
 
 			builder.HasOne(x => x.GithubAccount)
 				.WithOne(x => x.Member)
-				.OnDelete(DeleteBehavior.NoAction)
-				.HasForeignKey<Member>(x => x.GithubAccountId)
-				.IsRequired(false);
+				.OnDelete(DeleteBehavior.NoAction);
 		}
 	}
 }
