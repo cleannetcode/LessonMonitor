@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BussinesLogic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.MSSQL.XTests", "LessonMonitor.DataAccess.MSSQL.XTests\LessonMonitor.DataAccess.MSSQL.XTests.csproj", "{BB99C32B-6736-47C4-9F8A-6148C1441783}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleZipStream", "ConsoleZipStream\ConsoleZipStream.csproj", "{FB25AAD4-02D7-4939-9A01-BAAE98590322}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{BB99C32B-6736-47C4-9F8A-6148C1441783}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB99C32B-6736-47C4-9F8A-6148C1441783}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB99C32B-6736-47C4-9F8A-6148C1441783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB25AAD4-02D7-4939-9A01-BAAE98590322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB25AAD4-02D7-4939-9A01-BAAE98590322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB25AAD4-02D7-4939-9A01-BAAE98590322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB25AAD4-02D7-4939-9A01-BAAE98590322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
