@@ -1,5 +1,6 @@
 using LessonMonitor.Core;
 using LessonMonitor.Core.Exceptions;
+using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
 using System.Threading.Tasks;

@@ -20,8 +20,8 @@ namespace LessonMonitor.DataAccess.MSSQL
 		{
 			modelBuilder.ApplyConfiguration(new HomeworkConfiguration());
 			modelBuilder.ApplyConfiguration(new LessonConfiguration());
-			modelBuilder.ApplyConfiguration(new MemberConfiguration());
 			modelBuilder.ApplyConfiguration(new GithubAccountConfiguration());
+			modelBuilder.ApplyConfiguration(new MemberConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 		}

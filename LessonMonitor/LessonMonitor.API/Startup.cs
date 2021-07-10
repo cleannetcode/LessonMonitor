@@ -1,27 +1,20 @@
 using LessonMonitor.BusinessLogic;
-using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using LessonMonitor.DataAccess.MSSQL;
 using LessonMonitor.DataAccess.MSSQL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 
 namespace LessonMonitor.API
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -30,11 +23,13 @@ namespace LessonMonitor.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 			services.AddScoped<IHomeworksService, HomeworksService>();
+
+			services.AddScoped<IMembersRepository, MembersRepository>();
+			services.AddScoped<IMembersService, MembersService>();
 
 			services.AddDbContext<LessonMonitorDbContext>(builder =>
 			{
@@ -48,7 +43,6 @@ namespace LessonMonitor.API
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure([NotNull] IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -58,18 +52,9 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
-            app.UseRouting();
-
-            //app.UseMiddleware<MyMiddlewareComponent>();
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
+			app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
