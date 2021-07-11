@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,12 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 	public class MembersRepository : IMembersRepository
 	{
 		private readonly LessonMonitorDbContext _context;
+		private readonly IMapper _mapper;
 
-		public MembersRepository(LessonMonitorDbContext context)
+		public MembersRepository(LessonMonitorDbContext context, IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 
 		public async Task<int> Add(Member newMember)
@@ -23,11 +27,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 				throw new ArgumentNullException(nameof(newMember));
 			}
 
-			var newMemberEntity = new Entities.Member
-			{
-				Name = newMember.Name,
-				YoutubeAccountId = newMember.YouTubeUserId
-			};
+			var newMemberEntity = _mapper.Map<Member, Entities.Member>(newMember);
 
 			await _context.Members.AddAsync(newMemberEntity);
 			await _context.SaveChangesAsync();
@@ -39,15 +39,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 		{
 			var members = await _context.Members
 				.AsNoTracking()
-				.Select(x => new Member
-				{
-					Id = x.Id,
-					Name = x.Name,
-					YouTubeUserId = x.YoutubeAccountId
-				})
 				.ToArrayAsync();
 
-			return members;
+			return _mapper.Map<Entities.Member[], Member[]>(members);
 		}
 
 		public async Task<Member> Get(string youTubeUserId)
@@ -57,17 +51,11 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 				throw new ArgumentNullException(nameof(youTubeUserId));
 			}
 
-			var members = await _context.Members
+			var member = await _context.Members
 				.AsNoTracking()
-				.Select(x => new Member
-				{
-					Id = x.Id,
-					Name = x.Name,
-					YouTubeUserId = x.YoutubeAccountId
-				})
 				.FirstOrDefaultAsync(x => x.YouTubeUserId == youTubeUserId);
 
-			return members;
+			return _mapper.Map<Entities.Member, Member>(member);
 		}
 	}
 }

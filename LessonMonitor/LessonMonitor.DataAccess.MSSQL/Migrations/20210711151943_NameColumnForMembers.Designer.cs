@@ -4,20 +4,37 @@ using LessonMonitor.DataAccess.MSSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LessonMonitor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(LessonMonitorDbContext))]
-    partial class LessonMonitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711151943_NameColumnForMembers")]
+    partial class NameColumnForMembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HomeworkMember", b =>
+                {
+                    b.Property<int>("HomeworksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MembersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HomeworksId", "MembersId");
+
+                    b.HasIndex("MembersId");
+
+                    b.ToTable("HomeworkMember");
+                });
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.GithubAccount", b =>
                 {
@@ -42,12 +59,17 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
                 {
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Link")
                         .HasMaxLength(1000)
@@ -58,7 +80,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.HasKey("LessonId");
+                    b.HasKey("Id");
 
                     b.ToTable("Homeworks");
                 });
@@ -74,6 +96,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<int>("HomeworkId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -83,9 +108,10 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons");
+                    b.HasIndex("HomeworkId")
+                        .IsUnique();
 
-                    b.ToView("LessonsView");
+                    b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Member", b =>
@@ -108,6 +134,21 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                     b.ToTable("Members");
                 });
 
+            modelBuilder.Entity("HomeworkMember", b =>
+                {
+                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Homework", null)
+                        .WithMany()
+                        .HasForeignKey("HomeworksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Member", null)
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.GithubAccount", b =>
                 {
                     b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Member", "Member")
@@ -119,19 +160,21 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
-                {
-                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", "Lesson")
-                        .WithOne("Homework")
-                        .HasForeignKey("LessonMonitor.DataAccess.MSSQL.Entities.Homework", "LessonId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Lesson");
-                });
-
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", b =>
                 {
+                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Homework", "Homework")
+                        .WithOne("Lesson")
+                        .HasForeignKey("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", "HomeworkId")
+                        .HasPrincipalKey("LessonMonitor.DataAccess.MSSQL.Entities.Homework", "LessonId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Homework");
+                });
+
+            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
+                {
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Member", b =>

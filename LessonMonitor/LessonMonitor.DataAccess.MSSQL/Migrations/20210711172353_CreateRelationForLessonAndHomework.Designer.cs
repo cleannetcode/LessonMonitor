@@ -4,14 +4,16 @@ using LessonMonitor.DataAccess.MSSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LessonMonitor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(LessonMonitorDbContext))]
-    partial class LessonMonitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711172353_CreateRelationForLessonAndHomework")]
+    partial class CreateRelationForLessonAndHomework
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

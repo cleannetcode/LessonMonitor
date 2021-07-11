@@ -14,17 +14,24 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LessonMonitor.API
 {
+
 	public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddAutoMapper(cfg =>
+			{
+				cfg.AddProfile<ApiMappingProfile>();
+				cfg.AddProfile<DataAccessMappingProfile>();
+			});
+
 			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 			services.AddScoped<IHomeworksService, HomeworksService>();
 
@@ -36,30 +43,30 @@ namespace LessonMonitor.API
 				builder.UseSqlServer(Configuration.GetConnectionString("LessonMonitorDb"));
 			});
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
-            });
-        }
+			services.AddControllers();
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
+			});
+		}
 
-        public void Configure([NotNull] IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
-            }
+		public void Configure([NotNull] IApplicationBuilder app, IWebHostEnvironment env)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
+			}
 
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-    }
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
+		}
+	}
 }

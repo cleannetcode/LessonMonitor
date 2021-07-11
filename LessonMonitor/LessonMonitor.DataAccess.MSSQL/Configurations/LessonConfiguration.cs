@@ -13,11 +13,21 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 			builder.Property(x => x.Title).HasMaxLength(500);
 			builder.Property(x => x.Description).HasMaxLength(2000);
 
+			builder.ToTable("Lessons");
+			builder.ToView("LessonsView");
+			builder.ToFunction("GetLessons");
+			builder.ToSqlQuery($@"SELECT {nameof(Lesson.Id)},
+				{nameof(Lesson.Title)},
+				{nameof(Lesson.Description)},
+				{nameof(Lesson.StartDate)}
+				FROM Lessons");
+
 			builder.HasOne(x => x.Homework)
 				.WithOne(x => x.Lesson)
 				.OnDelete(DeleteBehavior.NoAction)
-				.HasForeignKey<Lesson>(x => x.HomeworkId)
-				.IsRequired();
+				.HasPrincipalKey<Lesson>(x => x.Id)
+				.HasForeignKey<Homework>(x => x.LessonId)
+				.IsRequired(false);
 		}
 	}
 }

@@ -4,14 +4,16 @@ using LessonMonitor.DataAccess.MSSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LessonMonitor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(LessonMonitorDbContext))]
-    partial class LessonMonitorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711165530_RemoveReferences")]
+    partial class RemoveReferences
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,12 +44,17 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
                 {
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Link")
                         .HasMaxLength(1000)
@@ -58,7 +65,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.HasKey("LessonId");
+                    b.HasKey("Id");
 
                     b.ToTable("Homeworks");
                 });
@@ -73,6 +80,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("HomeworkId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -117,21 +127,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                         .IsRequired();
 
                     b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Homework", b =>
-                {
-                    b.HasOne("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", "Lesson")
-                        .WithOne("Homework")
-                        .HasForeignKey("LessonMonitor.DataAccess.MSSQL.Entities.Homework", "LessonId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Lesson");
-                });
-
-            modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Lesson", b =>
-                {
-                    b.Navigation("Homework");
                 });
 
             modelBuilder.Entity("LessonMonitor.DataAccess.MSSQL.Entities.Member", b =>

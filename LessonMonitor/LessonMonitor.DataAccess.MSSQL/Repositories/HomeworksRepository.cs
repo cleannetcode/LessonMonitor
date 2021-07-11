@@ -31,7 +31,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 			await _context.Homeworks.AddAsync(newHomeworkEntity);
 			await _context.SaveChangesAsync();
 
-			return newHomeworkEntity.Id;
+			return newHomeworkEntity.LessonId;
 		}
 
 		public async Task Delete(int homeworkId)

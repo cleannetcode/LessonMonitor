@@ -48,38 +48,38 @@ namespace EFCore
 
 				// Update product by Id
 				{
-					//var productToUpdate = await context.Products
-					//	.FirstOrDefaultAsync(x => x.Id == 2);
+                    //var productToUpdate = await context.Products
+                    //    .FirstOrDefaultAsync(x => x.Id == 2);
 
-					//productToUpdate.Name = "Meat1";
+                    //productToUpdate.Name = "Meat1";
 
-					//await context.SaveChangesAsync();
-				}
-
-				// Update product by Id
-				{
-					//var product = new Product
-					//{
-					//	//Id = 6,
-					//	Name = "Wine"
-					//};
-
-					//context.Products.Update(product);
-					//await context.SaveChangesAsync();
-
-				}
+                    //await context.SaveChangesAsync();
+                }
 
 				// Update product by Id
 				{
-					//var product = new Product
-					//{
-					//	//Id = 6,
-					//	Name = "Wine"
-					//};
+                    //var product = new Product
+                    //{
+                    //    //Id = 0,
+                    //    Name = "Wine"
+                    //};
 
-					//context.Attach(product).State = EntityState.Modified;
-					//await context.SaveChangesAsync();
-				}
+                    //context.Products.Update(product);
+                    //await context.SaveChangesAsync();
+
+                }
+
+				// Update product by Id
+				{
+                    //var product = new Product
+                    //{
+                    //    //Id = 6,
+                    //    Name = "Wine"
+                    //};
+
+                    //context.Attach(product).State = EntityState.Modified;
+                    //await context.SaveChangesAsync();
+                }
 
 				{ // get with map
 				  //var product = await GetProduct(context, 2);
