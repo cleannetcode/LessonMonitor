@@ -8,7 +8,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 	{
 		public void Configure(EntityTypeBuilder<Homework> builder)
 		{
-			builder.HasKey(x => x.Id);
+			builder.HasKey(x => x.LessonId);
 
 			builder.Property(x => x.Title).HasMaxLength(500).IsRequired();
 			builder.Property(x => x.Description).HasMaxLength(2000);
@@ -17,7 +17,8 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 			builder.HasOne(x => x.Lesson)
 				.WithOne(x => x.Homework)
 				.OnDelete(DeleteBehavior.NoAction)
-				.HasPrincipalKey<Homework>(x => x.LessonId)
+				.HasPrincipalKey<Lesson>(x => x.Id)
+				.HasForeignKey<Homework>(x => x.LessonId)
 				.IsRequired();
 		}
 	}

@@ -1,4 +1,4 @@
-using LessonMonitor.BusinessLogic.Validators;
+﻿using LessonMonitor.BussinesLogic.Validators;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
@@ -31,7 +31,7 @@ namespace LessonMonitor.BusinessLogic
 				throw new InvalidOperationException(errors);
 			}
 
-			var existedMember = await _membersRepository.Get(newMember.YouTubeUserId);
+			var existedMember = await _membersRepository.Get(newMember.YouTubeAccountId);
 			if (existedMember != null)
 			{
 				throw new InvalidOperationException("Member already exists");
@@ -44,5 +44,15 @@ namespace LessonMonitor.BusinessLogic
 		{
 			return await _membersRepository.Get();
 		}
-	}
+
+        public async Task<Member> Get(string youTubeAccountId)
+        {
+            if (youTubeAccountId is null)
+            {
+                throw new ArgumentNullException(nameof(youTubeAccountId));
+            }
+
+			return await _membersRepository.Get(youTubeAccountId);
+		}
+    }
 }

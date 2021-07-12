@@ -1,3 +1,4 @@
+﻿using AutoMapper;
 using LessonMonitor.API.Contracts;
 using LessonMonitor.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -6,15 +7,29 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-	[Route("[controller]")]
+    [Route("[controller]")]
 	[ApiController]
 	public class MembersController : ControllerBase
 	{
 		private readonly IMembersService _membersService;
+        private readonly IMapper _mapper;
 
-		public MembersController(IMembersService membersService)
+        public MembersController(
+			IMembersService membersService, 
+			IMapper mapper)
 		{
 			_membersService = membersService;
+            _mapper = mapper;
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Create(NewMember newMember)
+		{
+			var member = _mapper.Map<Core.Member>(newMember);
+
+			var memberId = await _membersService.Create(member);
+
+			return Ok(memberId);
 		}
 
 		[HttpGet]
@@ -22,21 +37,20 @@ namespace LessonMonitor.API.Controllers
 		public async Task<IActionResult> Get()
 		{
 			var members = await _membersService.Get();
-			return Ok(members);
+
+			var result = _mapper.Map<Member[]>(members);
+
+			return Ok(result);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Create(NewMember newMember)
-		{
-			var member = new Core.Member
-			{
-				Name = newMember.Name,
-				YouTubeUserId = newMember.YouTubeUserId
-			};
+		[HttpGet("{youTubeAccountId}")]
+		public async Task<Member> Get(string youTubeAccountId)
+        {
+			var member = await _membersService.Get(youTubeAccountId);
 
-			var memberId = await _membersService.Create(member);
+			var result = _mapper.Map<Member>(member);
 
-			return Ok(memberId);
+			return result;
 		}
 	}
 }
