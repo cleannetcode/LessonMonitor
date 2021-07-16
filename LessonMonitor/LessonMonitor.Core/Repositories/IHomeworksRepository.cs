@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace LessonMonitor.Core.Repositories
+namespace LessonMonitor.Core
 {
 	public interface IHomeworksRepository
 	{

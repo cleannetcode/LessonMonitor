@@ -14,14 +14,13 @@ namespace LessonMonitor.DataAccess.MSSQL
 		public DbSet<Homework> Homeworks { get; set; }
 		public DbSet<Member> Members { get; set; }
 		public DbSet<GithubAccount> GithubAccounts { get; set; }
-		//public DbSet<MemberHomework> MemberHomeworks { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfiguration(new HomeworkConfiguration());
 			modelBuilder.ApplyConfiguration(new LessonConfiguration());
-			modelBuilder.ApplyConfiguration(new GithubAccountConfiguration());
 			modelBuilder.ApplyConfiguration(new MemberConfiguration());
+			modelBuilder.ApplyConfiguration(new GithubAccountConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 		}

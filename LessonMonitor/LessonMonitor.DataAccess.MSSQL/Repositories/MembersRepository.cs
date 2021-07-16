@@ -1,20 +1,24 @@
+﻿using AutoMapper;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories
 {
-	public class MembersRepository : IMembersRepository
+    public class MembersRepository : IMembersRepository
 	{
 		private readonly LessonMonitorDbContext _context;
+        private readonly IMapper _mapper;
 
-		public MembersRepository(LessonMonitorDbContext context)
+        public MembersRepository(
+			LessonMonitorDbContext context, 
+			IMapper mapper)
 		{
 			_context = context;
-		}
+            _mapper = mapper;
+        }
 
 		public async Task<int> Add(Member newMember)
 		{
@@ -23,11 +27,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 				throw new ArgumentNullException(nameof(newMember));
 			}
 
-			var newMemberEntity = new Entities.Member
-			{
-				Name = newMember.Name,
-				YoutubeAccountId = newMember.YouTubeUserId
-			};
+			var newMemberEntity = _mapper.Map<Entities.Member>(newMember);
 
 			await _context.Members.AddAsync(newMemberEntity);
 			await _context.SaveChangesAsync();
@@ -39,35 +39,39 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 		{
 			var members = await _context.Members
 				.AsNoTracking()
-				.Select(x => new Member
-				{
-					Id = x.Id,
-					Name = x.Name,
-					YouTubeUserId = x.YoutubeAccountId
-				})
-				.ToArrayAsync();
+                .ToArrayAsync();
 
-			return members;
+			return _mapper.Map<Entities.Member[], Core.Member[]>(members);
 		}
 
-		public async Task<Member> Get(string youTubeUserId)
+		public async Task<Member> Get(string youTubeAccountId)
 		{
-			if (youTubeUserId is null)
+			if (youTubeAccountId is null)
 			{
-				throw new ArgumentNullException(nameof(youTubeUserId));
+				throw new ArgumentNullException(nameof(youTubeAccountId));
 			}
 
-			var members = await _context.Members
-				.AsNoTracking()
-				.Select(x => new Member
-				{
-					Id = x.Id,
-					Name = x.Name,
-					YouTubeUserId = x.YoutubeAccountId
-				})
-				.FirstOrDefaultAsync(x => x.YouTubeUserId == youTubeUserId);
+			var member = await _context.Members
+							.AsNoTracking()
+							.FirstOrDefaultAsync(x => EF.Functions.Like(x.YouTubeAccountId, $"%{youTubeAccountId}%"));
 
-			return members;
+			return _mapper.Map<Member>(member);
 		}
+
+		//public async Task GetLesson()
+		//{
+		//	await _context.Lessons.AddAsync(new Entities.Lesson
+		//	{
+		//		Title = "Работа с сырым SQL",
+		//		Description = "Продолжим занкомиться с EF core",
+		//		StartDate = DateTime.Now
+		//	});
+
+		//	await _context.SaveChangesAsync();
+
+		//	var lessons =  await _context.Lessons.FirstOrDefaultAsync();
+
+		//	//return null;
+		//}
 	}
 }
