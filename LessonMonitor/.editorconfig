@@ -14,3 +14,30 @@ dotnet_naming_symbols.instance_fields.applicable_kinds = field
 
 dotnet_naming_style.instance_field_style.capitalization = camel_case
 dotnet_naming_style.instance_field_style.required_prefix = _
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = silent
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = silent
+
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = silent
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = silent
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = silent
+
+# SA1310: Field names should not contain underscore
+dotnet_diagnostic.SA1310.severity = silent
+
+# SX1309: Field names should begin with underscore
+dotnet_diagnostic.SX1309.severity = warning
+
+# SA1413: Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = silent
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = silent

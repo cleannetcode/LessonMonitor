@@ -1,5 +1,4 @@
 using LessonMonitor.Core;
-using System;
 
 namespace LessonMonitor.DataAccess
 {
@@ -28,7 +27,7 @@ namespace LessonMonitor.DataAccess
             };
         }
 
-        public void Create(Core.User user)
+        public void Add(Core.User user)
         {
 
         }

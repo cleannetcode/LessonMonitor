@@ -28,7 +28,7 @@ namespace LessonMonitor.API.Controllers
 
             var homeworkId = await _homeworksService.Create(homework);
 
-            return Ok(homeworkId);
+            return Ok(new CreatedMember { MemberId = homeworkId});
         }
 
         [HttpDelete]

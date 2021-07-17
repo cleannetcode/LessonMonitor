@@ -1,9 +1,9 @@
+using System;
+using System.Threading.Tasks;
 using LessonMonitor.BusinessLogic.Validators;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
-using System;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.BusinessLogic
 {

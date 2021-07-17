@@ -1,10 +1,8 @@
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories

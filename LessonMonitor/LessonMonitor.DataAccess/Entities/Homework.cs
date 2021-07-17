@@ -1,5 +1,3 @@
-using System;
-
 namespace LessonMonitor.DataAccess.Entities
 {
     public class Homework : BaseEntity

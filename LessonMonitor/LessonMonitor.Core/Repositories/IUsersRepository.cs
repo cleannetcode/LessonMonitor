@@ -2,7 +2,8 @@ namespace LessonMonitor.Core
 {
     public interface IUsersRepository
     {
-        void Create(User user);
+        void Add(User user);
+
         User[] Get();
     }
 }

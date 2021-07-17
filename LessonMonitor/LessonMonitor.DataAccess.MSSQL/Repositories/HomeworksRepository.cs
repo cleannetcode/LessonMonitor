@@ -2,7 +2,6 @@ using LessonMonitor.Core;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using LessonMonitor.Core.Repositories;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories
