@@ -17,12 +17,12 @@ namespace LessonMonitor.DataAccess.MSSQL.Migrations
                 principalTable: "Lessons",
                 principalColumn: "Id");
 
-			migrationBuilder.Sql(@"CREATE VIEW [dbo].[LessonsView]
+            migrationBuilder.Sql(@"CREATE VIEW [dbo].[LessonsView]
 				AS
 				SELECT        Id, Title, Description, StartDate
 				FROM            dbo.Lessons
 				GO");
-		}
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

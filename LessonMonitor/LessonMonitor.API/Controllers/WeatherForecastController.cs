@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-	[ApiController]
+    [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
