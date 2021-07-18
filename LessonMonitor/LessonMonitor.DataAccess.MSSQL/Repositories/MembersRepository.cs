@@ -1,8 +1,9 @@
-using AutoMapper;
+﻿using AutoMapper;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories
@@ -54,6 +55,32 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
                 .FirstOrDefaultAsync(x => x.YouTubeUserId == youTubeUserId);
 
             return _mapper.Map<Entities.Member, Member>(member);
+        }
+
+        public async Task<MemberStatistic[]> GetStatistics(int memberId)
+        {
+            if (memberId == default)
+            {
+                throw new ArgumentException("Argument should be greater than 0", nameof(memberId));
+            }
+
+            var memberStatistics = await _context
+                .VisitedLessons
+                .AsNoTracking()
+                .Where(x => x.MemberId == memberId)
+                .Select(x => new MemberStatistic
+                {
+                    MemberName = x.Member.Name,
+                    LessonDate = x.Lesson.StartDate,
+                    LessonTitle = x.Lesson.Title,
+                    LessonVisitedDate = x.Date,
+                    QuestiontsQuantity = x.Questions.Count,
+                    TimecodesQuantity = x.Timecodes.Count,
+                    IsHomeworkDone = x.Homework.Done
+                })
+                .ToArrayAsync();
+
+            return memberStatistics;
         }
     }
 }

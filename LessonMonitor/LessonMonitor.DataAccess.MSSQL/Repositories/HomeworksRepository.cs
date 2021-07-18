@@ -1,8 +1,8 @@
-using LessonMonitor.Core;
 using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories
 {
@@ -41,21 +41,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 
             //_context.Homeworks.Remove(new Entities.Homework { Id = homeworkId });
             await command.ExecuteNonQueryAsync();
-        }
-
-        public async Task<Homework[]> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Homework> Get(int homeworkId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Update(Homework homework)
-        {
-            throw new NotImplementedException();
         }
     }
 }

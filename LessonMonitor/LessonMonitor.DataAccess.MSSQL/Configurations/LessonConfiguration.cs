@@ -22,6 +22,12 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
                 .HasPrincipalKey<Lesson>(x => x.Id)
                 .HasForeignKey<Homework>(x => x.LessonId)
                 .IsRequired(false);
+
+            builder.HasMany(x => x.VisitedLessons)
+                .WithOne(x => x.Lesson)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasForeignKey(x => x.LessonId)
+                .IsRequired();
         }
     }
 }

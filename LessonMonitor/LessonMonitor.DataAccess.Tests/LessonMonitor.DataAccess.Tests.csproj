@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
-  </ItemGroup>
-
 </Project>

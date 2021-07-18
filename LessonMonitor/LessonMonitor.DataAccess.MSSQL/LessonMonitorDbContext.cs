@@ -18,12 +18,21 @@ namespace LessonMonitor.DataAccess.MSSQL
 
         public DbSet<GithubAccount> GithubAccounts { get; set; }
 
+        public DbSet<VisitedLesson> VisitedLessons { get; set; }
+
+        public DbSet<Timecode> Timecodes { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new HomeworkConfiguration());
             modelBuilder.ApplyConfiguration(new LessonConfiguration());
             modelBuilder.ApplyConfiguration(new GithubAccountConfiguration());
             modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            modelBuilder.ApplyConfiguration(new VisitedLessonConfiguration());
+            modelBuilder.ApplyConfiguration(new TimecodeConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

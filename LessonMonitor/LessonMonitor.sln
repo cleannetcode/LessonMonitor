@@ -7,13 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.API", "Lesson
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic", "LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj", "{7674BAA5-823C-4FF7-9500-4DDC29E7A9B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess", "LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj", "{A18D7011-B00D-476B-85C0-40A65BD56E66}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{538A085C-F086-4FA5-B99B-C70708EB8FC2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.XTests", "LessonMonitor.BusinessLogic.XTests\LessonMonitor.BusinessLogic.XTests.csproj", "{70B86D16-5144-4677-8730-E37FED6BDE65}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.Tests", "LessonMonitor.DataAccess.Tests\LessonMonitor.DataAccess.Tests.csproj", "{481FDC60-4972-43C8-A1B4-02FD296BD4C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DataAccess.MSSQL", "LessonMonitor.DataAccess.MSSQL\LessonMonitor.DataAccess.MSSQL.csproj", "{1448C9F2-A9C0-4E81-9753-F04C56364269}"
 EndProject
@@ -36,10 +32,6 @@ Global
 		{7674BAA5-823C-4FF7-9500-4DDC29E7A9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7674BAA5-823C-4FF7-9500-4DDC29E7A9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7674BAA5-823C-4FF7-9500-4DDC29E7A9B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A18D7011-B00D-476B-85C0-40A65BD56E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A18D7011-B00D-476B-85C0-40A65BD56E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A18D7011-B00D-476B-85C0-40A65BD56E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A18D7011-B00D-476B-85C0-40A65BD56E66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{538A085C-F086-4FA5-B99B-C70708EB8FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{538A085C-F086-4FA5-B99B-C70708EB8FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{538A085C-F086-4FA5-B99B-C70708EB8FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,10 +40,6 @@ Global
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B86D16-5144-4677-8730-E37FED6BDE65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{481FDC60-4972-43C8-A1B4-02FD296BD4C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1448C9F2-A9C0-4E81-9753-F04C56364269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1448C9F2-A9C0-4E81-9753-F04C56364269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1448C9F2-A9C0-4E81-9753-F04C56364269}.Release|Any CPU.ActiveCfg = Release|Any CPU
