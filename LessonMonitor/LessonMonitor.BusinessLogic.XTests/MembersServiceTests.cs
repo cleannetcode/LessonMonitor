@@ -1,4 +1,5 @@
 using AutoFixture;
+using AutoMapper;
 using FluentAssertions;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
@@ -20,7 +21,10 @@ namespace LessonMonitor.BusinessLogic.XTests
         {
             _fixture = new Fixture();
             _membersRepositoryMock = new Mock<IMembersRepository>();
-            _service = new MembersService(_membersRepositoryMock.Object);
+
+            var mapper = new Mapper(new MapperConfiguration(cfg => { }));
+
+            _service = new MembersService(mapper, _membersRepositoryMock.Object);
         }
 
         [Fact]
@@ -47,23 +51,34 @@ namespace LessonMonitor.BusinessLogic.XTests
         }
 
         [Fact]
-        public async Task Create_MemberAlreadyExists_ShouldThrowInvalidaOperationException()
+        public async Task Create_MemberAlreadyExists_ShouldUpdateExistedMember()
         {
             // arrange
+            var youTubeUserId = _fixture.Create<string>();
+
+            var existedMember = _fixture.Build<Member>()
+                .With(x => x.YouTubeUserId, youTubeUserId)
+                .Create();
+
             var member = _fixture.Build<Member>()
+                .With(x => x.YouTubeUserId, youTubeUserId)
                 .Without(x => x.Id)
                 .Create();
 
             _membersRepositoryMock
                 .Setup(x => x.Get(member.YouTubeUserId))
-                .ReturnsAsync(member);
+                .ReturnsAsync(existedMember);
+
+            _membersRepositoryMock
+                .Setup(x => x.Update(member));
 
             // act
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.Create(member));
+            await _service.Create(member);
 
             // assert
             _membersRepositoryMock.Verify(x => x.Get(member.YouTubeUserId), Times.Once);
             _membersRepositoryMock.Verify(x => x.Add(It.IsAny<Member>()), Times.Never);
+            _membersRepositoryMock.Verify(x => x.Update(member), Times.Once);
         }
 
         [Fact]

@@ -7,6 +7,8 @@ namespace LessonMonitor.API
     {
         public static void Main(string[] args)
         {
+            System.Console.WriteLine(string.Join(", ", args));
+
             CreateHostBuilder(args).Build().Run();
         }
 
