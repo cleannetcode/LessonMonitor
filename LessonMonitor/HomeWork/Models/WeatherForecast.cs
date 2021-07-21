@@ -1,6 +1,6 @@
 using System;
 
-namespace HomeWork
+namespace HomeWork.Models
 {
     public class WeatherForecast
     {

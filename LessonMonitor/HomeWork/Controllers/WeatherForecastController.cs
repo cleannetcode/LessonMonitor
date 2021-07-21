@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HomeWork.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace HomeWork.Controllers
@@ -11,18 +13,6 @@ namespace HomeWork.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -31,9 +21,33 @@ namespace HomeWork.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
         }
+
+        [HttpGet("models")]
+        public Dictionary<string, List<string>> GetInfoModels()
+        {
+
+            var classList = Assembly.GetExecutingAssembly().GetTypes()
+                                    .Where(x => x.Namespace == "HomeWork.Models")
+                                    .ToList();
+
+            var infoClass = new Dictionary<string, List<string>>();
+
+            foreach (var cl in classList)
+            {
+                List<string> properties = new List<string>();
+                foreach (var property in cl.GetProperties())
+                {
+                    properties.Add($"{property.Name} {property.PropertyType}");
+                };
+
+                infoClass.Add(cl.Name, properties);
+            }
+
+            return infoClass;
+        }
+
     }
 }

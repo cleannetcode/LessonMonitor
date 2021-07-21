@@ -1,4 +1,4 @@
-﻿namespace HomeWork
+﻿namespace HomeWork.Models
 {
     public class Question
     {
