@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess
 {
-	public class HomeworksRepository : IHomeworksRepository
+	public class HomeworksRepository
 	{
 		private string _connectionString;
 

@@ -11,9 +11,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 			builder.HasKey(x => x.Id);
 
 			builder.Property(x => x.Name).HasMaxLength(200);
-			builder.Property(x => x.YouTubeUserId).HasMaxLength(200);
+			builder.Property(x => x.YouTubeAccountId).HasMaxLength(200);
 
-			builder.HasOne(x => x.GithubAccount)
+			builder.HasOne(x => x.GitHubAccount)
 				.WithOne(x => x.Member)
 				.OnDelete(DeleteBehavior.NoAction);
 				//.HasPrincipalKey<GithubAccount>(x => x.Id)

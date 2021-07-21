@@ -1,5 +1,5 @@
-using LessonMonitor.Core;
-using LessonMonitor.Core.Exceptions;
+﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Exceprions;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using System;
@@ -7,45 +7,98 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.BusinessLogic
 {
-	public class HomeworksService : IHomeworksService
-	{
-		public const string HOMEWORK_IS_INVALID = "Homework is invalid!";
-		private readonly IHomeworksRepository _homeworksRepository;
+    public class HomeworksService : IHomeworksService
+    {
+        private readonly IHomeworksRepository _homeworksRepository;
 
-		public HomeworksService(IHomeworksRepository homeworksRepository)
-		{
-			_homeworksRepository = homeworksRepository;
-		}
+        public const string HOMEWORK_IS_INVALID = "Homework link should not be null or whitespace!";
 
-		public async Task<int> Create(Homework homework)
-		{
-			// валидация
-			if (homework is null)
-			{
-				throw new ArgumentNullException(nameof(homework));
-			}
+        public HomeworksService(IHomeworksRepository homeworksRepository)
+        {
+            _homeworksRepository = homeworksRepository;
+        }
 
-			var isInvalid = homework.Link == null
-				|| string.IsNullOrWhiteSpace(homework.Title);
+        public async Task<int> Create(Homework homework)
+        {
+            if (homework is null) throw new ArgumentNullException(nameof(homework));
 
-			if (isInvalid)
-			{
-				throw new BusinessException(HOMEWORK_IS_INVALID);
-			}
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Title)
+                            || string.IsNullOrWhiteSpace(homework.Description)
+                            || homework.Link == null;
 
-			var homeworkId = await _homeworksRepository.Add(homework);
+            if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
 
-			return homeworkId;
-		}
+            var homeworkId = await _homeworksRepository.Add(homework);
 
-		public async Task<bool> Delete(int homeworkId)
-		{
-			if (homeworkId == default)
-				throw new ArgumentException(nameof(homeworkId));
+            if (homeworkId != default)
+            {
+                return homeworkId;
+            }
+            else
+            {
+                return default;
+            }
+        }
 
-			await _homeworksRepository.Delete(homeworkId);
+        public async Task<bool> Delete(int homeworkId)
+        {
+            if (homeworkId == default || homeworkId <= 0)
+                throw new HomeworkException(HOMEWORK_IS_INVALID);
 
-			return true;
-		}
-	}
+            return await _homeworksRepository.Delete(homeworkId);
+        }
+
+        public async Task<int> Update(Homework homework)
+        {
+            if (homework is null) throw new ArgumentNullException(nameof(homework));
+
+            var isInvalid = string.IsNullOrWhiteSpace(homework.Title)
+                           || string.IsNullOrWhiteSpace(homework.Description)
+                           || homework.Link == null;
+
+            if (isInvalid) throw new HomeworkException(HOMEWORK_IS_INVALID);
+
+            var homeworkId = await _homeworksRepository.Update(homework);
+
+            if (homeworkId != default)
+            {
+                return homeworkId;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(homeworkId));
+            }
+        }
+
+        public async Task<Homework> Get(int homeworkId)
+        {
+            if (homeworkId == default || homeworkId <= 0)
+                throw new HomeworkException(HOMEWORK_IS_INVALID);
+
+            var homework = await _homeworksRepository.Get(homeworkId);
+
+            if (homework != null)
+            {
+                return homework;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(homeworkId));
+            }
+        }
+
+        public async Task<Homework[]> Get()
+        {
+            var homeworks = await _homeworksRepository.Get();
+
+            if (homeworks.Length != 0 || homeworks is null)
+            {
+                return homeworks;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }

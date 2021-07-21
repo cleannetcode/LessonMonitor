@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LessonMonitor.DataAccess.MSSQL.Configurations
 {
-	public class GithubAccountConfiguration : IEntityTypeConfiguration<GithubAccount>
+	public class GithubAccountConfiguration : IEntityTypeConfiguration<GitHubAccount>
 	{
-		public void Configure(EntityTypeBuilder<GithubAccount> builder)
+		public void Configure(EntityTypeBuilder<GitHubAccount> builder)
 		{
 			builder.HasKey(x => x.MemberId);
 
@@ -14,10 +14,10 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
 			builder.Property(x => x.Link).HasMaxLength(1000);
 
 			builder.HasOne(x => x.Member)
-				.WithOne(x => x.GithubAccount)
+				.WithOne(x => x.GitHubAccount)
 				.OnDelete(DeleteBehavior.NoAction)
 				.HasPrincipalKey<Member>(x => x.Id)
-				.HasForeignKey<GithubAccount>(x => x.MemberId)
+				.HasForeignKey<GitHubAccount>(x => x.MemberId)
 				.IsRequired();
 		}
 	}
