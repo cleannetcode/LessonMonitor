@@ -32,11 +32,17 @@ namespace LessonMonitor.API
 				cfg.AddProfile<DataAccessMappingProfile>();
 			});
 
-			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 			services.AddScoped<IHomeworksService, HomeworksService>();
+			services.AddScoped<IHomeworksRepository, HomeworksRepository>();
 
-			services.AddScoped<IMembersRepository, MembersRepository>();
-			services.AddScoped<IMembersService, MembersService>();
+			services.AddTransient<IMembersService, MembersService>();
+			services.AddTransient<IMembersRepository, MembersRepository>();
+
+			services.AddTransient<IQuestionsService, QuestionsService>();
+			services.AddTransient<IQuestionsRepository, QuestionsRepository>();
+
+			services.AddScoped<ILessonsService, LessonsService>();
+			services.AddScoped<ILessonsRepository, LessonsRepository>();
 
 			services.AddDbContext<LessonMonitorDbContext>(builder =>
 			{

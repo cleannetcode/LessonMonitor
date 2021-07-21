@@ -9,7 +9,7 @@ namespace LessonMonitor.BusinessLogic.Validators
 		{
 			RuleFor(x => x.Id).Empty();
 			RuleFor(x => x.Name).NotEmpty();
-			RuleFor(x => x.YouTubeUserId).NotEmpty();
+			RuleFor(x => x.YouTubeAccountId).NotEmpty();
 		}
 	}
 }
