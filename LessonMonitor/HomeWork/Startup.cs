@@ -1,3 +1,4 @@
+using HomeWork.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,11 +46,28 @@ namespace HomeWork
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeWork v1"));
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.Use((context, next) =>
+            {
+                using (var writer = new StreamWriter("UseLoger.txt"))
+                {
+                    writer.WriteLine($"QueryString: {context.Request.QueryString}");
+                    writer.WriteLine($"Method: {context.Request.Method}");
+                    writer.WriteLine($"Headers: {context.Request.Headers}");
+                    writer.WriteLine($"Body: {context.Request.Body}");
+                    writer.WriteLine($"HttpContext: {context.Request.HttpContext}");
+                    writer.WriteLine($"Protocol: {context.Request.Protocol}");
+                    writer.WriteLine($"ContentLength: {context.Request.ContentLength}");
+                    writer.WriteLine($"ContentType: {context.Request.ContentType}");
+                    writer.WriteLine($"Cookies: {context.Request.Cookies}");
+                    writer.WriteLine($"Path: {context.Request.Path}");
+                }
+
+                return next.Invoke();
+            });
+
+            app.UseMiddleware<Logger>();
 
             app.UseEndpoints(endpoints =>
             {
