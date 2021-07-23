@@ -26,7 +26,7 @@ namespace HomeWork.Controllers
             {
                 var question = new Question();
 
-                question.QuestionText = Guid.NewGuid().ToString();
+                question.QuestionText = "";
                 question.Answer = Guid.NewGuid().ToString();
 
                 _questions.Add(question);
