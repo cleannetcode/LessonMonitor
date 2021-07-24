@@ -1,0 +1,10 @@
+QueryString: 
+Method: GET
+Headers: Microsoft.AspNetCore.HttpSys.Internal.RequestHeaders
+Body: Microsoft.AspNetCore.Server.IIS.Core.HttpRequestStream
+HttpContext: Microsoft.AspNetCore.Http.DefaultHttpContext
+Protocol: HTTP/2
+ContentLength: 
+ContentType: 
+Cookies: Microsoft.AspNetCore.Http.RequestCookieCollection
+Path: /Questions
