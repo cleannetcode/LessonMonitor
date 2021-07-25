@@ -47,6 +47,7 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet("{youtubeUserId}")]
+        [ProducesResponseType(typeof(Member), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(string youtubeUserId)
         {
             var member = await _membersRepository.Get(youtubeUserId);

@@ -55,5 +55,30 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 
             return _mapper.Map<Entities.Member, Member>(member);
         }
+
+        //public async Task<MemberStatistics[]> GetStatistics(string memberId)
+        //{
+        //    if (memberId == default)
+        //    {
+        //        throw new ArgumentNullException("Argument should be greater than 0", nameof(memberId));
+        //    }
+
+
+        //}
+
+        public class MemberStatistics
+        {
+            public string LessonTitle { get; set; }
+
+            public DateTime LessonDate { get; set; }
+
+            public string MemberName { get; set; }
+
+            public DateTime LessonVisitedDate { get; set; }
+
+            public int QuestionsQuantity { get; set; }
+
+            public int TimecodesQuantity { get; set; }
+        }
     }
 }

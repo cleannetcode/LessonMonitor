@@ -9,5 +9,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
         public string YouTubeUserId { get; set; }
 
         public GithubAccount GithubAccount { get; set; }
+        public VisitedLesson[] VisitedLessons { get; set; }
     }
 }
