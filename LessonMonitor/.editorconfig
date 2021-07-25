@@ -44,3 +44,6 @@ dotnet_diagnostic.SA1633.severity = silent
 
 # SA1210: Using directives should be ordered alphabetically by namespace
 dotnet_diagnostic.SA1210.severity = silent
+
+# HAA0101: Array allocation for params parameter
+dotnet_diagnostic.HAA0101.severity = silent

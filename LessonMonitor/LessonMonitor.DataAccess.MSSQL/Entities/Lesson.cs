@@ -13,9 +13,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
 
         public DateTime StartDate { get; set; }
 
-        public Homework Homework { get; set; }
-
         public string YouTubeBroadcastId { get; set; }
+
+        public Homework Homework { get; set; }
 
         public ICollection<VisitedLesson> VisitedLessons { get; set; }
     }

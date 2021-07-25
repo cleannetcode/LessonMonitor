@@ -13,5 +13,7 @@ namespace LessonMonitor.Core.Repositories
         Task<MemberStatistic[]> GetStatistics(int memberId);
 
         Task Update(Member member);
+
+        Task<GitHubAccount> GetGitHubAccount(int memberId);
     }
 }

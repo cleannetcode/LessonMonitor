@@ -11,6 +11,8 @@ namespace LessonMonitor.DataAccess.MSSQL
 
             CreateMap<Entities.Member, Core.MemberStatistic[]>()
                 .ConvertUsing(new MemberStatisticConverter());
+
+            CreateMap<Entities.GithubAccount, Core.GitHubAccount>();
         }
     }
 }

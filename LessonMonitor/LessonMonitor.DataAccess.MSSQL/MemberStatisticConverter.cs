@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AutoMapper;
 
 namespace LessonMonitor.DataAccess.MSSQL
 {
@@ -22,7 +22,6 @@ namespace LessonMonitor.DataAccess.MSSQL
                     LessonVisitedDate = visitedLesson.Date,
                     QuestiontsQuantity = visitedLesson.Questions.Count,
                     TimecodesQuantity = visitedLesson.Timecodes.Count,
-                    IsHomeworkDone = visitedLesson.Homework.Done
                 };
 
                 result.Add(statistic);

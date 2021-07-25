@@ -1,8 +1,10 @@
 using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core.GitHub;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using LessonMonitor.DataAccess.MSSQL;
 using LessonMonitor.DataAccess.MSSQL.Repositories;
+using LessonMonitor.GitHubApiClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Octokit;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LessonMonitor.API
 {
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,6 +33,7 @@ namespace LessonMonitor.API
             {
                 cfg.AddProfile<ApiMappingProfile>();
                 cfg.AddProfile<DataAccessMappingProfile>();
+                cfg.AddProfile<BusinessLogicMappingProfile>();
             });
 
             services.AddScoped<IHomeworksRepository, HomeworksRepository>();
@@ -40,6 +44,8 @@ namespace LessonMonitor.API
 
             services.AddScoped<ILessonsRepository, LessonsRepository>();
             services.AddScoped<ILessonsService, LessonsService>();
+
+            services.AddGitHubApiClient(Configuration);
 
             services.AddDbContext<LessonMonitorDbContext>(builder =>
             {
