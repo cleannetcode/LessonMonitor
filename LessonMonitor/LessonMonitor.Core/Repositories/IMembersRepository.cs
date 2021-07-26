@@ -11,5 +11,7 @@ namespace LessonMonitor.Core.Repositories
         Task<Member> Get(string youTubeUserId);
 
         Task<MemberStatistic[]> GetStatistics(int memberId);
+
+        Task Update(Member member);
     }
 }

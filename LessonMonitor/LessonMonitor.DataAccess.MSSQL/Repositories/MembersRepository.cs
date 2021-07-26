@@ -82,5 +82,18 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 
             return memberStatistics;
         }
+
+        public async Task Update(Member member)
+        {
+            if (member is null)
+            {
+                throw new ArgumentNullException(nameof(member));
+            }
+
+            var memberEntity = _mapper.Map<Member, Entities.Member>(member);
+
+            _context.Members.Update(memberEntity);
+            await _context.SaveChangesAsync();
+        }
     }
 }

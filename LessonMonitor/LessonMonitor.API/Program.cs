@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace LessonMonitor.API
 {
@@ -7,6 +8,8 @@ namespace LessonMonitor.API
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine(string.Join(", ", args));
+
             CreateHostBuilder(args).Build().Run();
         }
 

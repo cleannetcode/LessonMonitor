@@ -7,5 +7,7 @@ namespace LessonMonitor.Core.Services
         Task<int> Create(Member newMember);
 
         Task<Member[]> Get();
+
+        Task Update(Member member);
     }
 }
