@@ -12,8 +12,8 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
 
         public Uri Link { get; set; }
 
-        public Lesson Lesson { get; set; }
+        public bool Done { get; set; }
 
-        //public ICollection<Member> Members { get; set; }
+        public Lesson Lesson { get; set; }
     }
 }

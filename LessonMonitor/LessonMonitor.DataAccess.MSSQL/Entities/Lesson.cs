@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace LessonMonitor.DataAccess.MSSQL.Entities
 {
@@ -15,6 +16,6 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
         public Homework Homework { get; set; }
 
         public string YouTubeBroadcastId { get; set; }
-        public VisitedLesson[] VisitedLessons { get; set; }
+        public ICollection<VisitedLesson> VisitedLessons { get; set; }
     }
 }

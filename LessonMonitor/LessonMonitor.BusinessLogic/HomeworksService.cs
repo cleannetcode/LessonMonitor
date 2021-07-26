@@ -41,7 +41,7 @@ namespace LessonMonitor.BusinessLogic
         public async Task<bool> Delete(int homeworkId)
         {
             if (homeworkId == default)
-                throw new ArgumentException("HomeworkId should be greater than 0", nameof(homeworkId));
+                throw new ArgumentException("Argument should be greater than 0", nameof(homeworkId));
 
             await _homeworksRepository.Delete(homeworkId);
 

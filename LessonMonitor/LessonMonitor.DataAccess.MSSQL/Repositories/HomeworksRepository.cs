@@ -42,20 +42,5 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
             //_context.Homeworks.Remove(new Entities.Homework { Id = homeworkId });
             await command.ExecuteNonQueryAsync();
         }
-
-        public async Task<Homework[]> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Homework> Get(int homeworkId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task Update(Homework homework)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -3,6 +3,7 @@ using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.DataAccess.MSSQL.Repositories
@@ -56,29 +57,30 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
             return _mapper.Map<Entities.Member, Member>(member);
         }
 
-        //public async Task<MemberStatistics[]> GetStatistics(string memberId)
-        //{
-        //    if (memberId == default)
-        //    {
-        //        throw new ArgumentNullException("Argument should be greater than 0", nameof(memberId));
-        //    }
-
-
-        //}
-
-        public class MemberStatistics
+        public async Task<MemberStatistic[]> GetStatistics(int memberId)
         {
-            public string LessonTitle { get; set; }
+            if (memberId == default)
+            {
+                throw new ArgumentException("Argument should be greater than 0", nameof(memberId));
+            }
 
-            public DateTime LessonDate { get; set; }
+            var memberStatistics = await _context
+                .VisitedLessons
+                .AsNoTracking()
+                .Where(x => x.MemberId == memberId)
+                .Select(x => new MemberStatistic
+                {
+                    MemberName = x.Member.Name,
+                    LessonDate = x.Lesson.StartDate,
+                    LessonTitle = x.Lesson.Title,
+                    LessonVisitedDate = x.Date,
+                    QuestiontsQuantity = x.Questions.Count,
+                    TimecodesQuantity = x.Timecodes.Count,
+                    IsHomeworkDone = x.Homework.Done
+                })
+                .ToArrayAsync();
 
-            public string MemberName { get; set; }
-
-            public DateTime LessonVisitedDate { get; set; }
-
-            public int QuestionsQuantity { get; set; }
-
-            public int TimecodesQuantity { get; set; }
+            return memberStatistics;
         }
     }
 }

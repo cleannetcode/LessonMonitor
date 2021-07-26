@@ -2,13 +2,16 @@
 
 namespace LessonMonitor.DataAccess.MSSQL.Entities
 {
-    public class Timcecode
+    public class Timecode
     {
         public int Id { get; set; }
-        public string Description { get; set; }
+
+        public string Text { get; set; }
+
         public DateTime Date { get; set; }
-        public Member Member { get; set; }
-        public VisitedLesson Lesson { get; set; }
+
+        public VisitedLesson VisitedLesson { get; set; }
+
         public int VisitedLessonId { get; set; }
     }
 }
