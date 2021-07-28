@@ -15,7 +15,5 @@ namespace LessonMonitor.Core
         public int QuestiontsQuantity { get; set; }
 
         public int TimecodesQuantity { get; set; }
-
-        public bool IsHomeworkDone { get; set; }
     }
 }

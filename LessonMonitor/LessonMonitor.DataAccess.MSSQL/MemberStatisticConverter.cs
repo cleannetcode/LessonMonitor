@@ -21,8 +21,7 @@ namespace LessonMonitor.DataAccess.MSSQL
                     LessonTitle = visitedLesson.Lesson.Title,
                     LessonVisitedDate = visitedLesson.Date,
                     QuestiontsQuantity = visitedLesson.Questions.Count,
-                    TimecodesQuantity = visitedLesson.Timecodes.Count,
-                    IsHomeworkDone = visitedLesson.Homework.Done
+                    TimecodesQuantity = visitedLesson.Timecodes.Count
                 };
 
                 result.Add(statistic);

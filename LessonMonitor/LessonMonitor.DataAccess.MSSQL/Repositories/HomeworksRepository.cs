@@ -20,11 +20,13 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
             if (newHomework is null)
                 throw new ArgumentNullException(nameof(newHomework));
 
+           
             var newHomeworkEntity = new Entities.Homework
             {
                 Title = newHomework.Title,
                 Description = newHomework.Description,
-                Link = newHomework.Link
+                Link = newHomework.Link,
+                LessonId = newHomework.LessonId
             };
 
             await _context.Homeworks.AddAsync(newHomeworkEntity);

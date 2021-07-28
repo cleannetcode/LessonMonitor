@@ -1,10 +1,11 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace LessonMonitor.DataAccess.MSSQL.Entities
+namespace LessonMonitor.Core
 {
-    public class GithubAccount
+    public class GitHubAccount
     {
-
         public int MemberId { get; set; }
 
         public string Nickname { get; set; }

@@ -4,6 +4,9 @@ using FluentAssertions;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
 using Moq;
+using System.Collections.Generic;
+using LessonMonitor.Core.Exceptions;
+using LessonMonitor.Core.GitHub;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,16 +18,21 @@ namespace LessonMonitor.BusinessLogic.XTests
     {
         private readonly Fixture _fixture;
         private readonly Mock<IMembersRepository> _membersRepositoryMock;
+        private readonly Mock<IGitHubApiClient> _githubApiClientMock;
         private readonly MembersService _service;
 
         public MembersServiceTests()
         {
             _fixture = new Fixture();
             _membersRepositoryMock = new Mock<IMembersRepository>();
+            _githubApiClientMock = new Mock<IGitHubApiClient>();
 
-            var mapper = new Mapper(new MapperConfiguration(cfg => { }));
+            var mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<BusinessLogicMappingProfile>();
+            }));
 
-            _service = new MembersService(mapper, _membersRepositoryMock.Object);
+            _service = new MembersService(mapper, _membersRepositoryMock.Object, _githubApiClientMock.Object);
         }
 
         [Fact]
@@ -142,6 +150,166 @@ namespace LessonMonitor.BusinessLogic.XTests
                 .And.HaveCount(expectedMembers.Length);
 
             _membersRepositoryMock.Verify(x => x.Get(), Times.Once);
+        }
+
+        [Fact]
+        public async Task Get_YoutubeUserIdIsValide_ShouldReturnMember()
+        {
+            // arrange
+            var youTubeUserId = _fixture.Create<string>();
+
+            var expectedMember = _fixture.Build<Member>()
+                .With(x => x.YouTubeUserId, youTubeUserId)
+                .Create();
+
+            _membersRepositoryMock.Setup(x => x.Get(youTubeUserId))
+                .ReturnsAsync(expectedMember);
+
+            // act
+            var member = await _service.Get(youTubeUserId);
+
+            // assert
+            member.Should()
+                .NotBeNull()
+                .And
+                .Match<Member>(x => x.YouTubeUserId == youTubeUserId);
+
+            _membersRepositoryMock.Verify(x => x.Get(youTubeUserId), Times.Once);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task Get_YoutubeUserIdIsNotValide_ShouldThrowArgumentException(string youTubeUserId)
+        {
+            // arrange
+            // act
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.Get(youTubeUserId));
+
+            // assert
+            _membersRepositoryMock.Verify(x => x.Get(youTubeUserId), Times.Never);
+        }
+
+        [Fact]
+        public async Task GetStatistics_MemberIdIsValide_ShouldReturnMemberStatistics()
+        {
+            // arrange
+            var memberId = _fixture.Create<int>();
+
+            var expectedMemberName = _fixture.Create<string>();
+
+            var expectedMembers = _fixture.Build<MemberStatistic>()
+                .With(x => x.MemberName, expectedMemberName)
+                .CreateMany()
+                .ToArray();
+
+            _membersRepositoryMock.Setup(x => x.GetStatistics(memberId))
+                .ReturnsAsync(expectedMembers);
+
+            // act
+            var memberStatisrics = await _service.GetStatistics(memberId);
+
+            // assert
+            memberStatisrics.Should()
+                .NotBeNull()
+                .And
+                .HaveCount(expectedMembers.Length)
+                .And
+                .Match<MemberStatistic[]>(x => x.All(f => f.MemberName == expectedMemberName));
+
+            _membersRepositoryMock.Verify(x => x.GetStatistics(memberId), Times.Once);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-14)]
+        [InlineData(-1255512)]
+        public async Task GetStatistics_MemberIdIsNotValide_ShouldThrowArgumentException(int memberId)
+        {
+            // arrange
+            // act
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.GetStatistics(memberId));
+
+            // assert
+            _membersRepositoryMock.Verify(x => x.GetStatistics(memberId), Times.Never);
+        }
+
+        [Fact]
+        public async Task GetHomeworks_MemberIdIsValid_ShouldReturnHomeworks()
+        {
+            // arrange
+            var memberId = _fixture.Create<int>();
+
+            var githubAccount = _fixture.Build<GitHubAccount>()
+                .Without(x => x.Member)
+                .With(x => x.MemberId, memberId)
+                .Create();
+
+            var approvedPullRequests = _fixture.Build<PullRequest>()
+                .With(x => x.GithubAccountId, githubAccount.GithubAccountId)
+                .With(x => x.IsApproved, true)
+                .CreateMany()
+                .ToArray();
+
+            var pullRequests = _fixture.Build<PullRequest>()
+                .With(x => x.GithubAccountId, githubAccount.GithubAccountId)
+                .With(x => x.IsApproved, false)
+                .CreateMany()
+                .Union(approvedPullRequests)
+                .ToArray();
+
+            _membersRepositoryMock
+                .Setup(x => x.GetGitHubAccount(memberId))
+                .ReturnsAsync(githubAccount);
+
+            _githubApiClientMock
+                .Setup(x => x.GetPullRequests(githubAccount.GithubAccountId))
+                .ReturnsAsync(pullRequests);
+
+            // act
+            var homeworks = await _service.GetHomeworks(memberId);
+
+            // assert
+            homeworks.Should().NotBeEmpty()
+                .And.HaveCount(pullRequests.Length)
+                .And.Match<MemberHomework[]>(x => x.Count(p => p.IsApproved) == approvedPullRequests.Length);
+
+            _membersRepositoryMock.Verify(x => x.GetGitHubAccount(memberId), Times.Once);
+            _githubApiClientMock.Verify(x => x.GetPullRequests(githubAccount.GithubAccountId), Times.Once);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-142)]
+        [InlineData(-142346436)]
+        public async Task GetHomeworks_MemberIdIsNotValid_ShouldThrowArgumentException(int memberId)
+        {
+            // arrange
+            // act
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.GetHomeworks(memberId));
+
+            // assert
+            _membersRepositoryMock.Verify(x => x.GetGitHubAccount(It.IsAny<int>()), Times.Never);
+            _githubApiClientMock.Verify(x => x.GetPullRequests(It.IsAny<int>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task GetHomeworks_MemberHaventGithubAccount_ShouldThrowBusinessException()
+        {
+            // arrange
+            var memberId = _fixture.Create<int>();
+
+            _membersRepositoryMock
+                .Setup(x => x.GetGitHubAccount(memberId))
+                .ReturnsAsync(() => null);
+
+            // act
+            await Assert.ThrowsAsync<BusinessException>(() => _service.GetHomeworks(memberId));
+
+            // assert
+            _membersRepositoryMock.Verify(x => x.GetGitHubAccount(memberId), Times.Once);
+            _githubApiClientMock.Verify(x => x.GetPullRequests(It.IsAny<int>()), Times.Never);
         }
     }
 }

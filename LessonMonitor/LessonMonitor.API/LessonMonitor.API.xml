@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LessonMonitor.API</name>
+    </assembly>
+    <members>
+        <member name="T:LessonMonitor.API.Contracts.CreatedHomework">
+            <summary>
+            Model is used to created homework id.
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.CreatedHomework.HomeworkId">
+            <summary>
+            Created homework id.
+            </summary>
+        </member>
+        <member name="T:LessonMonitor.API.Contracts.NewHomework">
+            <summary>
+            Model is used to created new homework.
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.NewHomework.Title">
+            <summary>
+            Title of homework.
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.NewHomework.Description">
+            <summary>
+            Description of homework.
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.NewHomework.Link">
+            <summary>
+            Link to github repository with homework.
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.NewHomework.LessonId">
+            <summary>
+            Lesson to which the homework belongs.
+            </summary>
+        </member>
+        <member name="T:LessonMonitor.API.Contracts.WeatherForecast">
+            <summary>
+            WeatherForecast
+            </summary>
+        </member>
+        <member name="P:LessonMonitor.API.Contracts.WeatherForecast.Date">
+            <summary>
+            testse
+            </summary>
+        </member>
+        <member name="M:LessonMonitor.API.Controllers.HomeworksController.Create(LessonMonitor.API.Contracts.NewHomework)">
+             <summary>
+             Create new homework.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST / Homeworks
+                 {
+                    "Title": TestTitle,
+                    "Description": "TestDescription",
+                    "Link": "https://docs.microsoft.com/ru-ru/aspnet/core"
+                 }
+            
+             </remarks>
+             <param name="request">new homework model.</param>
+             <response code="200">Returns the newly created homework.</response>
+             <response code="400">If the homework is not validate.</response>
+             <returns>return homeworkId created model.</returns>
+        </member>
+    </members>
+</doc>

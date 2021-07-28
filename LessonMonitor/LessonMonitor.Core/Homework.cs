@@ -17,5 +17,6 @@ namespace LessonMonitor.Core
         public int MemberId { get; set; }
 
         public object MentorId { get; set; }
+        public int LessonId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using LessonMonitor.DataAccess.MSSQL;
 using LessonMonitor.DataAccess.MSSQL.Repositories;
+using LessonMonitor.GitHubClientApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 
 namespace LessonMonitor.API
 {
@@ -30,6 +32,7 @@ namespace LessonMonitor.API
             {
                 cfg.AddProfile<ApiMappingProfile>();
                 cfg.AddProfile<DataAccessMappingProfile>();
+                cfg.AddProfile<BusinessLogicMappingProfile>();
             });
 
             services.AddScoped<IHomeworksRepository, HomeworksRepository>();
@@ -41,6 +44,8 @@ namespace LessonMonitor.API
             services.AddScoped<ILessonsRepository, LessonsRepository>();
             services.AddScoped<ILessonsService, LessonsService>();
 
+            services.AddGitHubApiClient(Configuration);
+
             services.AddDbContext<LessonMonitorDbContext>(builder =>
             {
                 builder.UseSqlServer(Configuration.GetConnectionString("LessonMonitorDb"));
@@ -50,6 +55,10 @@ namespace LessonMonitor.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LessonMonitor.API", Version = "v1" });
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "LessonMonitor.API.xml");
+
+                c.IncludeXmlComments(filePath);
             });
         }
 

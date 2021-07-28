@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LessonMonitor.Core;
+using LessonMonitor.Core.Exceptions;
 using LessonMonitor.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -59,9 +60,9 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 
         public async Task<MemberStatistic[]> GetStatistics(int memberId)
         {
-            if (memberId == default)
+            if (memberId <= default(int))
             {
-                throw new ArgumentException("Argument should be greater than 0", nameof(memberId));
+                throw ExceptionHelper.CreateArgumentShoulBeGreaterThanZeroException(nameof(memberId));
             }
 
             var memberStatistics = await _context
@@ -75,8 +76,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
                     LessonTitle = x.Lesson.Title,
                     LessonVisitedDate = x.Date,
                     QuestiontsQuantity = x.Questions.Count,
-                    TimecodesQuantity = x.Timecodes.Count,
-                    IsHomeworkDone = x.Homework.Done
+                    TimecodesQuantity = x.Timecodes.Count
                 })
                 .ToArrayAsync();
 
@@ -94,6 +94,20 @@ namespace LessonMonitor.DataAccess.MSSQL.Repositories
 
             _context.Members.Update(memberEntity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<GitHubAccount> GetGitHubAccount(int memberId)
+        {
+            if (memberId <= default(int))
+            {
+                throw ExceptionHelper.CreateArgumentShoulBeGreaterThanZeroException(nameof(memberId));
+            }
+
+            var githubAccount = await _context.GithubAccounts
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.MemberId == memberId);
+
+            return _mapper.Map<Entities.GithubAccount, GitHubAccount>(githubAccount);
         }
     }
 }
