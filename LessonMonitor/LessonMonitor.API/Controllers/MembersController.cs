@@ -38,7 +38,7 @@ namespace LessonMonitor.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CreatedMember), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create(NewMember newMember)
+        public async Task<IActionResult> Create([FromBody] NewMember newMember)
         {
             var member = _mapper.Map<NewMember, Core.Member>(newMember);
             var memberId = await _membersService.Create(member);
@@ -47,12 +47,22 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet("{youtubeUserId}")]
-        public async Task<IActionResult> Get(string youtubeUserId)
+        [ProducesResponseType(typeof(Member), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get([FromRoute] string youtubeUserId)
         {
             var member = await _membersRepository.Get(youtubeUserId);
             var result = _mapper.Map<Core.Member, Member>(member);
 
             return Ok(result);
+        }
+
+        [HttpGet("{memberId:int}/Statistics")]
+        [ProducesResponseType(typeof(Core.MemberStatistic[]), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetStatistics([FromRoute] int memberId)
+        {
+            var memberStatistics = await _membersRepository.GetStatistics(memberId);
+
+            return Ok(memberStatistics);
         }
     }
 }

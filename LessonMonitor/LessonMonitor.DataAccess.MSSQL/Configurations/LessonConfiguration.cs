@@ -17,11 +17,17 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
             builder.ToTable("Lessons");
 
             builder.HasOne(x => x.Homework)
+               .WithOne(x => x.Lesson)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasPrincipalKey<Lesson>(x => x.Id)
+               .HasForeignKey<Homework>(x => x.LessonId)
+               .IsRequired(false);
+
+            builder.HasMany(x => x.VisitedLessons)
                 .WithOne(x => x.Lesson)
                 .OnDelete(DeleteBehavior.NoAction)
-                .HasPrincipalKey<Lesson>(x => x.Id)
-                .HasForeignKey<Homework>(x => x.LessonId)
-                .IsRequired(false);
+                .HasForeignKey(x => x.LessonId)
+                .IsRequired();
         }
     }
 }

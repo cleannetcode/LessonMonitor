@@ -16,11 +16,12 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
             builder.HasOne(x => x.GithubAccount)
                 .WithOne(x => x.Member)
                 .OnDelete(DeleteBehavior.NoAction);
-            //.HasPrincipalKey<GithubAccount>(x => x.Id)
-            //.HasForeignKey<Member>(x => x.GithubAccountId)
-            //.IsRequired(false);
 
-            // Member.GithubAccountId -> GithubAccount.Id
+            builder.HasMany(x => x.VisitedLessons)
+                .WithOne(x => x.Member)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasForeignKey(x => x.MemberId)
+                .IsRequired();
         }
     }
 }

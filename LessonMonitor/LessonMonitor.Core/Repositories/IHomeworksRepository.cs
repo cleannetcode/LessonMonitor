@@ -6,12 +6,6 @@ namespace LessonMonitor.Core.Repositories
     {
         Task<int> Add(Homework newHomework);
 
-        Task Update(Homework homework);
-
         Task Delete(int homeworkId);
-
-        Task<Homework[]> Get();
-
-        Task<Homework> Get(int homeworkId);
     }
 }

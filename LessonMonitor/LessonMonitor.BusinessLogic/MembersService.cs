@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using LessonMonitor.BusinessLogic.Validators;
 using LessonMonitor.Core;
 using LessonMonitor.Core.Repositories;
@@ -10,10 +11,12 @@ namespace LessonMonitor.BusinessLogic
     public class MembersService : IMembersService
     {
         private readonly IMembersRepository _membersRepository;
+        private readonly IMapper _mapper;
 
-        public MembersService(IMembersRepository membersRepository)
+        public MembersService(IMembersRepository membersRepository, IMapper mapper)
         {
             _membersRepository = membersRepository;
+            _mapper = mapper;
         }
 
         public async Task<int> Create(Member newMember)
@@ -34,7 +37,12 @@ namespace LessonMonitor.BusinessLogic
             var existedMember = await _membersRepository.Get(newMember.YouTubeUserId);
             if (existedMember != null)
             {
-                throw new InvalidOperationException("Member already exists");
+                 var updatedMember = _mapper.Map(newMember, existedMember);
+                updatedMember.Id = existedMember.Id;
+
+                await _membersRepository.Update(updatedMember);
+
+                return existedMember.Id;
             }
 
             return await _membersRepository.Add(newMember);
