@@ -29,6 +29,10 @@ namespace LessonMonitor.GitHubClientApi
 
                 var client = new GitHubClient(headerValue);
 
+                var tokenAuth = new Credentials("Insert a token here");
+
+                client.Credentials = tokenAuth;
+
                 return new GitHubApiClient(client, githubConfig.Owner, githubConfig.Repository);
             });
         }
