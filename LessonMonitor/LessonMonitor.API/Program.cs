@@ -15,7 +15,7 @@ namespace LessonMonitor.API
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        //privet mir
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
