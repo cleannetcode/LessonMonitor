@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 
 namespace LessonMonitor.DataAccess.MSSQL.Entities
 {
-    public class GithubAccount
+    public class GitHubAccount
     {
-
         public int MemberId { get; set; }
 
         public string Nickname { get; set; }

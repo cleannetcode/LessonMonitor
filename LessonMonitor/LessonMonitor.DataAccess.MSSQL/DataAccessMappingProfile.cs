@@ -1,4 +1,6 @@
 using AutoMapper;
+using LessonMonitor.Core;
+using LessonMonitor.DataAccess.MSSQL.Entities;
 
 namespace LessonMonitor.DataAccess.MSSQL
 {

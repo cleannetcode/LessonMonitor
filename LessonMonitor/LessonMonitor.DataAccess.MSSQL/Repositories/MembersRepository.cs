@@ -2,6 +2,7 @@
 using LessonMonitor.Core;
 using LessonMonitor.Core.Exceptions;
 using LessonMonitor.Core.Repositories;
+using LessonMonitor.DataAccess.MSSQL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
