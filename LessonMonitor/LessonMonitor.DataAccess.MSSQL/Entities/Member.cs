@@ -13,5 +13,7 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
         public GithubAccount GithubAccount { get; set; }
 
         public ICollection<VisitedLesson> VisitedLessons { get; set; }
+
+        public User User { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 using LessonMonitor.BusinessLogic;
-using LessonMonitor.Core.GitHub;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
 using LessonMonitor.DataAccess.MSSQL;
@@ -12,8 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Octokit;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LessonMonitor.API
@@ -29,6 +26,12 @@ namespace LessonMonitor.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(x =>
+            {
+                x.DefaultScheme = AuthenticateSchema.DefaultSchema;
+                x.AddScheme<MyAuthenticationHandler>(x.DefaultScheme, null);
+            });
+
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<ApiMappingProfile>();
@@ -71,6 +74,8 @@ namespace LessonMonitor.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

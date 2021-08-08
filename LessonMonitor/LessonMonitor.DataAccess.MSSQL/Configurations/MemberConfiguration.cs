@@ -17,6 +17,10 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
                 .WithOne(x => x.Member)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(x => x.User)
+                .WithOne(x => x.Member)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(x => x.VisitedLessons)
                 .WithOne(x => x.Member)
                 .OnDelete(DeleteBehavior.NoAction)
