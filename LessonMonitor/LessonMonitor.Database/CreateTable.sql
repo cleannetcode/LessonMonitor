@@ -1,6 +1,5 @@
 use Homework2
 
-
 CREATE TABLE [dbo].Members
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
@@ -53,25 +52,6 @@ CREATE TABLE [dbo].Timecodes
 
 
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 alter table Timecodes
 ADD MemberId int not null;
