@@ -13,16 +13,13 @@ namespace LessonMonitor.API.Controllers
     public class MembersController : ControllerBase
     {
         private readonly IMembersService _membersService;
-        private readonly IMembersRepository _membersRepository;
         private readonly IMapper _mapper;
 
         public MembersController(
             IMembersService membersService,
-            IMembersRepository membersRepository,
             IMapper mapper)
         {
             _membersService = membersService;
-            _membersRepository = membersRepository;
             _mapper = mapper;
         }
 
@@ -50,7 +47,7 @@ namespace LessonMonitor.API.Controllers
         [ProducesResponseType(typeof(Member), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get([FromRoute] string youtubeUserId)
         {
-            var member = await _membersRepository.Get(youtubeUserId);
+            var member = await _membersService.Get(youtubeUserId);
             var result = _mapper.Map<Core.Member, Member>(member);
 
             return Ok(result);
@@ -60,9 +57,18 @@ namespace LessonMonitor.API.Controllers
         [ProducesResponseType(typeof(Core.MemberStatistic[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetStatistics([FromRoute] int memberId)
         {
-            var memberStatistics = await _membersRepository.GetStatistics(memberId);
+            var memberStatistics = await _membersService.GetStatistics(memberId);
 
             return Ok(memberStatistics);
+        }
+
+        [HttpGet("{memberId:int}/Homeworks")]
+        [ProducesResponseType(typeof(Core.MemberHomework[]), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetHomeworks([FromRoute] int memberId)
+        {
+            var memberHomeworks = await _membersService.GetHomeworks(memberId);
+
+            return Ok(memberHomeworks);
         }
     }
 }

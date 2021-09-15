@@ -14,10 +14,10 @@ namespace LessonMonitor.DataAccess.MSSQL.Configurations
             builder.Property(x => x.Description).HasMaxLength(2000);
             builder.Property(x => x.Link).HasMaxLength(1000);
 
-            //builder.HasOne(x => x.Lesson)
-            //    .WithOne(x => x.Homework)
-            //    .OnDelete(DeleteBehavior.NoAction)
-            //    .IsRequired();
+            builder.HasOne(x => x.Lesson)
+                  .WithOne(x => x.Homework)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .IsRequired();
         }
     }
 }

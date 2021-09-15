@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Web-developer\3. С#\VS_source\ASP.NET-LessonsMonitor\LessonMonitor\LessonMonitor.API\LessonMonitor.API.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
@@ -29,6 +33,7 @@
     <ProjectReference Include="..\LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj" />
     <ProjectReference Include="..\LessonMonitor.Core\LessonMonitor.Core.csproj" />
     <ProjectReference Include="..\LessonMonitor.DataAccess.MSSQL\LessonMonitor.DataAccess.MSSQL.csproj" />
+    <ProjectReference Include="..\LessonMonitor.GitHubClientApi\LessonMonitor.GitHubClientApi.csproj" />
   </ItemGroup>
 
 </Project>

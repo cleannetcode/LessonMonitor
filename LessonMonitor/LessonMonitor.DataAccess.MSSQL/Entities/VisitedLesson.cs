@@ -20,8 +20,5 @@ namespace LessonMonitor.DataAccess.MSSQL.Entities
         public ICollection<Question> Questions { get; set; }
 
         public ICollection<Timecode> Timecodes { get; set; }
-
-        public Homework Homework { get; set; }
-        public int HomeworkId { get; set; }
     }
 }
