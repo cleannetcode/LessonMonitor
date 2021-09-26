@@ -63,5 +63,9 @@
     <Build Include="Lessons.sql" />
     <Build Include="Questions.sql" />
     <Build Include="Skills.sql" />
+    <Build Include="MembersLessons.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="LessonMonitor.Database.refactorlog" />
   </ItemGroup>
 </Project>

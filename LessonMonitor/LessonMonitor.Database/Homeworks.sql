@@ -3,5 +3,5 @@
 	[Id] INT NOT NULL PRIMARY KEY, 
     [Title] NVARCHAR(20) NOT NULL, 
     [Body] NVARCHAR(MAX) NULL, 
-    [Mark] INT NULL
+    [LessonId] INT NULL FOREIGN KEY REFERENCES [dbo].[Lessons](Id)
 )

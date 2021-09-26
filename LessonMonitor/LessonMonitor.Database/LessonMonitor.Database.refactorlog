@@ -49,4 +49,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="GitHubLink" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e62f1ef2-8aed-49a7-9b5b-a81b70221554" ChangeDateTime="09/26/2021 08:33:30">
+    <Property Name="ElementName" Value="[dbo].[MembersLessons].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MembersLessons]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MemberId" />
+  </Operation>
 </Operations>
