@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.Database", "LessonMonitor.Database\LessonMonitor.Database.sqlproj", "{B92B66E8-0F76-4051-BC1E-5D23F10980DD}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92B66E8-0F76-4051-BC1E-5D23F10980DD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
