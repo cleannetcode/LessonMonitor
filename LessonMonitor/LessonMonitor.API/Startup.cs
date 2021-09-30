@@ -9,8 +9,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API
 {
@@ -48,15 +50,18 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            app.Use(async (httpContext, next) => {
+                string logTime= ($"{DateTime.Now}   ");
+                using (FileStream fstream = new FileStream($"HttpLog.txt", FileMode.Append)) {
+                    byte[] array = System.Text.Encoding.Default.GetBytes(logTime);
+                    await fstream.WriteAsync(array, 0, array.Length);
+                }
+                await next.Invoke();
+            });
 
-            //    return task;
-            //});
-
+            app.UseMiddleware<MyMiddlewareComponent>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,0 +1,5 @@
+
+30.09.2021 11:06:26   Request GET /WeatherForecast => 200
+30.09.2021 11:06:37   Request GET /WeatherForecast/model => 200
+30.09.2021 11:11:24   Request GET /WeatherForecast => 200
+30.09.2021 11:13:09   Request GET /WeatherForecast => 200

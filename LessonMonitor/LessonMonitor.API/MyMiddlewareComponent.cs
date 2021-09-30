@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace LessonMonitor.API
@@ -12,9 +14,15 @@ namespace LessonMonitor.API
             _next = next;
         }
 
-        public Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
-            return _next(context);
+            string logMessage = ($"Request {context.Request?.Method} {context.Request?.Path.Value} => {context.Response?.StatusCode}\n");
+            using (FileStream fstream = new FileStream($"HttpLog.txt", FileMode.Append)) {
+                byte[] array = System.Text.Encoding.Default.GetBytes(logMessage);
+                // асинхронная запись массива байтов в файл
+                await fstream.WriteAsync(array, 0, array.Length);
+            }
+            await _next(context);
         }
     }
 }
