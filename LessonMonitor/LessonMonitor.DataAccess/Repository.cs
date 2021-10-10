@@ -1,11 +1,11 @@
-﻿using LessonMonitor.DataAccess;
+﻿using LessonMonitor.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LessonMonitor.Core
+namespace LessonMonitor.DataAccess
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : LessonMonitor.Core.Models.BaseEntity
     {
         private readonly ApplicationContext context;
         private readonly DbSet<T> entities;
@@ -20,7 +20,7 @@ namespace LessonMonitor.Core
         }
         public T Get(int id)
         {
-            return entities.SingleOrDefault(p => p.ProductId == id);
+            return entities.SingleOrDefault(p => p.Id == id);
         }
     }
 }

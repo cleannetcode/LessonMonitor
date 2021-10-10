@@ -1,5 +1,5 @@
-﻿using LessonMonitor.BusinessLogic;
-using LessonMonitor.DataAccess;
+﻿using LessonMonitor.API.Models;
+using LessonMonitor.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +25,9 @@ namespace LessonMonitor.API.Controllers
             List<ProductDetails> productDetails = new List<ProductDetails>();
             var prodcutList = productService.GetProduct().ToList();
             foreach (var product in prodcutList) {
-                var productDetailList = productDetailsService.GetProductDetail(product.ProductId);
+                var productDetailList = productDetailsService.GetProductDetail(product.Id);
                 ProductDetails details = new ProductDetails {
-                    ProductId = product.ProductId,
+                    Id = product.Id,
                     Price = productDetailList.Price,
                     StockAvailable = productDetailList.StockAvailable,
                 };

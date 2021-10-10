@@ -1,6 +1,6 @@
-﻿using LessonMonitor.DataAccess;
+﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Models;
 using Octokit;
-using System.Net.Http.Headers;
 
 namespace LessonMonitor.BusinessLogic
 {

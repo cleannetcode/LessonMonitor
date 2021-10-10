@@ -1,7 +1,7 @@
-﻿using LessonMonitor.DataAccess;
+﻿using LessonMonitor.Core.Models;
 using System.Collections.Generic;
 
-namespace LessonMonitor.BusinessLogic
+namespace LessonMonitor.Core
 {
     public interface IProductService
     {

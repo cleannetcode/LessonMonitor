@@ -1,5 +1,5 @@
 ﻿using LessonMonitor.Core;
-using LessonMonitor.DataAccess;
+using LessonMonitor.Core.Models;
 using System.Collections.Generic;
 
 namespace LessonMonitor.BusinessLogic
@@ -9,10 +9,10 @@ namespace LessonMonitor.BusinessLogic
         private IRepository<Product> productRepository;
         private IRepository<ProductDetails> productDetailsRepository;
 
-        public ProductService(IRepository<Product> productRepository, IRepository<ProductDetails> productDetailRepository)
+        public ProductService(IRepository<Product> productRepository, IRepository<ProductDetails> productDetailsRepository)
         {
             this.productRepository = productRepository;
-            this.productDetailsRepository = productDetailRepository;
+            this.productDetailsRepository = productDetailsRepository;
         }
         public IEnumerable<Product> GetProduct()
         {

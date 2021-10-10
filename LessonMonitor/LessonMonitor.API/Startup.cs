@@ -1,5 +1,6 @@
 using LessonMonitor.BusinessLogic;
 using LessonMonitor.Core;
+using LessonMonitor.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,6 @@
-﻿using LessonMonitor.BusinessLogic;
-using LessonMonitor.DataAccess;
+﻿using LessonMonitor.API.Models;
+using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LessonMonitor.API.Controllers

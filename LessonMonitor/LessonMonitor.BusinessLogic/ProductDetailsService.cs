@@ -1,5 +1,5 @@
 ﻿using LessonMonitor.Core;
-using LessonMonitor.DataAccess;
+using LessonMonitor.Core.Models;
 
 namespace LessonMonitor.BusinessLogic
 {
