@@ -1,95 +1,105 @@
--- USE master
--- CREATE DATABASE LessonMonitorDb
+CREATE DATABASE LessonMonitorDb
 
 USE LessonMonitorDb
 
--- CREATE TABLE Members (
---     Name NVARCHAR(50)
--- )
+--DROP DATABASE LessonMonitorDb
 
--- ALTER TABLE Members
--- ADD Id INT
+Select @@VERSION
 
--- ALTER TABLE Members
--- ADD CreatedDate DATETIME2
-
--- INSERT Members (Id, Name, CreatedDate)
--- VALUES (NULL, NULL, NULL)
-
--- UPDATE Members
--- SET Id = 0, CreatedDate = GETDATE(), Name = ''
-
--- DELETE FROM Members
-
--- ALTER TABLE Members
--- ALTER COLUMN Id INT NOT NULL
-
--- DROP TABLE Members
--- DROP TABLE MemberAccounts
--- DROP TABLE VisitedLessons
-
-CREATE TABLE Members (
-    Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    Name NVARCHAR(50) NOT NULL,
-    CreatedDate DATETIME2 DEFAULT GETDATE()
+CREATE TABLE Questions
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	Topic NVARCHAR(30) NOT NULL,
+	Description NVARCHAR(200)
 )
 
-CREATE TABLE MemberAccounts (
-    Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    MemberId INT NOT NULL,
-    Username NVARCHAR(50) NOT NULL,
-    Link NVARCHAR(200) NULL,
-    CreatedDate DATETIME2 DEFAULT GETDATE(),
-    CONSTRAINT FK_MemberAccounts_Members FOREIGN KEY (MemberId) REFERENCES [Members](Id)
+CREATE TABLE Students
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	Nickname NVARCHAR(20) NOT NULL,
+	DateRegistration DATETIME,
+	TypeAccount NVARCHAR(10) DEFAULT 'Watcher'
 )
 
-CREATE TABLE Lessons (
-    Id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    Title NVARCHAR(200) NOT NULL,
-    Description NVARCHAR(1000) NULL,
-    StartDate DATETIME2 NOT NULL,
-    CreatedDate DATETIME2 DEFAULT GETDATE()
+CREATE TABLE QuestionsStudents
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	StudentId INT FOREIGN KEY REFERENCES Students(Id),
+	QuestionId INT FOREIGN KEY REFERENCES Questions(Id)
 )
 
-CREATE TABLE VisitedLessons (
-    MemberId INT NOT NULL,
-    LessonId INT NOT NULL,
-    CreatedDate DATETIME2 DEFAULT GETDATE(),
-    CONSTRAINT [PK_MemberId_LessonId] PRIMARY KEY (MemberId, LessonId),
-    -- CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
-    -- CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
+CREATE TABLE Lessons
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	Name NVARCHAR(20) NOT NULL,
+	Date DATETIME NOT NULL
 )
 
-ALTER TABLE VisitedLessons
-ADD CONSTRAINT [FK_VisitedLessons_Members] FOREIGN KEY (MemberId) REFERENCES Members(Id),
-    CONSTRAINT [FK_VisitedLessons_Lessons] FOREIGN KEY (LessonId) REFERENCES Lessons(Id)
-
-INSERT Members (Name)
-VALUES ('Joe 2')
-
-INSERT MemberAccounts (MemberId, Username)
-VALUES (1, 'GithubJoe')
-
-INSERT Lessons (Title, [Description], StartDate)
-VALUES (N'Знакомимся с t-sql', N'Знакомимся с t-sql', '2021-04-25T15:00:00')
+CREATE TABLE LessonsStudents
+(
+	LessonId INT FOREIGN KEY REFERENCES Lessons(Id),
+	StudentId INT FOREIGN KEY REFERENCES Students(Id),
+	PRIMARY KEY(LessonId, StudentId)
+)
 
 
-INSERT VisitedLessons ([MemberId], [LessonId])
-VALUES (2, 3)
+CREATE TABLE Timecodes
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	Name NVARCHAR(30) NOT NULL,
+	Timecode DATETIME
+)
+
+CREATE TABLE LessonsTimecodes
+(
+	Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	TimecodesId INT FOREIGN KEY REFERENCES Timecodes(Id),
+	LessonId INT FOREIGN KEY REFERENCES Lessons(Id)
+)
 
 
-INSERT VisitedLessons ([MemberId], [LessonId])
-VALUES (20, 3)
+INSERT INTO Students (Nickname, DateRegistration)
+VALUES (N'Viktor', GETDATE()),
+	   (N'Roman', GETDATE()),
+	   (N'Pavel',N'2021-05-23 21:35:56.430')
+
+INSERT INTO Lessons (name, Date)
+VALUES (N'ASP.NET', N'2021-05-25 10:00:00.000'),
+	   (N't-sql', N'2021-05-26 11:00:00.292'),
+	   (N'dml',N'2021-05-27 11:59:59.999')
+
+INSERT INTO StudentsLessons (StudentId, LessonId)
+VALUES (1, 1),
+	   (1, 2),
+	   (1, 3),
+	   (2, 2)
+
+INSERT INTO Questions(Topic, Description)
+VALUES (N'C#', N'How to write best code?'),
+	   (N'ASP.NET', N'How i should do it?'),
+	   (N'EF', N'What is migration?')
+
+INSERT INTO QuestionsStudents
+VALUES (3,1),
+	   (2,1),
+	   (1,3)
+
+INSERT INTO Timecodes
+VALUES (N'Start', N'2021-05-25 10:00:00.000'),
+	   (N'Best practices', N'2021-05-25 11:59:00.000'),
+	   (N'DRY', N'2021-05-25 12:10:00.000')
+
+INSERT INTO LessonsTimecodes
+VALUES (1,1),
+	   (2,1),
+	   (3,1)
 
 
--- varchar non-unicode, nvarchar - unicode
 
--- SELECT * FROM Members
--- SELECT * FROM MemberAccounts
--- SELECT * FROM Lessons
--- SELECT * FROM VisitedLessons
-
--- DROP 
--- ALTER 
-
--- DROP TABLE Members
+SELECT *FROM Students
+SELECT *FROM Lessons
+SELECT *FROM Questions
+SELECT *FROM Timecodes
+SELECT *FROM StudentsLessons
+SELECT *FROM QuestionsStudents
+SELECT *FROM LessonsTimecodes 
