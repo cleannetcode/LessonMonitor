@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Skills]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(20) NOT NULL,
+	MemberId INT NULL,
+    FOREIGN KEY (MemberId) REFERENCES Members (Id) ON DELETE SET NULL
+)
