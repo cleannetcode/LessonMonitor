@@ -48,7 +48,9 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.UseAuthorization();
+
+            app.UseMiddleware<MyMiddlewareComponent>();
 
             //app.Use((httpContext, next) =>
             //{

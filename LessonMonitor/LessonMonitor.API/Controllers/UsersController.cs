@@ -4,83 +4,40 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LessonMonitor.BusnessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.Data;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
-
-        public UsersController(IUserRepository userRepository)
+        private IUserServices _userServices;
+        public UsersController()
         {
-            this.userRepository = userRepository;
+            IUserRepository userRepository = new UserRepository();
+            _userServices = new UserService(userRepository);
         }
 
         [HttpGet]
-        public User[] Get(string userName)
+        public User[] Get()
         {
-            // sOlid
+            var userService = _userServices.Get();
 
-            // провалидировать входной параметр
-            // IValidator.Validate(userName);
+            var result = new User();
 
-            // получить информацию
-            // var user = IUserRepository.Get(userName);
+            return new[] { result };
 
-            // преобразовать информацию в выходной параметр
-            // new UserModel { Name = user.Name };
-            // IMapper.Map();
-            // IUserFactory.Create();
-            // IUserBuilder.Build();
-
-            var random = new Random();
-            var users = new List<User>();
-
-            for (int i = 0; i < 10; i++)
-            {
-                var user = new User();
-
-                user.Name = userName + i;
-                user.Age = random.Next(20, 51);
-
-                users.Add(user);
-            }
-
-            return users.ToArray();
+        }
+        [HttpPost]
+        public UserCore Create()
+        {
+            var user = new UserCore {Age = 44, Name = "Vadim" };
+            _userServices.Create(user);
+            return user;
         }
 
         [HttpGet("model")]
@@ -113,26 +70,8 @@ namespace LessonMonitor.API.Controllers
                         }
                     }
                 }
-
-                //var rangeAttribute = propetry.GetCustomAttribute<RangeAttribute>();
-
-
-                //if (rangeAttribute != null)
-                //{
-                //    var value = propetry.GetValue(user);
-
-                //    var isValueNotInRange = value is int intValue
-                //        && (intValue <= rangeAttribute.MinValue
-                //        || intValue >= rangeAttribute.MaxValue);
-
-                //    rangeAttribute.Test();
-
-                //    if (isValueNotInRange)
-                //    {
-                //        throw new Exception($"{propetry.Name}: {value} - not in range ({rangeAttribute.MinValue}, {rangeAttribute.MaxValue})");
-                //    }
-                //}
             }
         }
+
     }
 }
