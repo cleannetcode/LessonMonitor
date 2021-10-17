@@ -14,6 +14,6 @@ namespace LessonMonitor.API.Models
         public string Name { get; set; }
 
         [Description("Список свойств")]
-        public List<PropertyMetadata> Propertys { get;set;}
+        public List<PropertyMetadata> Propertys { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using LessonMonitor.API.Models.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace LessonMonitor.API.Models
 {
+    [RoadMapValidation]
     public class RoadMap
     {
         [Description("Название")]

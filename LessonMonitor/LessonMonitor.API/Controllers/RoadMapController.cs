@@ -1,4 +1,5 @@
 ﻿using LessonMonitor.API.Models;
+using LessonMonitor.API.Models.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,14 +34,21 @@ namespace LessonMonitor.API.Controllers
                 }
             });
 
+            var type = typeof(RoadMap);
+            var customAttribute = type.GetCustomAttribute<RoadMapValidationAttribute>();
+
             foreach (var roadmap in roadmaps)
             {
+                if (!customAttribute.IsValid(roadmap))
+                    return NotFound(customAttribute.ErrorMessage);
+
                 if (roadmap.Name == nameRoadMap)
                     return Ok(roadmap);
             }
 
-            return NotFound();
+            return NotFound("Такого RoadMap не найдено");
         }
+
         [HttpGet("Metadata")]
         public IActionResult GetClassMetadata()
         {
