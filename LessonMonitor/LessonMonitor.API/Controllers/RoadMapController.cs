@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -41,9 +42,34 @@ namespace LessonMonitor.API.Controllers
             return NotFound();
         }
         [HttpGet("Metadata")]
-        public void GetClassMetadata()
+        public IActionResult GetClassMetadata()
         {
-            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "LessonMonitor.API.Models").ToArray();
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.Namespace == "LessonMonitor.API.Models").ToArray();
+
+            ClassMetadata[] classMetadatas = new ClassMetadata[types.Length];
+
+            for (int i = 0; i < types.Length; i++)
+            {
+                classMetadatas[i] = new ClassMetadata
+                {
+                    Name = types[i].Name
+                };
+
+                var propertys = types[i].GetProperties();
+
+                for (int j = 0; j < propertys.Length; j++)
+                {
+                    classMetadatas[i].Propertys.Add(new PropertyMetadata()
+                    {
+                        Name = propertys[j].Name,
+                        Description = propertys[j].GetCustomAttribute<DescriptionAttribute>().Description,
+                        Type = propertys[j].PropertyType.ToString()
+                    });
+                }
+            }
+
+            return Ok(classMetadatas);
         }
     }
 }
