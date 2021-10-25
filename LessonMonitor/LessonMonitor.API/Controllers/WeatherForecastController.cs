@@ -56,5 +56,75 @@ namespace LessonMonitor.API.Controllers
 
         //    return Ok(result);
         //}
+
+        //experiments with reflection and attributes 
+        [HttpGet("model")]
+        public WeatherForecast GetWeatherForecastModel()
+        {
+            //еще вариант
+            //var weather = new WeatherForecast();
+            //weather.GetType();
+
+            //тип данных для хранения инф о типах данных
+            //реазизует IReflect
+            //Type
+
+            //получение информации о структуре WeatherForecast
+            var weatherForecastModel = typeof(WeatherForecast);
+
+            //другой способ создания структуры
+            //Activator.CreateInstance<WeatherForecast>();
+
+            //воссоздание структуры данных (класса WeatherForecast) с помощью рефлексии из его метаданных
+            var constructors = weatherForecastModel.GetConstructors();
+            //получим дефолтный конструктор - конструкторб который не принимает никакие параметры
+            var defaultConstructor = constructors.FirstOrDefault(x => x.GetParameters().Length == 0);
+
+            //Invoke создает экземпляр этого класса
+            var obj = defaultConstructor.Invoke(null);
+
+            var properties = weatherForecastModel.GetProperties();
+
+            foreach (var property in properties)
+            {
+                //if (property.Name == "Summary")
+                //{
+                //}
+
+                if (_weatherForecastValues.TryGetValue(property.Name, out var value))
+                {
+                    //if(property.PropertyType.Name == "DateTime")
+                    //{
+                    //    var date = DateTime.Parse(value);
+                    //    property.SetValue(obj, date);
+                    //}
+                    //if (property.PropertyType.Name == "Int32")
+                    //{
+                    //    var num = int.Parse(value);
+                    //    property.SetValue(obj, num);
+                    //}
+                    //if (property.PropertyType.Name == "String")
+                    //{
+                    //    property.SetValue(obj, value);
+                    //}
+
+                    //2 способ
+                    var specifiedValue = Convert.ChangeType(value, property.PropertyType);
+
+
+                }
+
+
+            }
+
+            return (WeatherForecast)obj;
+        }
+
+        private Dictionary<string, string> _weatherForecastValues = new Dictionary<string, string>
+        {
+            {"Date", DateTime.Now.ToString()},
+            {"TemperatureC",  "231"},
+            {"Summary", Guid.NewGuid().ToString()}
+        };
     }
 }
