@@ -32,5 +32,16 @@ namespace LessonMonitor.API.Controllers
 
             return users.ToArray();
         }
+    
+    
+        //test validation
+        [HttpGet("model")]
+        public void GetModel([FromQuery]User user)
+        {
+
+        }
+    
+    
+    
     }
 }

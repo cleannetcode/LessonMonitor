@@ -11,7 +11,7 @@ namespace LessonMonitor.API.Controllers
     [ApiController]  //атрибуты - дополнительные метаданные для "компилятных" структур.
     [Route("[controller]")]
     //[Route("TestApi")]
-    public class WeatherForecastController : ControllerBase   //базовый класс MVC безподдержки view engine,
+    public class WeatherForecastController : ControllerBase   //базовый класс MVC без поддержки view engine,
                                                               //т.к. у нас API-app ему не нужно уметь собирать HTML-странички
     {
         //private static readonly string[] Summaries = new[]
