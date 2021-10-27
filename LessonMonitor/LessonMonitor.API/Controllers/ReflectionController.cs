@@ -17,10 +17,25 @@ namespace LessonMonitor.API.Controllers
         }
 
 
-        [HttpGet("modelsNames")]
+        [HttpGet("ModelsNames")]
         public string[] GetModelsNames()
         {
             Type[] typelist = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "LessonMonitor.API.Models").ToArray();
+            List<string> typelistNames = new List<string>();
+
+            foreach (var typeNames in typelist)
+            {
+                typelistNames.Add(typeNames.Name);
+            }
+
+            return typelistNames.ToArray();
+        }
+
+
+        [HttpGet("byName")]
+        public string[] GetModelsNamesDirr([FromQuery]string? nameFolder)
+        {
+            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "LessonMonitor.API." + nameFolder).ToArray();
             List<string> typelistNames = new List<string>();
 
             foreach (var typeNames in typelist)
