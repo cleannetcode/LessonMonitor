@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.API.Models
 {
     //При использовании атрибутов задействуется рефлексия, т. к. 
     //чтобы получить эти данные необходимо получить метаданные класса
