@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
-    
     public class ReflectionController : Controller
     {
         public IActionResult Index()
@@ -32,10 +31,11 @@ namespace LessonMonitor.API.Controllers
         }
 
 
-        [HttpGet("byName")]
-        public string[] GetModelsNamesDirr([FromQuery]string? nameFolder)
+        [HttpGet("ClassesNamesByDir")]
+        public string[] GetModelsNamesDirr([FromQuery]string nameFolder)
         {
-            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "LessonMonitor.API." + nameFolder).ToArray();
+            var beDot = nameFolder is null ? "" : ".";
+            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "LessonMonitor.API" + beDot + nameFolder).ToArray();
             List<string> typelistNames = new List<string>();
 
             foreach (var typeNames in typelist)
