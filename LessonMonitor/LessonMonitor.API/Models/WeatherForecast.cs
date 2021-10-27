@@ -2,9 +2,6 @@ using System;
 
 namespace LessonMonitor.API
 {
-    /// <summary>
-    /// Summary for test (get using reflection)
-    /// </summary>
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
