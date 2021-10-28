@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LessonMonitor.API.Controllers
 {
     [ApiController]
-    //[Route("controller")]
+    [Route("controller")]
     [Route("lesson")]
     public class LessonsController : ControllerBase
     {

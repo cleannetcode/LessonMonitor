@@ -9,7 +9,6 @@ namespace LessonMonitor.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-
     public class QuestionsController : ControllerBase
     {
         [HttpGet]
