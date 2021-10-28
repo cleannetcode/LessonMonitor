@@ -5,7 +5,7 @@ namespace LessonMonitor.Core
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetProduct();
+        IEnumerable<Product> GetProducts();
         Product GetProduct(int id);
     }
 }

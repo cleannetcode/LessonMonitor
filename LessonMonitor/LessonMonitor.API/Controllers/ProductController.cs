@@ -1,8 +1,7 @@
-﻿using LessonMonitor.API.Models;
-using LessonMonitor.Core;
+﻿using LessonMonitor.Core;
+using LessonMonitor.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -20,20 +19,9 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet]
-        public List<ProductDetails> Get()
+        public IEnumerable<Product> Get()
         {
-            List<ProductDetails> productDetails = new List<ProductDetails>();
-            var prodcutList = productService.GetProduct().ToList();
-            foreach (var product in prodcutList) {
-                var productDetailList = productDetailsService.GetProductDetail(product.Id);
-                ProductDetails details = new ProductDetails {
-                    Id = product.Id,
-                    Price = productDetailList.Price,
-                    StockAvailable = productDetailList.StockAvailable,
-                };
-                productDetails.Add(details);
-            }
-            return productDetails;
+            return productService.GetProducts();
         }
     }
 }

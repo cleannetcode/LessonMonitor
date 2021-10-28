@@ -14,7 +14,7 @@ namespace LessonMonitor.BusinessLogic
             this.productRepository = productRepository;
             this.productDetailsRepository = productDetailsRepository;
         }
-        public IEnumerable<Product> GetProduct()
+        public IEnumerable<Product> GetProducts()
         {
             return productRepository.GetAll();
         }

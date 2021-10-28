@@ -9,10 +9,16 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class GitHubController : Controller
     {
+        private IGitHubService gitHubService;
+
+        public GitHubController(IGitHubService service)
+        {
+            gitHubService = service;
+        }
+
         [HttpGet("GetUserByLogin")]
         public ActionResult<GitHubUser> GetUserByLogin(string login)
         {
-            IGitHubService gitHubService = new GitHubService();
             var user = gitHubService.GetUserByLogin(login);
 
             if (user == null)

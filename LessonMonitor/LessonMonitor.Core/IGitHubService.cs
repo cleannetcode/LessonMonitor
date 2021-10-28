@@ -4,6 +4,6 @@ namespace LessonMonitor.Core
 {
     public interface IGitHubService
     {
-        public GitHubUser GetUserByLogin(string login);
+        GitHubUser GetUserByLogin(string login);
     }
 }

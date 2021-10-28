@@ -1,8 +1,9 @@
 ﻿namespace LessonMonitor.API.Models
 {
-    public class Product : BaseEntity
+    public class Product
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ProductDetails Details { get; set; }
+        public ProductDetails Details { get; set; }
     }
 }

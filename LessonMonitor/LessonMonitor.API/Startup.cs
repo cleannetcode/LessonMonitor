@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Octokit;
 
 namespace LessonMonitor.API
 {
@@ -32,6 +33,7 @@ namespace LessonMonitor.API
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductDetailsService, ProductDetailsService>();
+            services.AddTransient<IGitHubService, GitHubService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
