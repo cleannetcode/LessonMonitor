@@ -24,7 +24,7 @@ namespace LessonMonitor.API.Controllers
             var result = Enumerable.Range(1, 5).Select(index => new Lesson
             {
                 LessonId = index,
-                DateAdd = DateTime.Now,
+                DateStart = DateTime.Now,
                 Tittle = "Lesson " + index + "." + "Topic " + topics[rng.Next(1, 5)],
                 Url = "https:/lessonurl" + index + DateTime.Now.DayOfWeek.ToString() + rng.Next(221,342)
             })
