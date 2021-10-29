@@ -24,6 +24,5 @@ namespace LessonMonitor.API.Models
             DateTime = DateTime.Now;
         }
 
-
     }
 }

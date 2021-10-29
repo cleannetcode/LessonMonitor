@@ -92,41 +92,24 @@ namespace LessonMonitor.API.Controllers
 
             foreach (var propertyInfo in propertiesInfo)
             {
-                properties.Add(new Property
+                var customAttributes = propertyInfo.GetCustomAttributes<MyDescriptionAttribute>();
+                string description = "";
+                
+                foreach (var attribute in customAttributes)
+                {
+                    description += $"{attribute.Text}";
+                }
+
+                    properties.Add(new Property
                 {
                     Name = propertyInfo.Name,
                     Type = propertyInfo.PropertyType.ToString(),
-                   // Description = propertyInfo.                 //не найдено
-                }) ;
+                    Description = description
+                    }); 
             }
-            return properties.ToArray(); ;
+            return properties.ToArray(); 
         }
-
-
-        [HttpGet("LessonMethods")]
-        public Property[] GetLessonMethods()
-        {
-            var lessonModel = typeof(Lesson);
-            var methods = lessonModel.GetMethods();
-            PropertyInfo[] propertiesInfo = lessonModel.GetProperties();
-
-            List<Property> properties = new List<Property>();
-
-            foreach (var propertyInfo in propertiesInfo)
-            {
-                properties.Add(new Property
-                {
-                    Name = propertyInfo.Name,
-                    Type = propertyInfo.PropertyType.ToString(),
-                    // Description = propertyInfo.                 //не найдено
-                });
-            }
-            return properties.ToArray(); ;
-        }
-
-
-
-
     }
 }
-      
+
+
