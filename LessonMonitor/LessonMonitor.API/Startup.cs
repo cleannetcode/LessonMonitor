@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LessonMonitor.API
 {
@@ -44,11 +46,19 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             //app.UseMiddleware<MyMiddlewareComponent>();
+
+            app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello");
+            });
+
 
             //app.Use((httpContext, next) =>
             //{
@@ -57,10 +67,41 @@ namespace LessonMonitor.API
             //    return task;
             //});
 
+            //app.Use((httpContext, next) =>
+            //{
+            //    var task = next();
+            //    var text = Encoding.UTF8.GetBytes("Test message");
+            //    httpContext.Response.Body.WriteAsync(text, 0, text.Length);
+
+            //    return task;
+            //});
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
+
     }
+
+
+    //public class MyTestMiddlewareComponent
+    //{
+    //    private readonly RequestDelegate _next;
+
+        
+    //    public MyTestMiddlewareComponent(RequestDelegate next)
+    //    {
+    //        _next = next;
+    //    }
+
+    //    public Task Invoke(HttpContext context)
+    //    {
+    //        return _next(context);
+    //    }
+
+    //}
+
 }

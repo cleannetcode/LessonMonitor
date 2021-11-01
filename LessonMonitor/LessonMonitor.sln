@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.API", "Lesson
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "LessonMonitor.DataBase\LessonMonitor.DataBase.sqlproj", "{A54EC47F-1ECB-4188-A127-CB465FB67979}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{DE2AA10A-F3C0-444A-8211-42709A44F396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{DE2AA10A-F3C0-444A-8211-42709A44F396}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4BCE8E1-F496-4AAA-8CB9-0B71577D78FA}"
+	ProjectSection(SolutionItems) = preProject
+		git-cheat-sheet.txt = git-cheat-sheet.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
