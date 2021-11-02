@@ -53,7 +53,7 @@ namespace LessonMonitor.API
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
-           // app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
+            // app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
 
             //app.Use((httpContext, next) =>
             //{
@@ -73,6 +73,31 @@ namespace LessonMonitor.API
 
 
             app.UseMiddleware<RequestLoggerMiddlewareComponent>();
+
+            app.Use((httpcontext, next) =>
+            {
+                var task = next();
+
+                var request = httpcontext.Request.HttpContext.Request;
+                string writePath = "Logs\\" + $"FromMethod_{DateTime.Today.ToShortDateString()}.log";
+
+                string text = $"{DateTime.Now.ToShortTimeString()} " +
+                    $"Protocol: {request.Protocol} " +
+                    $"Method: {request.Method} " +
+                    $"Path: {request.Path} " +
+                    $"Query: {request.QueryString}";
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                    {
+                        sw.WriteLine(text);
+                    }
+                }
+                catch { }
+
+
+                return task;
+            });
 
 
             app.UseEndpoints(endpoints =>

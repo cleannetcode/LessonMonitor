@@ -22,7 +22,7 @@ namespace LessonMonitor.API
         {
             
             var request = context.Request.HttpContext.Request;
-            string writePath = "Logs\\" + $"{DateTime.Today.ToShortDateString()}.log";
+            string writePath = "Logs\\" + $"FromClass_{DateTime.Today.ToShortDateString()}.log";
 
             string text = $"{DateTime.Now.ToShortTimeString()} " +
                 $"Protocol: {request.Protocol} " +
