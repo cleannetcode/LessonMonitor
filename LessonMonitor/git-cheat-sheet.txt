@@ -1,0 +1,4 @@
+git checkout develop
+git pull --rebase https://github.com/cleannetcode/LessonMonitor.git homework/aspnet/3
+git branch homework/aspnet/3
+git checkout homework/aspnet/3

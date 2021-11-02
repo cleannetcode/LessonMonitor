@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace LessonMonitor.API
 {
@@ -44,23 +47,46 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+           
+            app.UseMiddleware<RequestLoggerMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            app.Use((httpcontext, next) =>
+            {
+                var task = next();
 
-            //    return task;
-            //});
+                var request = httpcontext.Request.HttpContext.Request;
+                string writePath = "Logs\\" + $"FromMethod_{DateTime.Today.ToShortDateString()}.log";
+
+                string text = $"{DateTime.Now.ToShortTimeString()} " +
+                    $"Protocol: {request.Protocol} " +
+                    $"Method: {request.Method} " +
+                    $"Path: {request.Path} " +
+                    $"Query: {request.QueryString}";
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                    {
+                        sw.WriteLine(text);
+                    }
+                }
+                catch { }
+
+
+                return task;
+            });
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
+
     }
+
 }
