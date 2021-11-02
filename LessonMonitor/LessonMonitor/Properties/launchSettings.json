@@ -4,20 +4,20 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55921",
-      "sslPort": 44391
+      "applicationUrl": "http://localhost:34074",
+      "sslPort": 44350
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true, //if set false server will launched, but brouser not
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "LessonMonitor.API": {
+    "LessonMonitor": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
