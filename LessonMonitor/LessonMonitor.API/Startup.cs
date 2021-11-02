@@ -51,27 +51,7 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
-
-            // app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-            //    var text = Encoding.UTF8.GetBytes("Test message");
-            //    httpContext.Response.Body.WriteAsync(text, 0, text.Length);
-
-            //    return task;
-            //});
-
-
+           
             app.UseMiddleware<RequestLoggerMiddlewareComponent>();
 
             app.Use((httpcontext, next) =>
@@ -108,23 +88,5 @@ namespace LessonMonitor.API
         }
 
     }
-
-
-    //public class MyTestMiddlewareComponent
-    //{
-    //    private readonly RequestDelegate _next;
-
-        
-    //    public MyTestMiddlewareComponent(RequestDelegate next)
-    //    {
-    //        _next = next;
-    //    }
-
-    //    public Task Invoke(HttpContext context)
-    //    {
-    //        return _next(context);
-    //    }
-
-    //}
 
 }
