@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace LessonMonitor.API
 {
@@ -52,13 +53,7 @@ namespace LessonMonitor.API
 
             //app.UseMiddleware<MyMiddlewareComponent>();
 
-            app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello");
-            });
-
+           // app.UseMiddleware<TokenMiddleware>(); //localhost:.../?token=12345678
 
             //app.Use((httpContext, next) =>
             //{
@@ -75,6 +70,9 @@ namespace LessonMonitor.API
 
             //    return task;
             //});
+
+
+            app.UseMiddleware<RequestLoggerMiddlewareComponent>();
 
 
             app.UseEndpoints(endpoints =>
