@@ -28,7 +28,6 @@ namespace LessonMonitor.API.Controllers
         //}
 
 
-
         //методы (в asp.net наз actions) обычно IActionResult (похоже на декораторы в Python)
         [HttpGet("weatherInformation")]
         public IEnumerable<WeatherForecast> Get()
@@ -111,11 +110,7 @@ namespace LessonMonitor.API.Controllers
 
                     //2 способ
                     var specifiedValue = Convert.ChangeType(value, property.PropertyType);
-
-
                 }
-
-
             }
 
             return (WeatherForecast)obj;
