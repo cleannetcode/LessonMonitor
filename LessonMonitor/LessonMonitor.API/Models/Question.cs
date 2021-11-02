@@ -14,13 +14,13 @@ namespace LessonMonitor.API.Models
         private User user;
 
 
-        public int Id { get => id; set => id = value; }
-        public DateTime DateAdd { get => dateAdd; set => dateAdd = value; }
+        public int Id { get; set; }
+        public DateTime DateAdd { get; set; }
         [RegularExpression("{1,60}$",
          ErrorMessage = "Сформулируйте вопрос кратко (до 60 симв.)")]
-        public string Text { get => text; set => text = value; }
-        public User User { get => user; set => user = value; }
-        public string UserName { get; internal set; }
+        public string Text { get; set; }
+        public User User { get; set; }
+        public string UserName { get; set; }
 
         public Question()
         {
