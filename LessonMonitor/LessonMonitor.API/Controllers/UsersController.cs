@@ -10,7 +10,7 @@ using LessonMonitor.DataAccess;
 
 namespace LessonMonitor.API.Controllers
 {
-      [ApiController]
+    [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
@@ -20,13 +20,13 @@ namespace LessonMonitor.API.Controllers
         public UsersController()
         {
             IUsersRepository usersRepository = new UsersRepository();
-                IUsersService _userService = new UsersService(usersRepository);
+            IUsersService _userService = new UsersService(usersRepository);
         }
-       
+
         [HttpGet]
         public User[] Get(string userName)
         {
-            
+
 
             var user = _userService.Get();
 
