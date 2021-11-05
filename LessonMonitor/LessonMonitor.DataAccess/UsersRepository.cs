@@ -7,7 +7,6 @@ namespace LessonMonitor.DataAccess
     {
         public UsersRepository()
         {
-
         }
 
         public Core.User[] Get()

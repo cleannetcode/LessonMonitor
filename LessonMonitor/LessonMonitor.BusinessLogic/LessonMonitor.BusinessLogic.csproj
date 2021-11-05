@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LessonMonitor.Core\LessonMonitor.Core.csproj" />
-    <ProjectReference Include="..\LessonMonitor.DataAccess\LessonMonitor.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

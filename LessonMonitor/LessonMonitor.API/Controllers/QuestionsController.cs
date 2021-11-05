@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.BusinessLogic;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,26 @@ namespace LessonMonitor.API.Controllers
         [HttpGet]
         public Question[] Get(string questionText)
         {
-
-
-            //var user = _userService.Get();
-
+            var questionService = new QuestionsService();
+            var question = questionService.Get();
             var result = new Question(questionText);
 
             return new[] { result };
-
         }
+
+        [HttpPost]
+        public Question Create(Question newQuestion)
+        {
+            var questionService = new QuestionsService();
+            var question = new object();
+            questionService.Create(question);
+
+            return newQuestion;
+         
+        }
+
+
+
+
     }
 }
