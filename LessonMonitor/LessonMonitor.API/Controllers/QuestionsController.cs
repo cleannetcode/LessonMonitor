@@ -13,7 +13,7 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class QuestionsController: ControllerBase
     {
-        private IQuestionsService _questionsService; 
+        private readonly IQuestionsService _questionsService; 
 
         public QuestionsController()
         {
@@ -22,26 +22,36 @@ namespace LessonMonitor.API.Controllers
         }
 
         [HttpGet]
-        public Question[] Get(string questionText)
+        public IEnumerable<Question> Get()
         {
-            var question = _questionsService.Get();
-            var result = new Question(questionText);
-
-            return new[] { result };
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => 
+            new Question
+            {
+                Text = "Actually interresting question num_" + rng.Next(1, 55),
+                CreatedDate = DateTime.Now.AddDays(index),
+                
+            }) 
+            .ToArray();
         }
 
         [HttpPost]
-        public Question Create(Question newQuestion)
+        public string Create()
         {
-            var question = new Core.Question
+            var user = new Core.User
             {
-                Title = newQuestion.Title,
-                text = newQuestion.Text,
+                Name = "Alesha",
+                Age = 12,
+            };
+            var newQuestion = new Core.Question
+            {
+                Text = "Что почитать?",
+                User = user,
             };
 
-            _questionsService.Create(question);
-
-            return newQuestion;
+            _questionsService?.Create(newQuestion);
+                       
+            return $"User {newQuestion.User.Name} asks: {newQuestion.Text}";
         }
 
     }

@@ -1,4 +1,6 @@
-﻿namespace LessonMonitor.Core
+﻿using System;
+
+namespace LessonMonitor.Core
 {
     public interface IQuestionsService
     {

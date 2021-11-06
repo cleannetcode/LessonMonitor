@@ -45,7 +45,7 @@ namespace LessonMonitor.API.Controllers
                 Name = newUser.Name
             };
 
-            _userService.Create(user);
+            _userService?.Create(user);
 
             return newUser;
 

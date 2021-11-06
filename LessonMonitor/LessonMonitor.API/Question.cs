@@ -12,7 +12,7 @@ namespace LessonMonitor.API
         private string title { get; set; }      
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
-        public List<String> Tags { get; set; }
+        public List<string> Tags { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 
@@ -23,16 +23,27 @@ namespace LessonMonitor.API
             {
                 if (value == null)
                 {
-                    title = Text.Substring(0, 30);
+                    title = "Empty";
+                }else
+                {
+                    title = value;
                 }
-
             }
         }
         
         public Question(string text)
         {
             Text = text;
+            
         }
+
+        public Question()
+        {
+            Title = Text;
+           
+        }
+
+
 
     }
 }

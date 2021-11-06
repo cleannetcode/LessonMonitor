@@ -11,7 +11,7 @@ namespace LessonMonitor.API
         public string Name { get; set; }
 
         [Required]
-        [Range(1, 100)]
+        //[Range(1, 100)]
         public int Age { get; set; }
     }
 

@@ -16,6 +16,7 @@ namespace LessonMonitor.DataAccess
                 QuestionId = 1,
                 Title = "Can you",
                 text = "Can you see sharp?"
+                
             };
 
             return new[]
@@ -23,14 +24,14 @@ namespace LessonMonitor.DataAccess
                 new Core.Question
                 {
                     Title = question.Title,
-                    text = question.text
+                    Text = question.text
                 }
             };
         }
 
         public void Create(Core.Question question)
         {
-
+            
         }
     }
 }
