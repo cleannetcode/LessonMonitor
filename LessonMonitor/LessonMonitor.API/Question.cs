@@ -9,11 +9,6 @@ namespace LessonMonitor.API
 {
     public class Question
     {
-        public Question(string text)
-        {
-            Text = text;
-        }
-
         private string title { get; set; }      
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -33,7 +28,11 @@ namespace LessonMonitor.API
 
             }
         }
-
+        
+        public Question(string text)
+        {
+            Text = text;
+        }
 
     }
 }

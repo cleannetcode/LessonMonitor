@@ -24,7 +24,6 @@ namespace LessonMonitor.API.Controllers
         [HttpGet]
         public Question[] Get(string questionText)
         {
-            //var _questionsService = new QuestionsService();
             var question = _questionsService.Get();
             var result = new Question(questionText);
 
