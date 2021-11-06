@@ -1,22 +1,26 @@
 ﻿using LessonMonitor.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.BusinessLogic
 {
     public class QuestionsService : IQuestionsService
     {
-        public object[] Get()
+        private IQuestionsRepository _questionsRepository;
+
+        public QuestionsService(IQuestionsRepository questionsRepository)
         {
-            throw new NotImplementedException();
+            _questionsRepository = questionsRepository;
         }
 
-        public void Create(object question)
+        public Question[] Get()
         {
-            throw new NotImplementedException();
+            var questions = _questionsRepository.Get();
+
+            return questions;
+        }
+
+        public void Create(Question question)
+        {
+            _questionsRepository.Create(question);
         }
     }
 }

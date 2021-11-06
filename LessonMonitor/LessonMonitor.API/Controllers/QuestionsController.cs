@@ -1,4 +1,6 @@
 ﻿using LessonMonitor.BusinessLogic;
+using LessonMonitor.Core;
+using LessonMonitor.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,15 +13,19 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class QuestionsController: ControllerBase
     {
+        private IQuestionsService _questionsService; 
+
         public QuestionsController()
         {
+            IQuestionsRepository questionsRepository = new QuestionsRepository();
+            IQuestionsService _questionsService = new QuestionsService(questionsRepository);
         }
 
         [HttpGet]
         public Question[] Get(string questionText)
         {
-            var questionService = new QuestionsService();
-            var question = questionService.Get();
+            //var _questionsService = new QuestionsService();
+            var question = _questionsService.Get();
             var result = new Question(questionText);
 
             return new[] { result };
@@ -28,16 +34,16 @@ namespace LessonMonitor.API.Controllers
         [HttpPost]
         public Question Create(Question newQuestion)
         {
-            var questionService = new QuestionsService();
-            var question = new object();
-            questionService.Create(question);
+            var question = new Core.Question
+            {
+                Title = newQuestion.Title,
+                text = newQuestion.Text,
+            };
+
+            _questionsService.Create(question);
 
             return newQuestion;
-         
         }
-
-
-
 
     }
 }

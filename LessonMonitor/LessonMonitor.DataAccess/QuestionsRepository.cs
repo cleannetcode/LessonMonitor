@@ -1,10 +1,4 @@
 ﻿using LessonMonitor.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace LessonMonitor.DataAccess
 {
@@ -15,12 +9,26 @@ namespace LessonMonitor.DataAccess
 
         }
 
-        public object[] Get()
+        public Core.Question[] Get()
         {
-            throw new NotImplementedException();
+            var question = new Question
+            {
+                QuestionId = 1,
+                Title = "Can you",
+                text = "Can you see sharp?"
+            };
+
+            return new[]
+            {
+                new Core.Question
+                {
+                    Title = question.Title,
+                    text = question.text
+                }
+            };
         }
 
-        public void Create(object question)
+        public void Create(Core.Question question)
         {
 
         }

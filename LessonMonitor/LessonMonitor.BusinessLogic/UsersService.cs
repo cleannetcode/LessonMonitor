@@ -6,6 +6,7 @@ namespace LessonMonitor.BusinessLogic
     public class UsersService : IUsersService
     {
         private IUsersRepository _usersRepository;
+
         public UsersService(IUsersRepository usersRepository)
         {
             _usersRepository = usersRepository;

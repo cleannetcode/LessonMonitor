@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace LessonMonitor.API
+namespace LessonMonitor.DataAccess
 {
     public class Question
     {
-        public Question(string text)
-        {
-            Text = text;
-        }
-
-        private string title { get; set; }      
-        public string Text { get; set; }
+        public int QuestionId { get; set; }
+        private string title { get; set; }
+        public string text { get; set; }
         public DateTime CreatedDate { get; set; }
         public List<String> Tags { get; set; }
         public int UserId { get; set; }
@@ -28,12 +23,10 @@ namespace LessonMonitor.API
             {
                 if (value == null)
                 {
-                    title = Text.Substring(0, 30);
+                    title = text.Substring(0, 30);
                 }
 
             }
         }
-
-
     }
 }
