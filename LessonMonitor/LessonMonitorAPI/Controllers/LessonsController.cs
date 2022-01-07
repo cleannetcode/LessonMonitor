@@ -41,7 +41,14 @@ namespace LessonMonitor.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetLesson(int id)
         {
-            return Ok(Lessons[id]);
+            if (0 <= id && id < 10)
+            {
+                return Ok(Lessons[id]);
+            }
+            else
+            {
+                return BadRequest("Урок не найден");
+            }
         }
     }
 }
