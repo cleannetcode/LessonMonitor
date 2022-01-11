@@ -18,16 +18,6 @@ namespace LessonMonitor
             DateEnd = dateEnd;
         }
 
-        //public Project(string name, Person manager, DateTime dateStart, DateTime dateEnd)
-        //{
-        //    Name = name;
-        //    Manager = manager;
-
-        //    DateStart = dateStart;
-        //    DateEnd = dateEnd;
-        //}
-
-
         public void ChangeResult(Status status)
         {
             switch (status)
