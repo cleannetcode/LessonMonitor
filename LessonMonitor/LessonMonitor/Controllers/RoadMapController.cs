@@ -40,6 +40,12 @@ namespace LessonMonitor.Controllers
             switch (decide)
             {
                 case Decide.RoadMap:
+
+                    if (element > _roadMaps.ToArray().Length)
+                    {
+                        return BadRequest("Задача не найдена!");
+                    }
+
                     _roadMaps.ElementAt(element).Change(status);
                     break;
                 
