@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor
 {
-    public interface TestExt
+    public interface ITaskManager
     {
         public Status Status { get; set; }
         public void ChangeStatus(Status status);

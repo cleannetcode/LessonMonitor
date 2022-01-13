@@ -8,9 +8,9 @@ namespace LessonMonitor
 {
     public static class ChangeResult
     {
-        public static void Change(this TestExt testExt, Status status)
+        public static void Change(this ITaskManager taskManager, Status status)
         {
-            testExt.ChangeStatus(status);
+            taskManager.ChangeStatus(status);
         }
     }
 }

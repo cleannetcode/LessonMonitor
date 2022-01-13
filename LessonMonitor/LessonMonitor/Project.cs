@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor
 {
-    public class Project : TestExt
+    public class Project : ITaskManager
     {
         public Project(string name, Person manager, Status status, DateTime dateStart, DateTime dateEnd)
         {
