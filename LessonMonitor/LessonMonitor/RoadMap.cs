@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor
 {
-    public class RoadMap
+    public class RoadMap : TestExt
     {
         public RoadMap(Project project, Person person, string task, Status status, DateTime dateStart, DateTime dateEnd)
         {

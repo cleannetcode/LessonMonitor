@@ -6,39 +6,39 @@ using System.Threading.Tasks;
 
 namespace LessonMonitor
 {
-    public class Project
+    public class Project : TestExt
     {
-        public Project(string name, Person manager, Status result, DateTime dateStart, DateTime dateEnd)
+        public Project(string name, Person manager, Status status, DateTime dateStart, DateTime dateEnd)
         {
             Name = name;
             Manager = manager;
-            Result = result;
+            Status = status;
 
             DateStart = dateStart;
             DateEnd = dateEnd;
         }
 
-        public void ChangeResult(Status status)
+        public void ChangeStatus(Status status)
         {
             switch (status)
             {
                 case Status.NotStart:
-                    Result = Status.NotStart;
+                    Status = Status.NotStart;
                     break;
 
                 case Status.InProgress:
-                    Result = Status.InProgress;
+                    Status = Status.InProgress;
                     break;
 
                 case Status.Overdue:
-                    Result = Status.Overdue;
+                    Status = Status.Overdue;
                     break;
             }
         }
 
         public string Name{ get; set; }
         public Person Manager { get; set; }
-        public Status Result { get; set; }
+        public Status Status { get; set; }
 
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }

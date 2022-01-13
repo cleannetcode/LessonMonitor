@@ -18,11 +18,9 @@ namespace LessonMonitor
             roadMaps.Add(new RoadMap(proj, GetPerson(), task.ToString(), GetStatus(), dateStart: dateStart, dateEnd: dateEnd));
         }
 
-        public List<RoadMap> GetRoadsMap()
+        public List<RoadMap> GetRoadsMap(Project proj)
         {
             List<RoadMap> roadMaps = new List<RoadMap>();
-
-            var proj = GetProject();
 
             var tasks = GetTask();
 
@@ -59,13 +57,6 @@ namespace LessonMonitor
             }
 
             return roadMaps;
-        }
-
-        private Project GetProject()
-        {
-            var proj = new Project("Выпуск продукта", new Person("Алексей", "C"), Status.InProgress, dateStart: new DateTime(2020, 05, 08), dateEnd: new DateTime(2020, 06, 16));
-
-            return proj;
         }
 
         private Status GetStatus()
