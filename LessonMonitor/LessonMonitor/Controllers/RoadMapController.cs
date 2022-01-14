@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,14 @@ namespace LessonMonitor.Controllers
         public IActionResult Get()
         {
             var genRoadMap = new GenerateRoadMap();
-            _project = new Project("Выпуск продукта", new Person("Алексей", "C"), Status.InProgress, dateStart: new DateTime(2020, 05, 08), dateEnd: new DateTime(2020, 06, 16));
+
+            _project = new Project(
+                "Выпуск продукта", 
+                new Person("Алексей", "C"), 
+                Status.InProgress, 
+                dateStart: new DateTime(2020, 05, 08), 
+                dateEnd: new DateTime(2020, 06, 16));
+
             _roadMaps = genRoadMap.GetRoadsMap(_project);
 
             return Ok(_roadMaps);

@@ -26,8 +26,8 @@ namespace LessonMonitor
 
             for (int i = 0; i < 15; i++)
             {
-                DateTime dateStart = GetDateStart();
-                DateTime dateEnd = GetDateEnd();
+                DateTime dateStart = GetDate();
+                DateTime dateEnd = GetDate();
 
                 if (dateStart.Year > dateEnd.Year)
                 {
@@ -130,18 +130,14 @@ namespace LessonMonitor
             return persons[random.Next(0, persons.Count)];
         }
 
-        private DateTime GetDateStart()
+        private DateTime GetDate()
         {
             Random random = new Random();
 
-            return new DateTime(2020, random.Next(5, 8), random.Next(8, 32));
-        }
+            int year = 2020;
+            int month = random.Next(5, 8);
 
-        private static DateTime GetDateEnd()
-        {
-            Random random = new Random();
-
-            return new DateTime(2020, random.Next(5, 8), random.Next(8, 32));
+            return new DateTime(year, month, random.Next(8, DateTime.DaysInMonth(year, month)));
         }
     }
 }
