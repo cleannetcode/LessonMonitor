@@ -57,4 +57,14 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="RoadMap.sql" />
+    <Build Include="Member.sql" />
+    <Build Include="Topic.sql" />
+    <Build Include="Lesson.sql" />
+    <Build Include="Skill.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="LessonMonitorDB.refactorlog" />
+  </ItemGroup>
 </Project>
