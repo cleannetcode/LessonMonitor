@@ -28,7 +28,7 @@ namespace LessonMonitor.Roadmaps
         [Task]
         public string _task { get; set; }
 
-        [Description("Человек, которую создал эту задачу")]
+        [Description("Человек, который создал эту задачу")]
         [PersonName]
         public Person _person { get; set; }
 
