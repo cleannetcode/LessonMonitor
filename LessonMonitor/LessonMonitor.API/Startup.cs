@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LessonMonitor.API.Extensions;
 
 namespace LessonMonitor.API
 {
@@ -56,6 +57,8 @@ namespace LessonMonitor.API
 
             //    return task;
             //});
+
+            app.UseQueryLogger();
 
             app.UseEndpoints(endpoints =>
             {
