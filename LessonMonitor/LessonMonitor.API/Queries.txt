@@ -20,3 +20,4 @@ Query: /WeatherForecast			Date: 30.01.2022 10:42:53
 Query: /WeatherForecast/model1			Date: 30.01.2022 10:42:56
 Query: /WeatherForecast/			Date: 30.01.2022 10:43:01
 Query: /WeatherForecast/			Date: 30.01.2022 10:44:49
+Query: /WeatherForecast/			Date: 30.01.2022 10:50:11

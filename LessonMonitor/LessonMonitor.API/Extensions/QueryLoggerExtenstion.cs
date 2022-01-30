@@ -8,7 +8,7 @@ using LessonMonitor.API.Middlewares;
 
 namespace LessonMonitor.API.Extensions
 {
-    public static class QueryLoggerExtenstion
+    public static class QueryLoggerExtension
     {
         public static IApplicationBuilder UseQueryLogger(this IApplicationBuilder builder)
         {
