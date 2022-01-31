@@ -35,11 +35,6 @@ namespace LessonMonitor.API.Middlewares
             using (StreamWriter sw = new StreamWriter(pathQueriLogFile, true, Encoding.UTF8))
             {
                 await sw.WriteLineAsync($"Query: {path}\t\t\tDate: {DateTime.UtcNow}");
-
-                if (path == "/favicon.ico")
-                {
-                    await sw.WriteLineAsync($"");
-                }
             }
 
             await _next.Invoke(context);

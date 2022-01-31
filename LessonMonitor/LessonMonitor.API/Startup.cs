@@ -58,7 +58,9 @@ namespace LessonMonitor.API
             //    return task;
             //});
 
+            app.UseMyExceptionHandler();
             app.UseQueryLogger();
+            app.UseHeadersCheker();
 
             app.UseEndpoints(endpoints =>
             {
