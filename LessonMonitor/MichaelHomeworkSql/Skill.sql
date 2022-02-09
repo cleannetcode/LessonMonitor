@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Skill]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(MAX) NULL
+)
