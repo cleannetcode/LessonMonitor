@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitorDB", "LessonMonitorDB\LessonMonitorDB.sqlproj", "{384AC205-D62F-4E42-85EB-31F951A04C6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384AC205-D62F-4E42-85EB-31F951A04C6E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24F36F73-9CE3-4C2D-AE08-8951FF03777B}
+	EndGlobalSection
+EndGlobal
