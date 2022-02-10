@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Reflection;
+using HomeworkApi.Attributes;
+using HomeworkApi.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeworkApi.Controllers
@@ -26,6 +29,49 @@ namespace HomeworkApi.Controllers
             }
 
             return materials;
+        }
+
+        [HttpGet("model")]
+        public IEnumerable<ClassModel> GetModel(string nameSpace)
+        {
+            var result = new List<ClassModel>();
+
+            var currentAssembly = Assembly.GetAssembly(GetType());
+
+            if (currentAssembly == null)
+                return result;
+
+            var classes = currentAssembly.GetTypes().Where(type => type.Namespace == nameSpace);
+
+            foreach (var classType in classes)
+            {
+                var classModel = new ClassModel
+                {
+                    Name = classType.Name,
+                    PropertyModels = new List<PropertyModel>()
+                };
+                
+                var classDescription = classType.GetCustomAttribute<DescriptionAttribute>();
+                classModel.Description = classDescription == null ? "" : classDescription.Description;
+                
+                foreach (var propertyInfo in classType.GetProperties())
+                {
+                    var propertyModel = new PropertyModel
+                    {
+                        Name = propertyInfo.Name,
+                        PropertyTypeName = propertyInfo.PropertyType.Name
+                    };
+
+                    var propertyDescription = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
+                    propertyModel.Description = propertyDescription == null ? "" : propertyDescription.Description;
+
+                    classModel.PropertyModels.Add(propertyModel);
+                }
+
+                result.Add(classModel);
+            }
+
+            return result;
         }
     }
 }

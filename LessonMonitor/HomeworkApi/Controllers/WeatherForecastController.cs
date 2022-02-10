@@ -1,3 +1,4 @@
+using HomeworkApi.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeworkApi.Controllers
