@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -48,14 +49,27 @@ namespace LessonMonitor.API
 
             app.UseRouting();
 
-            //app.UseMiddleware<MyMiddlewareComponent>();
+            app.UseMiddleware<MyMiddlewareComponent>();
 
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
+            app.Use((httpContext, next) =>
+            {
+                var path = "log2.txt";
+                if (!File.Exists(path))
+                {
+                    using var stream = File.CreateText(path);
+                    stream.WriteLine("Start Log File");
+                }
 
-            //    return task;
-            //});
+                using var sw = File.AppendText(path);
+                sw.WriteLine(new string('-', 30));
+                sw.WriteLine(httpContext.Request.Path);
+                sw.WriteLine(httpContext.Request.Method);
+                sw.WriteLine(httpContext.Request.ContentType);
+                sw.WriteLine(new string('-', 30));
+                var task = next();
+
+                return task;
+            });
 
             app.UseEndpoints(endpoints =>
             {
