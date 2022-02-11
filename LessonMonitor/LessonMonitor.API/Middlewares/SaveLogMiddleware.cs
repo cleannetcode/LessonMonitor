@@ -9,22 +9,22 @@ using System.Text.Encodings;
 
 namespace LessonMonitor.API.Middlewares
 {
-    public class SaveQueryLogMiddleware
+    public class SaveLogMiddleware
     {
         private RequestDelegate _next;
 
-        public SaveQueryLogMiddleware(RequestDelegate next)
+        public SaveLogMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            string pathQueriLogFile = "Queries.txt";
+            string pathLogFile = "log.txt";
 
-            var path = context.Request.Path.Value;
+            var path = $"{context.Request.Host}{context.Request.Path}";
 
-            FileInfo queryLogFile = new FileInfo(pathQueriLogFile);
+            FileInfo queryLogFile = new FileInfo(pathLogFile);
 
             // Если лог файла не существует, его создают
             if (!queryLogFile.Exists)
@@ -32,7 +32,7 @@ namespace LessonMonitor.API.Middlewares
                 queryLogFile.Create();
             }
 
-            using (StreamWriter sw = new StreamWriter(pathQueriLogFile, true, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(pathLogFile, true, Encoding.UTF8))
             {
                 await sw.WriteLineAsync($"Query: {path}\t\t\tDate: {DateTime.UtcNow}");
             }

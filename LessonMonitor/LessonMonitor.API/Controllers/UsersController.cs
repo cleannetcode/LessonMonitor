@@ -43,15 +43,15 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        //private readonly IUserRepository userRepository;
 
-        public UsersController(IUserRepository userRepository)
-        {
-            this.userRepository = userRepository;
-        }
+        //public UsersController(IUserRepository userRepository)
+        //{
+        //    this.userRepository = userRepository;
+        //}
 
-        [HttpGet]
-        public User[] Get(string userName)
+        [HttpGet("[action]")]
+        public List<User> Get(string userName)
         {
             // sOlid
 
@@ -74,13 +74,13 @@ namespace LessonMonitor.API.Controllers
             {
                 var user = new User();
 
-                user.Name = userName + i;
+                user.Name = userName + i.ToString();
                 user.Age = random.Next(20, 51);
 
                 users.Add(user);
             }
 
-            return users.ToArray();
+            return users;
         }
 
         [HttpGet("model")]
