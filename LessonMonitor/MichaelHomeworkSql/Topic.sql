@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Topic]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(50) NOT NULL, 
+    [Skills] NVARCHAR(MAX) NULL
+)
