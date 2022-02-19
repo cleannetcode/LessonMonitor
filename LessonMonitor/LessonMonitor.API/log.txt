@@ -1,0 +1,3 @@
+﻿Query: localhost:44391/Users/Get			Date: 11.02.2022 15:15:41
+Query: localhost:44391/Users/Get			Date: 11.02.2022 15:17:41
+Query: localhost:44391/Users/Get			Date: 11.02.2022 15:18:23
