@@ -1,4 +1,6 @@
-﻿namespace LessonMonitor.API.Controllers
+﻿using LessonMonitor.Domain;
+
+namespace LessonMonitor.Core
 {
     public interface IUserRepository
     {

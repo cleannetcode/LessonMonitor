@@ -1,43 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using LessonMonitor.Core;
+using LessonMonitor.Domain;
 
 namespace LessonMonitor.API.Controllers
 {
-    public class UserCacheRepository : IUserRepository
-    {
-        private readonly IUserRepository repository;
-
-        public UserCacheRepository(UserRespository repository, ICacheManager cacheManager)
-        {
-            this.repository = repository;
-        }
-
-        public User Get(string userName)
-        {
-            // get from cache 
-            // if null  var user = IUserRepository.Get(userName);
-            //          save user into cache
-            // else return user
-
-            return repository.Get(userName);
-        }
-    }
-
-    public interface ICacheManager
-    {
-    }
-
-    public class UserRespository : IUserRepository
-    {
-        public User Get(string userName)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     [ApiController]
     [Route("[controller]")]
