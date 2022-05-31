@@ -196,7 +196,8 @@ SELECT l.Name, Count(q.Id) as N'Кількість питань', Count(tc.Id) a
 LEFT JOIN MemberToLesson ml ON l.Id = ml.LessonId
 LEFT JOIN Question q ON l.Id = q.LessonId
 LEFT JOIN TimeCode tc ON l.Id = tc.LessonId
-GROUP BY l.Name
+GROUP BY l.Name, l.CreateDate
+ORDER BY l.CreateDate
 
 SELECT * FROM Member
 
@@ -228,3 +229,9 @@ DELETE Member
 WHERE NickName LIKE '%bot%'
 
 SELECT * FROM Member
+
+
+SELECT  m.NickName, tc.Name, tc.Time FROM Lesson l
+LEFT JOIN TimeCode tc ON l.Id = tc.LessonId
+LEFT JOIN Member m ON m.Id = tc.MemberId
+WHERE l.Id = 3
