@@ -2,7 +2,7 @@
 
 namespace LessonMonitor.BL
 {
-    internal class GitHubService: IGitHubService
+    public class GitHubService: IGitHubService
     {
     }
 }
