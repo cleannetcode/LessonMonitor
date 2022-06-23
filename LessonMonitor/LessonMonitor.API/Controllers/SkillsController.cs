@@ -10,18 +10,22 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class SkillsController : ControllerBase
     {
-        public static string[] nameSkill = new[]
+        public static string[] NameSkill = new[]
         {"Front-end", "Back-end", "Softskill", "Magic", "Strength", "Intellect", "Communication", "Leadership", "Time Management", "Teamwork"};
+
+        public static string[] NameLevel = new[]
+        {"Hight", "Medium", "Low"};
 
         [HttpGet]
 
         public IEnumerable<Skills> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Skills
+            return Enumerable.Range(1, 10).Select(index => new Skills
             {
-                Skill = nameSkill[rng.Next(nameSkill.Length)],
-
+                Skill = NameSkill[rng.Next(NameSkill.Length)],
+                Level = NameLevel[rng.Next(NameLevel.Length)],
+                Expirience = rng.Next(1, 100)
             });
         }
     }
