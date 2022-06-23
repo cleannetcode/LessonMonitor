@@ -13,7 +13,12 @@ namespace LessonMonitor.API.Controllers
         public static string[] nameSkill = new[]
         {"Front-end", "Back-end", "Softskill", "Magic", "Strength", "Intellect", "Communication", "Leadership", "Time Management", "Teamwork"};
 
-        //[HttpGet]
+        [HttpGet]
 
+        public IEnumerable<Skills> Get()
+        {
+            var rng = new Random();
+
+        }
     }
 }

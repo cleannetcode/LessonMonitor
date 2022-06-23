@@ -11,5 +11,7 @@ namespace LessonMonitor.API
 
         public int Expirience { get; set; }
 
+        public string Skill { get; set; }
+
     }
 }
