@@ -18,7 +18,11 @@ namespace LessonMonitor.API.Controllers
         public IEnumerable<Skills> Get()
         {
             var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new Skills
+            {
+                Skill = nameSkill[rng.Next(nameSkill.Length)],
 
+            });
         }
     }
 }
