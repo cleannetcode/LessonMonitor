@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace LessonMonitor.API.Controllers
 {
     [ApiController]
-    //[Route("[controller]")]
-    [Route("TestApi")]
+    [Route("[controller]")]
+    //[Route("TestApi")]
     public class WeatherForecastController : ControllerBase
     {
-        //private static readonly string[] Summaries = new[]
-        //{
-        //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        //};
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
 
         //private readonly ILogger<WeatherForecastController> _logger;
 
@@ -32,7 +32,7 @@ namespace LessonMonitor.API.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                //Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
         }
