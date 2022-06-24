@@ -10,7 +10,6 @@ namespace LessonMonitor.API.Controllers
     {
         public UsersController()
         {
-
         }
 
         [HttpGet]
