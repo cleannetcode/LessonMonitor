@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LessonMonitor.API
+﻿namespace LessonMonitor.API
 {
     public class Skills
     {
@@ -12,6 +7,5 @@ namespace LessonMonitor.API
         public int Expirience { get; set; }
 
         public string Skill { get; set; }
-
     }
 }

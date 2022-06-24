@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LessonMonitor.API.Controllers
@@ -17,7 +16,6 @@ namespace LessonMonitor.API.Controllers
         {"Hight", "Medium", "Low"};
 
         [HttpGet]
-
         public IEnumerable<Skills> Get()
         {
             var rng = new Random();

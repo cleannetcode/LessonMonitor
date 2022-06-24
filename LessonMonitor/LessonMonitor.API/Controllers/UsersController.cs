@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -21,7 +19,7 @@ namespace LessonMonitor.API.Controllers
             var random = new Random();
             var users = new List<User>();
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var user = new User();
 
