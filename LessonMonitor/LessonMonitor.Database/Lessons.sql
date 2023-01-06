@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Lessons]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY, 
+    [Title] NVARCHAR(1000) NOT NULL, 
+    [Scheduled] DATETIME NOT NULL
+)
