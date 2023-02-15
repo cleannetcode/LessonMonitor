@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using LessonMonitor.API.Data;
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
+using LessonMonitor.API.Attributes;
 
 namespace LessonMonitor.API.Controllers
 {
@@ -33,7 +37,8 @@ namespace LessonMonitor.API.Controllers
             {
                 Id = i,
                 Title = _questionTitles[random.Next(_questionTitles.Length)],
-                Author = _authors[random.Next(_authors.Length)]
+                Author = _authors[random.Next(_authors.Length)],
+                PostDate = DateTime.Now.AddDays(-(random.NextDouble() * 10)),
             });
         }
 
@@ -47,15 +52,91 @@ namespace LessonMonitor.API.Controllers
                 Id = id,
                 Author = _authors[random.Next(_authors.Length)],
                 Title = _questionTitles[random.Next(_questionTitles.Length)],
+                PostDate = DateTime.Now.AddDays(-(random.NextDouble() * 10))
             };
         }
-    }
 
-    public class Question
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-    }
+        [HttpPost]
+        public ActionResult PostQuestion([FromBody] Question question)
+        {
+            var validationResult = ValidateQuestion(question);
 
+            if (!validationResult.Valid)
+            {
+                return BadRequest(validationResult.ErrorMessage ?? "Error has occured");
+            }
+
+            return Ok();
+        }
+
+        private QuestionValidationResult ValidateQuestion(Question question)
+        {
+            var type = typeof(Question);
+            var attribute = type.GetCustomAttribute<ValidateQuestionAttribute>();
+
+            if (attribute is not null)
+            {
+                var valid = attribute.IsValid(question);
+                return valid ?
+                    new QuestionValidationResult(true, null) :
+                    new QuestionValidationResult(valid, attribute.ErrorMessage);
+            }
+
+            return new QuestionValidationResult(true, null);
+        }
+
+        private record QuestionValidationResult(bool Valid, string? ErrorMessage);
+
+        [HttpGet("metadata")]
+        public string GetMetadata()
+        {
+            const string TARGET_NAMESPACE = "LessonMonitor.API.Data";
+
+            var namespaceTypes = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => t.Namespace == TARGET_NAMESPACE)
+                .Select(t => new ClassData
+                {
+                    Name = t.Name,
+                    Properties = t.GetProperties().Select(p => new PropertyData
+                    {
+                        Name = p.Name,
+                        Description = $"Can read: {p.CanRead}, can write: {p.CanWrite}, " +
+                            $"get method name: {p.GetMethod?.Name ?? "(absent)"}, " +
+                            $"set method name: {p.SetMethod?.Name ?? "(absent)"}",
+                        Type = p.PropertyType.Name
+                    })
+                    .ToArray()
+                });
+
+            var result = string.Join("\n", namespaceTypes);
+            return result;
+        }
+
+        private class ClassData
+        {
+            public string Name { get; set; }
+            public PropertyData[] Properties { get; set; }
+
+            public override string ToString()
+            {
+                return $"Class name: {Name}\n" +
+                    $"Properties: \n{string.Join("\n", Properties.AsEnumerable())}\n";
+            }
+        }
+
+        private class PropertyData
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public string Type { get; set; }
+
+            public override string ToString()
+            {
+                return $"Property name: {Name}\n" +
+                    $"Description: {Description}\n" +
+                    $"Property type: {Type}\n"; 
+            }
+        }
+    }
 }
