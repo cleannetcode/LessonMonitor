@@ -1,3 +1,4 @@
+using LessonMonitor.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,7 +27,7 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<ILogService, FileLogService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -44,18 +45,10 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            //app.UseMiddleware<MyMiddlewareComponent>();
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
+            app.UseLogging();
 
             app.UseEndpoints(endpoints =>
             {
