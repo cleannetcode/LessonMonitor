@@ -45,18 +45,9 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            //app.UseMiddleware<MyMiddlewareComponent>();
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
 
             app.UseEndpoints(endpoints =>
             {
