@@ -16,9 +16,9 @@ namespace LessonMonitor.API.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly IWeatherForecastService _weatherForecastService;
-        public WeatherForecastController()
+        public WeatherForecastController(IWeatherForecastService weatherForecastService)
         {
-            _weatherForecastService = new WeatherForecastService(new WeatherForecastRepository());
+            _weatherForecastService = weatherForecastService;
         }
 
         [HttpGet("search")]

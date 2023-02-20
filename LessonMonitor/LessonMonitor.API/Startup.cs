@@ -1,3 +1,6 @@
+using LessonMonitor.BL;
+using LessonMonitor.Core;
+using LessonMonitor.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +30,8 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
