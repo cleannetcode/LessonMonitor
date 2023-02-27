@@ -1,16 +1,16 @@
-using LessonMonitor.Core;
+using LessonMonitor.Core.Repositories;
 using System;
 
 namespace LessonMonitor.DataAccess
 {
-	public class UsersRepository : IUsersRepository
+    public class UsersRepository : IUsersRepository
 	{
 		public UsersRepository()
 		{
 
 		}
 
-		public Core.User[] Get()
+		public Core.Models.User[] Get()
 		{
 			var user = new User
 			{
@@ -20,7 +20,7 @@ namespace LessonMonitor.DataAccess
 			};
 
 			return new[] {
-				new Core.User
+				new Core.Models.User
 				{
 					Name = user.Name,
 					Age = user.Age
@@ -28,7 +28,7 @@ namespace LessonMonitor.DataAccess
 			};
 		}
 
-		public void Create(Core.User user)
+		public void Create(Core.Models.User user)
 		{
 
 		}

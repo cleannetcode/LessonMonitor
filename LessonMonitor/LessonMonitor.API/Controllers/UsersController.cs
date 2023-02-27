@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using LessonMonitor.BusinessLogic;
-using LessonMonitor.Core;
 using LessonMonitor.DataAccess;
+using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Services;
 
 namespace LessonMonitor.API.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("[controller]")]
 	public class UsersController : ControllerBase
 	{
@@ -31,7 +32,7 @@ namespace LessonMonitor.API.Controllers
 		[HttpPost]
 		public User Create(User newUser)
 		{
-			var user = new Core.User
+			var user = new Core.Models.User
 			{
 				Age = newUser.Age,
 				Name = newUser.Name

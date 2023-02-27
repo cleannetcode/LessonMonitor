@@ -1,8 +1,10 @@
-using LessonMonitor.Core;
+using LessonMonitor.Core.Models;
+using LessonMonitor.Core.Repositories;
+using LessonMonitor.Core.Services;
 
 namespace LessonMonitor.BusinessLogic
 {
-	public class UsersService : IUsersService
+    public class UsersService : IUsersService
 	{
 		private IUsersRepository _usersRepository;
 
