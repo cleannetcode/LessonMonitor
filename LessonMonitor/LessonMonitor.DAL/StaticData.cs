@@ -9,6 +9,7 @@ namespace LessonMonitor.DAL
     internal static class StaticData
     {
         private const int DATA_COUNT = 100;
+        private static readonly DateTime _seedDate = new DateTime(2023, 1, 1);
         private static readonly string[] _summaries =
         {
             "Ясно",
@@ -31,7 +32,7 @@ namespace LessonMonitor.DAL
             .Select(i => new WeatherForecastModel
             {
                 Id = i,
-                Date = DateTime.Now.AddDays(i - DATA_COUNT / 2),
+                Date = _seedDate.AddDays(i - DATA_COUNT / 2),
                 TemperatureC = new Random().Next(-30, 10),
                 Summary = _summaries[new Random().Next(0, _summaries.Length)],
             })
