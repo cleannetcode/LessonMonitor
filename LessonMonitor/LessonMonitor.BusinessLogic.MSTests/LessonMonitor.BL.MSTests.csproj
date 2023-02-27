@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LessonMonitor.BusinessLogic\LessonMonitor.BusinessLogic.csproj" />
+    <ProjectReference Include="..\LessonMonitor.BL\LessonMonitor.BL.csproj" />
   </ItemGroup>
 
 </Project>

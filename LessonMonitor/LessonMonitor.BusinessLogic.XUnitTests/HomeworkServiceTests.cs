@@ -4,7 +4,7 @@ using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Models;
 using LessonMonitor.Core.Exceptions;
 
-namespace LessonMonitor.BusinessLogic.XUnitTests
+namespace LessonMonitor.BL.XUnitTests
 {
     public class HomeworkServiceTests
     {

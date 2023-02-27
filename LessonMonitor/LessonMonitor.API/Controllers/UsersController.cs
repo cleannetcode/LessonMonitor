@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using LessonMonitor.BusinessLogic;
 using LessonMonitor.DataAccess;
 using LessonMonitor.Core.Repositories;
 using LessonMonitor.Core.Services;
+using LessonMonitor.BL;
 
 namespace LessonMonitor.API.Controllers
 {

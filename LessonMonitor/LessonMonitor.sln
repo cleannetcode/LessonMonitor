@@ -7,17 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.API", "Lesson
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LessonMonitor.DataBase", "LessonMonitor.DataBase\LessonMonitor.DataBase.sqlproj", "{A54EC47F-1ECB-4188-A127-CB465FB67979}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{743F7589-E03E-42BC-849A-C6EC9AC6D665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.Core", "LessonMonitor.Core\LessonMonitor.Core.csproj", "{743F7589-E03E-42BC-849A-C6EC9AC6D665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.BL", "LessonMonitor.BL\LessonMonitor.BL.csproj", "{8DCF0EAE-462E-40FF-8A20-7BACE8BF1946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BL", "LessonMonitor.BL\LessonMonitor.BL.csproj", "{8DCF0EAE-462E-40FF-8A20-7BACE8BF1946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonMonitor.DAL", "LessonMonitor.DAL\LessonMonitor.DAL.csproj", "{76D6E670-3CA7-4F83-B595-AF4AAB19E691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.DAL", "LessonMonitor.DAL\LessonMonitor.DAL.csproj", "{76D6E670-3CA7-4F83-B595-AF4AAB19E691}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.XUnitTests", "LessonMonitor.BusinessLogic.XUnitTests\LessonMonitor.BusinessLogic.XUnitTests.csproj", "{1F64737B-78F2-486A-AA37-4C0CF17AF262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BL.XUnitTests", "LessonMonitor.BusinessLogic.XUnitTests\LessonMonitor.BL.XUnitTests.csproj", "{1F64737B-78F2-486A-AA37-4C0CF17AF262}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.NUnitTests", "LessonMonitor.BusinessLogic.NUnitTests\LessonMonitor.BusinessLogic.NUnitTests.csproj", "{61046409-7039-4F47-A8E5-34C44FC2ADD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BL.NUnitTests", "LessonMonitor.BusinessLogic.NUnitTests\LessonMonitor.BL.NUnitTests.csproj", "{61046409-7039-4F47-A8E5-34C44FC2ADD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BusinessLogic.MSTests", "LessonMonitor.BusinessLogic.MSTests\LessonMonitor.BusinessLogic.MSTests.csproj", "{B6E94D85-E0D5-4FE0-AC28-ECB778F9C7D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonMonitor.BL.MSTests", "LessonMonitor.BusinessLogic.MSTests\LessonMonitor.BL.MSTests.csproj", "{B6E94D85-E0D5-4FE0-AC28-ECB778F9C7D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
