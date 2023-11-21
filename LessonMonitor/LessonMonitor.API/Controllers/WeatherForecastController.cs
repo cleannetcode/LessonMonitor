@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LessonMonitor.API.Models;
+using LessonMonitor.BL;
+using LessonMonitor.Core;
+using LessonMonitor.DAL;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,47 +15,40 @@ namespace LessonMonitor.API.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        [HttpGet()]
-        public IEnumerable<WeatherForecast> Get()
+        private readonly IWeatherForecastService _weatherForecastService;
+        public WeatherForecastController(IWeatherForecastService weatherForecastService)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-            })
-            .ToArray();
+            _weatherForecastService = weatherForecastService;
         }
 
-        [HttpGet("model")]
-        public WeatherForecast GetWeatherForecastModel()
+        [HttpGet("search")]
+        public ActionResult<WeatherForecast> Search([FromQuery]DateTime date)
         {
-            var weatherForecastModel = typeof(WeatherForecast);
+            var forecast = _weatherForecastService.SearchWeatherForecast(date);
 
-            var constructors = weatherForecastModel.GetConstructors();
-            var defaultContructor = constructors.FirstOrDefault(x => x.GetParameters().Length == 0);
-
-            var obj = defaultContructor.Invoke(null);
-
-            var propetries = weatherForecastModel.GetProperties();
-
-            foreach (var property in propetries)
+            if (forecast == null)
             {
-                if (_weatherForecastValues.TryGetValue(property.Name, out var value))
-                {
-                    var specifiedValue = Convert.ChangeType(value, property.PropertyType);
-                    property.SetValue(obj, specifiedValue);
-                }
+                return NotFound();
             }
 
-            return (WeatherForecast)obj;
+            return new WeatherForecast
+            {
+                Date = forecast.Date,
+                TemperatureC = forecast.TemperatureC,
+                Summary = forecast.Summary,
+            };
         }
 
-        private Dictionary<string, string> _weatherForecastValues = new Dictionary<string, string>
+        [HttpGet("getforperiod")]
+        public IEnumerable<WeatherForecast> GetForecastsForPeriod([FromQuery]DateTimeRange period)
         {
-            { "Date", DateTime.Now.ToString() },
-            { "TemperatureC", "232" },
-            { "Summary", Guid.NewGuid().ToString() },
-        };
+            return _weatherForecastService.GetWeatherForecastsForPeriod(period.StartDate, period.EndDate)
+                .Select(x => new WeatherForecast
+                {
+                    Date = x.Date,
+                    Summary = x.Summary,
+                    TemperatureC = x.TemperatureC
+                });
+        }
     }
 }

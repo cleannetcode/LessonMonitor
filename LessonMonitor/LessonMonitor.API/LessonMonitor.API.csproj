@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LessonMonitor.BL\LessonMonitor.BL.csproj" />
+    <ProjectReference Include="..\LessonMonitor.Core\LessonMonitor.Core.csproj" />
+    <ProjectReference Include="..\LessonMonitor.DAL\LessonMonitor.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

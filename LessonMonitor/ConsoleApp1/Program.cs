@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 using System.Threading;
 
 namespace ConsoleApp1
@@ -7,29 +8,28 @@ namespace ConsoleApp1
     {
         private static void Main(string[] args)
         {
-            //Task
-            var thread1 = new Thread(DoAction);
-            thread1.Name = "thread1";
-            var thread2 = new Thread(new ThreadStart(DoAction));
-            thread2.Name = "thread2";
-            var thread3 = new Thread(() => DoAction());
-            thread3.Name = "thread3";
+			var thread1 = new Thread(DoAction);
+			thread1.Name = "thread1";
+			var thread2 = new Thread(new ThreadStart(DoAction));
+			thread2.Name = "thread2";
+			var thread3 = new Thread(() => DoAction());
+			thread3.Name = "thread3";
 
-            thread1.Priority = ThreadPriority.Highest;
-            thread2.Priority = ThreadPriority.Highest;
-            thread3.Priority = ThreadPriority.Highest;
+			thread1.Priority = ThreadPriority.Highest;
+			thread2.Priority = ThreadPriority.Highest;
+			thread3.Priority = ThreadPriority.Highest;
 
-            for (int i = 0; i < 10; i++)
-            {
-                var thread = new Thread(DoAction);
-                thread.Priority = ThreadPriority.Lowest;
-                thread.Start();
-            }
+			for (int i = 0; i < 10; i++)
+			{
+				var thread = new Thread(DoAction);
+				thread.Priority = ThreadPriority.Lowest;
+				thread.Start();
+			}
 
-            thread1.Start();
-            thread2.Start();
-            thread3.Start();
-        }
+			thread1.Start();
+			thread2.Start();
+			thread3.Start();
+		}
 
         public static void DoAction()
         {

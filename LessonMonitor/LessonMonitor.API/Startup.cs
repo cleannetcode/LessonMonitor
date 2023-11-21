@@ -1,3 +1,6 @@
+using LessonMonitor.BL;
+using LessonMonitor.Core;
+using LessonMonitor.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -26,7 +30,8 @@ namespace LessonMonitor.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -35,7 +40,7 @@ namespace LessonMonitor.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure([NotNull] IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -44,18 +49,9 @@ namespace LessonMonitor.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LessonMonitor.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            //app.UseMiddleware<MyMiddlewareComponent>();
-
-            //app.Use((httpContext, next) =>
-            //{
-            //    var task = next();
-
-            //    return task;
-            //});
 
             app.UseEndpoints(endpoints =>
             {
